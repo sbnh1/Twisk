@@ -16,6 +16,10 @@ public class GestionnaireEtapes implements Iterable<Etape> {
         this.etapes.addAll(Arrays.asList(etapes));
     }
 
+    public int nbEtapes() {
+        return etapes.size();
+    }
+
     @Override
     public Iterator<Etape> iterator() {
         return etapes.iterator();

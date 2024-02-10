@@ -2,6 +2,8 @@ package main.java;
 
 import java.util.Iterator;
 
+
+
 public abstract class Etape implements Iterable<Etape>{
 
     private String nom;
@@ -12,7 +14,7 @@ public abstract class Etape implements Iterable<Etape>{
         this.successeur = new GestionnaireEtapes();
     }
 
-    private void ajouterSuccesseur(Etape... successeurs){
+    public void ajouterSuccesseur(Etape... successeurs){
         this.successeur.ajouter(successeurs);
     }
 
@@ -20,9 +22,12 @@ public abstract class Etape implements Iterable<Etape>{
         return successeur.iterator();
     }
 
-    protected abstract Boolean estUneActivite();
+    public abstract Boolean estUneActivite();
 
-    protected abstract Boolean estUnGuichet();
+    public abstract Boolean estUnGuichet();
 
 
+    public int nbSuccesseurs() {
+        return this.successeur.nbEtapes();
+    }
 }

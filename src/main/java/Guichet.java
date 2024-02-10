@@ -20,4 +20,8 @@ public class Guichet extends Etape {
     public Boolean estUneActivite(){
         return false;
     }
+
+    public int getNbJetons(){
+        return this.nbJetons;
+    }
 }
