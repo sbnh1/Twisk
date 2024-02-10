@@ -24,4 +24,12 @@ public class Activite extends Etape {
     public Boolean estUnGuichet(){
         return false;
     }
+
+    public int getTemps(){
+        return this.temps;
+    }
+
+    public int getEcartTemps(){
+        return this.ecartTemps;
+    }
 }

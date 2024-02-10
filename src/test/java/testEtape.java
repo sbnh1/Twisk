@@ -19,9 +19,9 @@ public class testEtape {
     private static class EtapeActivite extends Etape {
         public EtapeActivite(String nom) { super(nom); }
         @Override
-        public Boolean estUneActivite() { return false; }
+        public Boolean estUneActivite() { return true; }
         @Override
-        public Boolean estUnGuichet() { return true; }
+        public Boolean estUnGuichet() { return false; }
     }
 
     @Test

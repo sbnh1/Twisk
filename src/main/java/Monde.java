@@ -20,13 +20,10 @@ public class Monde implements Iterable<Etape>{
         this.etapes.ajouter(etapes);
     }
 
-    public int nbEtapes(){
-        return 0;
-    }
+    public int nbEtapes(){ return this.etapes.nbEtapes(); }
 
-    public int nbGuichets(){
-        return 0;
-    }
+    public int nbGuichets(){ return this.etapes.nbGuichets(); }
+
 
     @Override
     public Iterator<Etape> iterator(){

@@ -1,6 +1,5 @@
 package test.java;
 
-import main.java.Etape;
 import main.java.Guichet;
 import org.junit.jupiter.api.Test;
 
