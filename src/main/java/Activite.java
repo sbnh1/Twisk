@@ -18,6 +18,10 @@ public class Activite extends Etape {
     }
 
     public Boolean estUneActivite(){
+        return true;
+    }
 
+    public Boolean estUnGuichet(){
+        return false;
     }
 }

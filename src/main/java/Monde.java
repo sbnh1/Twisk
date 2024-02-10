@@ -1,13 +1,13 @@
 package main.java;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Monde implements Iterable<Etape>{
 
-    private ArrayList<Etape> etapes;
+    private GestionnaireEtapes etapes;
 
     public Monde(){
-        this.etapes = new ArrayList<Etape>();
+        this.etapes = new GestionnaireEtapes();
     }
     public void aCommeEntree(Etape... etapes){
     }
@@ -17,14 +17,19 @@ public class Monde implements Iterable<Etape>{
     }
 
     public void ajouter(Etape... etapes){
-        this.etapes.add(etapes);
+        this.etapes.ajouter(etapes);
     }
 
     public int nbEtapes(){
-
+        return 0;
     }
 
     public int nbGuichets(){
+        return 0;
+    }
 
+    @Override
+    public Iterator<Etape> iterator(){
+        return this.etapes.iterator();
     }
 }

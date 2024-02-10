@@ -9,6 +9,7 @@ public abstract class Etape implements Iterable<Etape>{
 
     public Etape(String nom){
         this.nom = nom;
+        this.successeur = new GestionnaireEtapes();
     }
 
     private void ajouterSuccesseur(Etape... successeurs){
@@ -16,12 +17,12 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     public Iterator<Etape> iterator(){
-
+        return successeur.iterator();
     }
 
-    private abstract Boolean estUneActivite();
+    protected abstract Boolean estUneActivite();
 
-    private abstract Boolean estUnGuichet();
+    protected abstract Boolean estUnGuichet();
 
 
 }
