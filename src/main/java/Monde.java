@@ -35,10 +35,11 @@ public class Monde implements Iterable<Etape>{
 
     public String toString(){
         String res = "";
-        res += this.entree.toString() + "\n" + this.sortie.toString();
+        res += this.entree.toString() + "\n";
         for(Etape etape : this.etapes){
-            res += etape.toString();
+            res += etape.toString() + "\n";
         }
+        res += this.sortie.toString();
         return res;
     }
 }

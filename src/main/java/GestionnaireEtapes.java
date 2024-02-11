@@ -39,7 +39,7 @@ public class GestionnaireEtapes implements Iterable<Etape> {
     }
 
     public String toString(){
-        String res;
+        String res = null;
 
         for(Etape etape : this.etapes){
             res += etape.toString() + "\n";
