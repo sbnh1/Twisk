@@ -3,11 +3,11 @@ package main.java.outils;
 public class FabriqueNumero {
     // La classe est testé dans testEtape
     private static FabriqueNumero instance;
-    private int compteur;
+    private int cptEtape;
     private int cptSemaphore;
 
     private FabriqueNumero() {
-        this.compteur = 0;
+        this.cptEtape = 0;
         this.cptSemaphore = 1;
     }
 
@@ -19,13 +19,17 @@ public class FabriqueNumero {
     }
 
     public int getNumeroEtape() {
-        return this.compteur++;
+        return this.cptEtape++;
     }
 
     public int getNumeroSemaphore(){
         return this.cptSemaphore++;
     }
     public void reset() {
-        this.compteur = 0;
+        this.cptEtape = 0;
+    }
+
+    public void resetNumeroSemaphore(){
+        this.cptSemaphore = 0;
     }
 }
