@@ -12,7 +12,7 @@ public abstract class Etape implements Iterable<Etape>{
     public Etape(String nom){
         this.nom = nom;
         this.successeur = new GestionnaireEtapes();
-        this.id = this.id = FabriqueNumero.getInstance().getNumeroEtape();
+        this.id = FabriqueNumero.getInstance().getNumeroEtape();
     }
 
     public int getId(){

@@ -1,6 +1,7 @@
 package main.java.outils;
 
 public class FabriqueNumero {
+    // La classe est testé dans testEtape
     private static FabriqueNumero instance;
     private int compteur;
 
