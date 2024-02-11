@@ -5,15 +5,18 @@ import java.util.Iterator;
 public class Monde implements Iterable<Etape>{
 
     private GestionnaireEtapes etapes;
+    private Etape entree;
+    private Etape sortie;
 
     public Monde(){
         this.etapes = new GestionnaireEtapes();
     }
-    public void aCommeEntree(Etape... etapes){
+    public void aCommeEntree(Etape etape){
+        this.entree = etape;
     }
 
-    public void aCommeSortie(Etape... etapes){
-
+    public void aCommeSortie(Etape etape){
+        this.sortie = etape;
     }
 
     public void ajouter(Etape... etapes){
@@ -28,5 +31,14 @@ public class Monde implements Iterable<Etape>{
     @Override
     public Iterator<Etape> iterator(){
         return this.etapes.iterator();
+    }
+
+    public String toString(){
+        String res = "";
+        res += this.entree.toString() + "\n" + this.sortie.toString();
+        for(Etape etape : this.etapes){
+            res += etape.toString();
+        }
+        return res;
     }
 }

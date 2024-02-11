@@ -31,6 +31,13 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     public String toString(){
+        String res;
+        res = this.nom + ": " + this.nbSuccesseurs() + ": ";
 
+        for(Etape etape : this.successeur){
+            res += etape.nom;
+        }
+
+        return res;
     }
 }

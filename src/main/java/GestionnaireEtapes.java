@@ -29,10 +29,23 @@ public class GestionnaireEtapes implements Iterable<Etape> {
         return countGuichets;
     }
 
+    public ArrayList<Etape> getEtapes(){
+        return this.etapes;
+    }
+
     @Override
     public Iterator<Etape> iterator() {
         return etapes.iterator();
     }
 
+    public String toString(){
+        String res;
+
+        for(Etape etape : this.etapes){
+            res += etape.toString() + "\n";
+        }
+
+        return res;
+    }
 
 }
