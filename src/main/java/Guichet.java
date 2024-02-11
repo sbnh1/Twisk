@@ -30,5 +30,7 @@ public class Guichet extends Etape {
         return this.nbJetons;
     }
 
-    public int getSemaphores(){ return this.semaphores; }
+    public int getNumeroSemaphore(){
+        return this.semaphores;
+    }
 }

@@ -125,5 +125,18 @@ public class testEtape {
         assertEquals(3, etape0.getId());
     }
 
+
+    @Test //test du Semaphore sur une Etape Guichet = 0
+    void testSemaphores0(){
+        Guichet guichet = new Guichet("Guichet1");
+        assertEquals(1, guichet.getNumeroSemaphore());
+    }
+    @Test //test du Semaphore sur une Etape guichet > 0
+    void testSemaphores(){
+        Guichet guichet1 = new Guichet("Guichet1");
+        Guichet guichet2 = new Guichet("Guichet2");
+        assertEquals(2, guichet2.getNumeroSemaphore());
+    }
+
 }
 
