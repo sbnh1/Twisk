@@ -1,19 +1,23 @@
 package main.java;
 
 import java.util.Iterator;
-
-
+import main.java.outils.FabriqueNumero;
 
 public abstract class Etape implements Iterable<Etape>{
 
     private String nom;
     private GestionnaireEtapes successeur;
+    private int id;
 
     public Etape(String nom){
         this.nom = nom;
         this.successeur = new GestionnaireEtapes();
+        this.id = this.id = FabriqueNumero.getInstance().getNumeroEtape();
     }
 
+    public int getId(){
+        return this.id;
+    }
     public void ajouterSuccesseur(Etape... successeurs){
         this.successeur.ajouter(successeurs);
     }
