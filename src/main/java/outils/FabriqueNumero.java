@@ -4,9 +4,11 @@ public class FabriqueNumero {
     // La classe est testé dans testEtape
     private static FabriqueNumero instance;
     private int compteur;
+    private int cptSemaphore;
 
     private FabriqueNumero() {
         this.compteur = 0;
+        this.cptSemaphore = 1;
     }
 
     public static FabriqueNumero getInstance() {
@@ -20,6 +22,9 @@ public class FabriqueNumero {
         return this.compteur++;
     }
 
+    public int getNumeroSemaphore(){
+        return this.cptSemaphore++;
+    }
     public void reset() {
         this.compteur = 0;
     }
