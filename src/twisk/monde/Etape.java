@@ -1,7 +1,7 @@
-package main.java.twisk.monde;
+package twisk.monde;
 
 import java.util.Iterator;
-import main.java.twisk.outils.FabriqueNumero;
+import twisk.outils.FabriqueNumero;
 
 public abstract class Etape implements Iterable<Etape>{
 

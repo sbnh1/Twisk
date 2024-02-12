@@ -1,6 +1,6 @@
-package test.java;
+package test.twisk.monde;
 
-import main.java.twisk.monde.SasEntree;
+import twisk.monde.SasEntree;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

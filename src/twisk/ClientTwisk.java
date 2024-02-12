@@ -1,7 +1,7 @@
-package main.java.twisk;
+package twisk;
 
-import main.java.twisk.simulation.Simulation;
-import main.java.twisk.monde.*;
+import twisk.simulation.Simulation;
+import twisk.monde.*;
 
 public class ClientTwisk {
     public static void main(String[] args) {

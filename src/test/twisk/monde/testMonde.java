@@ -1,8 +1,8 @@
-package test.java;
+package test.twisk.monde;
 
-import main.java.twisk.monde.Guichet;
-import main.java.twisk.monde.Activite;
-import main.java.twisk.monde.Monde;
+import twisk.monde.Guichet;
+import twisk.monde.Activite;
+import twisk.monde.Monde;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
