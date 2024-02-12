@@ -1,6 +1,6 @@
-package main.java.simulation;
+package main.java.twisk.simulation;
 
-import main.java.Monde;
+import main.java.twisk.monde.Monde;
 public class Simulation {
     public Simulation(){ }
     public void simuler(Monde monde){

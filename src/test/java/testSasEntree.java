@@ -1,12 +1,11 @@
 package test.java;
 
-import main.java.SasEntree;
+import main.java.twisk.monde.SasEntree;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class testSasEntree {
-
     @Test // test du temps dans le constructeur simple
     void testSETemps0(){
         SasEntree entree = new SasEntree("Entrée1");

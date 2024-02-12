@@ -1,4 +1,4 @@
-package main.java.outils;
+package main.java.twisk.outils;
 
 public class FabriqueNumero {
     // La classe est testé dans testEtape
@@ -30,6 +30,6 @@ public class FabriqueNumero {
     }
 
     public void resetNumeroSemaphore(){
-        this.cptSemaphore = 0;
+        this.cptSemaphore = 1;
     }
 }

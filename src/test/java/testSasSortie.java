@@ -1,7 +1,6 @@
 package test.java;
 
-import main.java.SasEntree;
-import main.java.SasSortie;
+import main.java.twisk.monde.SasSortie;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class testSasSortie {

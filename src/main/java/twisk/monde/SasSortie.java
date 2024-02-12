@@ -1,4 +1,4 @@
-package main.java;
+package main.java.twisk.monde;
 
 public class SasSortie extends Activite{
     public SasSortie(String nom){

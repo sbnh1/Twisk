@@ -1,4 +1,4 @@
-package main.java;
+package main.java.twisk.monde;
 
 public class Activite extends Etape {
 

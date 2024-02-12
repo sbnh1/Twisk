@@ -1,4 +1,4 @@
-package main.java;
+package main.java.twisk.monde;
 
 import java.util.Iterator;
 
@@ -10,13 +10,9 @@ public class Monde implements Iterable<Etape>{
 
     public Monde(){
         this.etapes = new GestionnaireEtapes();
-        this.entree = new SasEntree();
-        this.sortie = new SasSortie();
     }
 
-    public void aCommeEntree(Etape etape){
-        this.entree = etape;
-    }
+    public void aCommeEntree(Etape etape){this.entree = etape;} // ATTENTION ici est attendu potentiellement plusieurs etapes
 
     public void aCommeSortie(Etape etape){
         this.sortie = etape;

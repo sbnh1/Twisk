@@ -1,6 +1,6 @@
 package test.java;
 
-import main.java.Guichet;
+import main.java.twisk.monde.Guichet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
