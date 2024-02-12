@@ -10,7 +10,10 @@ public class Monde implements Iterable<Etape>{
 
     public Monde(){
         this.etapes = new GestionnaireEtapes();
+        this.entree = new SasEntree();
+        this.sortie = new SasSortie();
     }
+
     public void aCommeEntree(Etape etape){
         this.entree = etape;
     }
