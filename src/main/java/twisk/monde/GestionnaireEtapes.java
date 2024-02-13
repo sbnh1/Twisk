@@ -1,4 +1,4 @@
-package twisk.monde;
+package main.java.twisk.monde;
 
 import java.util.ArrayList;
 import java.util.Arrays;

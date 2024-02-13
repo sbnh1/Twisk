@@ -1,4 +1,4 @@
-package twisk.outils;
+package main.java.twisk.outils;
 
 public class FabriqueNumero {
     // La classe est testé dans testEtape

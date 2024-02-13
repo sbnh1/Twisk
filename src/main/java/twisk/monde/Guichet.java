@@ -1,6 +1,6 @@
-package twisk.monde;
+package main.java.twisk.monde;
 
-import twisk.outils.FabriqueNumero;
+import main.java.twisk.outils.FabriqueNumero;
 
 public class Guichet extends Etape {
 
