@@ -11,11 +11,11 @@ void simulation(int ids){
 
     entrer(sasEntree);
     printf("j'entre dans le sas d'entrée");
-    delai(1, 0);
+    delai(6, 3);
     printf("je quitte le sas d'entrée");
     transfert(sasEntree, activite);
     printf("j'entre dans l'activité");
-    delai(1, 0);
+    delai(3, 1);
     printf("j'quitte l'activité");
     transfert(activite, sasSortie);
     printf("j'entre dans le sas de sortie");
