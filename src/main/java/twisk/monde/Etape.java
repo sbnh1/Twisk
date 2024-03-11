@@ -22,6 +22,10 @@ public abstract class Etape implements Iterable<Etape>{
         this.successeur.ajouter(successeurs);
     }
 
+    public GestionnaireEtapes getSuccesseur() {
+        return this.successeur;
+    }
+
     public Iterator<Etape> iterator(){
         return successeur.iterator();
     }
