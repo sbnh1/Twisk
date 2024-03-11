@@ -4,12 +4,13 @@
 #include "def.h"
 
 int main(int argc, char** argv) {
-    int nbEtapes = 4;
-    int nbGuichets = 1;
-    int nbClients = 5;
-    int* tabJetonsGuichet = malloc(sizeof(int)*nbGuichets);
+    int nbEtapes = 6;
+    int nbGuichets = 2;
+    int nbClients = 25;
+    int* tabJetonsGuichet = malloc(sizeof(int)+nbGuichets);
 
-    tabJetonsGuichet[0] = 1;
+    tabJetonsGuichet[0] = 6;
+    tabJetonsGuichet[1] = 2;
 
     int* pids = start_simulation(nbEtapes, nbGuichets, nbClients, tabJetonsGuichet);
 
