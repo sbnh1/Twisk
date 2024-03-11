@@ -1,18 +1,18 @@
 CC = gcc
-CFLAGS = -Wall -Werror
-LIBRARY = libTwisk.so
-CLIENT_SOURCE = client.c
-CLIENT_OBJECT = client.o
+CFLAGS = -Wall -fPIC
+LDFLAGS = -shared
+LIBRARY_NAME = libTwisk.so
 
-all: $(LIBRARY)
+all: client libTwisk.so main
 
-$(CLIENT_OBJECT):
-	$(CC) $(CFLAGS) -fPIC -c -o $(CLIENT_OBJECT) $(CLIENT_SOURCE)
+client: client.c
+	$(CC) $(CFLAGS) -c client.c -o client.o
 
-$(LIBRARY): $(CLIENT_OBJECT)
-	$(CC) $(CFLAGS) -shared -o $(LIBRARY) $(CLIENT_OBJECT)
+libTwisk.so: programmeC.o client.o
+	$(CC) $(LDFLAGS) programmeC.o client.o -o $(LIBRARY_NAME)
+
+main: main.c
+	$(CC) $(CFLAGS) -L. main.c -o main -lTwisk
 
 clean:
-	rm -f $(CLIENT_OBJECT) $(LIBRARY)
-
-.PHONY: all clean
+	rm -f client.o libTwisk.so main

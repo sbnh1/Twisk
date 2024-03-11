@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "def.h"
 
 int main(int argc, char** argv) {
@@ -18,13 +19,18 @@ int main(int argc, char** argv) {
     printf("\nposition des clients : \n");
     
     int* posClients;
+    bool fin = false;
 
-    while(1){
+    while(fin == false){
         posClients = ou_sont_les_clients(nbEtapes, nbClients);
         for (int i = 0; i < (nbClients + 1) * nbEtapes; i += (nbClients + 1)) {
-            printf("etape %d: ", i/6);
-            for (int j = i; j < i + posClients[i] + 1; j++)
-                printf("%d ", posClients[j]);
+            printf("etape %d: ", i/(nbClients+1));
+            for (int j = i; j < i + posClients[i] + 1; j++){
+                 printf("%d ", posClients[j]);
+            }
+            if(posClients[((nbClients+1)*(nbEtapes-1))] == nbClients && i == ((nbClients+1)*(nbEtapes-1))){
+                fin = true;
+            }
             printf("\n");
         }
         printf("\n");
