@@ -8,5 +8,9 @@ public class SasSortie extends Activite{
     public SasSortie(String nom, int temps, int ecartTemps){
         super(nom, temps, ecartTemps);
     }
+
+    public String toC(){
+        return "";
+    }
 }
 

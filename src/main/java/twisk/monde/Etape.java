@@ -48,4 +48,6 @@ public abstract class Etape implements Iterable<Etape>{
 
         return res;
     }
+
+    public abstract String toC();
 }

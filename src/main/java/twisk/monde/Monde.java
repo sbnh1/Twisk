@@ -41,4 +41,8 @@ public class Monde implements Iterable<Etape>{
         res += this.sortie.toString();
         return res;
     }
+
+    public String toC(){
+        return "";
+    }
 }
