@@ -35,7 +35,7 @@ public class Guichet extends Etape {
     }
 
     public String toC(){
-        return "";
+        return " ";
     }
 
 }

@@ -34,6 +34,6 @@ public class Activite extends Etape {
     }
 
     public String toC(){
-        return "";
+        return " ";
     }
 }

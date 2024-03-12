@@ -43,6 +43,6 @@ public class Monde implements Iterable<Etape>{
     }
 
     public String toC(){
-        return "";
+        return " ";
     }
 }

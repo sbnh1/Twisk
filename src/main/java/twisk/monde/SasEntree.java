@@ -9,6 +9,6 @@ public class SasEntree extends Activite{
     }
 
     public String toC(){
-        return "entrer(" + this.getId()+ ");\ndelai("+ this.getTemps() + "'" + this.getEcartTemps() + ");\n" + "transfert(" + this.getId() + "," + this.getSuccesseur().getEtapes().get(0) + ")";
+        return "entrer(" + this.getId()+ ");\ndelai("+ this.getTemps() + "'" + this.getEcartTemps() + ");\n" + "transfert(" + this.getId() + "," + this.getSuccesseur().getEtapes().get(0) + ");";
     }
 }

@@ -7,6 +7,9 @@ public class ActiviteRestreinte extends Activite {
     }
     public ActiviteRestreinte(String nom, int temps, int ecartTemps){
         super(nom, temps, ecartTemps);
+    }
 
+    public String toC(){
+        return "";
     }
 }
