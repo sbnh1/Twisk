@@ -10,7 +10,7 @@ public class SasSortie extends Activite{
     }
 
     public String toC(){
-        return " ";
+        return "";
     }
 }
 

@@ -10,6 +10,6 @@ public class ActiviteRestreinte extends Activite {
     }
 
     public String toC(){
-        return "";
+        return "transfert(" + this.getId() + "," + this.getSuccesseur().getEtape(0) +");\n";
     }
 }

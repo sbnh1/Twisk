@@ -35,7 +35,12 @@ public class Guichet extends Etape {
     }
 
     public String toC(){
-        return " ";
+        ActiviteRestreinte next = this.getSuccesseur().getEtape(0)
+        return "P(ids, " + this.getNumeroSemaphore() + ");\n" +
+                "transfert(" + this.getId() + "," + this.getSuccesseur().getEtape(0).getId() + ");\n" +
+                "delai(" +  next.getTemps() + "," + next.getEcartTemps() + ");\n" +
+                "V(ids," + this.getNumeroSemaphore() + ");\n" +
+                next.toC();
     }
 
 }

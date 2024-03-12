@@ -33,6 +33,10 @@ public class GestionnaireEtapes implements Iterable<Etape> {
         return this.etapes;
     }
 
+    public Etape getEtape(int n){
+        return this.etapes.get(n);
+    }
+
     @Override
     public Iterator<Etape> iterator() {
         return etapes.iterator();
