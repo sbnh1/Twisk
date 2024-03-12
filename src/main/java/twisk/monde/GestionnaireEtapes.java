@@ -51,5 +51,4 @@ public class GestionnaireEtapes implements Iterable<Etape> {
 
         return res;
     }
-
 }

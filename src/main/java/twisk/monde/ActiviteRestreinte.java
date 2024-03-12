@@ -12,4 +12,5 @@ public class ActiviteRestreinte extends Activite {
     public String toC(){
         return "transfert(" + this.getId() + "," + this.getSuccesseur().getEtape(0) +");\n";
     }
+
 }
