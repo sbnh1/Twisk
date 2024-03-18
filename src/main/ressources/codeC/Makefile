@@ -16,3 +16,5 @@ main: main.c
 
 clean:
 	rm -f client.o libTwisk.so main
+
+// executer la commande suivante lorsqu'on revient sur le projet :  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:

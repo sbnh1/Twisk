@@ -18,6 +18,7 @@ public abstract class Etape implements Iterable<Etape>{
     public int getId(){
         return this.id;
     }
+    public String getNom(){return this.nom;}
     public void ajouterSuccesseur(Etape... successeurs){
         this.successeur.ajouter(successeurs);
     }
@@ -49,5 +50,5 @@ public abstract class Etape implements Iterable<Etape>{
         return res;
     }
 
-    public abstract String toC();
+    public abstract StringBuilder toC();
 }

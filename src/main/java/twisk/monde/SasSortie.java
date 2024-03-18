@@ -9,8 +9,10 @@ public class SasSortie extends Activite{
         super(nom, temps, ecartTemps);
     }
 
-    public String toC(){
-        return "";
+    public StringBuilder toC(){
+        StringBuilder string = new StringBuilder();
+        string.append("");
+        return string;
     }
 
 }

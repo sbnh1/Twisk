@@ -8,10 +8,12 @@ public class SasEntree extends Activite{
         super(nom, temps, ecartTemps);
     }
 
-    public String toC(){
-        return "entrer(" + this.getId()+ ");\n" +
-                "delai(" + this.getTemps() + "'" + this.getEcartTemps() + ");\n" +
-                "transfert(" + this.getId() + "," + this.getSuccesseur().getEtape(0) + ");";
+    public StringBuilder toC(){
+        StringBuilder string = new StringBuilder();
+        string.append("entrer(sasEntree);\n" +
+                "    delai(6,3);\n" +
+                "    transfert(sasEntree, " + this.getSuccesseur().getEtape(0) +");"
+        );
+        return string;
     }
-
 }
