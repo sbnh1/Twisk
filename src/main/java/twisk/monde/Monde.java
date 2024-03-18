@@ -47,25 +47,24 @@ public class Monde implements Iterable<Etape>{
         int suite = 0;
         StringBuilder string = new StringBuilder();
         string.append("#include <stdlib.h>\n#include <stdio.h>\n\n#include def.h\n");
+        string.append("#define sasEntree 0\n");
         for(int i = 0; i < this.nbEtapes(); i++){
-            string.append("#define " + this.etapes.getEtape(i).getNom() + i + "\n");
+            string.append("#define " + this.etapes.getEtape(i).getNom() + " " + (i + 1) + "\n");
             if(this.etapes.getEtape(i).estUnGuichet()){
-                string.append("#define guichet_semaphore" + suite);
+                string.append("#define guichet_semaphore " + suite + "\n");
                 suite++;
             }
         }
+        string.append("#define sasSortie " + (this.nbEtapes() + 1)  + "\n");
         //jusqu'ici j'ai tout les #include #define
         string.append("void simulation(int ids){\n");
         for(int i = 0; i < this.nbEtapes(); i++){
-            this.etapes.getEtape(i).toC();
+            string.append(this.etapes.getEtape(i).toC());
             //pour ne pas faire 2 fois le toC de l'activité restreinte (on le skip donc ici et on l'apelle dans toC() de Guichet)
             if(this.etapes.getEtape(i).estUnGuichet()){
                 i++;
             }
         }
-
-
-
         string.append("int main(int argc, char** argv){\n" + "    simulation(0);\n" + "    return 0;\n" + "}");
         return string;
     }

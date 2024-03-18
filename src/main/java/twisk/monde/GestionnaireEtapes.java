@@ -34,7 +34,11 @@ public class GestionnaireEtapes implements Iterable<Etape> {
     }
 
     public Etape getEtape(int n){
-        return this.etapes.get(n);
+        if (n >= 0 && n < this.etapes.size()) {
+            return this.etapes.get(n);
+        } else {
+            return null;
+        }
     }
 
     @Override

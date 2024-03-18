@@ -48,7 +48,6 @@ void simulation(int ids){
 
     delai(6,2);
     transfert(activite1, guichet2);
-
     V(ids,GUICHET_SEM);
 
     delai(5,1);

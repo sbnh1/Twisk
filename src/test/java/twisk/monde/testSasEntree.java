@@ -3,6 +3,7 @@ package test.java.twisk.monde;
 import main.java.twisk.monde.SasEntree;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 public class testSasEntree {
@@ -25,5 +26,15 @@ public class testSasEntree {
     void testSEEcartTemps(){
         SasEntree entree = new SasEntree("Entrée1", 12, 2);
         assertEquals(2, entree.getEcartTemps());
+    }
+
+    @Test
+    void testToC(){
+        SasEntree entree = new SasEntree("entree");
+        StringBuilder test = new StringBuilder();
+        test.append("entrer(sasEntree);\n" +
+                "    delai(6,3);\n" +
+                "    transfert(sasEntree, " + entree.getSuccesseur().getEtape(0) +");");
+        assertEquals(test.toString(), entree.toC().toString());
     }
 }

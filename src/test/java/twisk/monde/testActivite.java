@@ -51,4 +51,13 @@ public class testActivite {
         Activite activite = new Activite("Activite2");
         assertFalse(activite.estUnGuichet());
     }
+
+    @Test
+    void testToC(){
+        Activite activite = new Activite("Activite");
+        StringBuilder test = new StringBuilder();
+        test.append("delai(" + activite.getTemps() + "," + activite.getEcartTemps() + ");\n" +
+                "transfert(" + activite.getId() + "," + activite.getSuccesseur().getEtape(0) +");\n");
+        assertEquals(test.toString(), activite.toC().toString());
+    }
 }

@@ -12,8 +12,7 @@ public class SasEntree extends Activite{
         StringBuilder string = new StringBuilder();
         string.append("entrer(sasEntree);\n" +
                 "    delai(6,3);\n" +
-                "    transfert(sasEntree, " + this.getSuccesseur().getEtape(0) +");"
-        );
+                "    transfert(sasEntree, " + this.getSuccesseur().getEtape(0) +");");
         return string;
     }
 }

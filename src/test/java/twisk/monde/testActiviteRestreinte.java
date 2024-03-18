@@ -47,11 +47,15 @@ public class testActiviteRestreinte {
         ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("Activite2");
         assertFalse(activiteRestreinte.estUnGuichet());
     }
+
     @Test
     void testToC() {
         ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("ActiviteTest");
-        System.out.println("test : " + activiteRestreinte.getSuccesseur().getEtape(1));
-        //assertEquals("transfert(" + activiteRestreinte.getId() + "," + activiteRestreinte.getSuccesseur().getEtape(0) + ");\n", activiteRestreinte.toC());
+        StringBuilder test = new StringBuilder();
+        test.append("    delai(6,2);\n");
+        test.append("    transfert(" + activiteRestreinte.getNom() + "," + activiteRestreinte.getSuccesseur().getEtape(0) +");\n");
+        assertEquals(test.toString(), activiteRestreinte.toC().toString());
     }
+
 
 }

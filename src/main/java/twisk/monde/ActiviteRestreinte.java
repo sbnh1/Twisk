@@ -12,7 +12,7 @@ public class ActiviteRestreinte extends Activite {
     public StringBuilder toC(){
         StringBuilder string = new StringBuilder();
         string.append("    delai(6,2);\n");
-        string.append("transfert(" + this.getId() + "," + this.getSuccesseur().getEtape(0) +");\n");
+        string.append("    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0) +");\n");
         return string;
     }
 

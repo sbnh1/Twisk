@@ -24,4 +24,11 @@ public class testSasSortie {
         SasSortie sortie = new SasSortie("Sortie1", 12, 2);
         assertEquals(2, sortie.getEcartTemps());
     }
+
+    @Test
+    void testToC(){
+        SasSortie sortie = new SasSortie("sortie");
+        StringBuilder test = new StringBuilder();
+        assertEquals(test.toString(), sortie.toC().toString());
+    }
 }

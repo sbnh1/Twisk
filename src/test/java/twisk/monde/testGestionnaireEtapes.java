@@ -39,4 +39,32 @@ public class testGestionnaireEtapes {
         assertEquals(0, gestionnaireEtapes.nbGuichets());
     }
 
+    @Test
+    void testgetEtape1(){
+        GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
+        Activite etape1 = new Activite("Activite1");
+        Activite etape2 = new Activite("Activite2");
+        gestionnaireEtapes.ajouter(etape1, etape2);
+        assertEquals(etape1, gestionnaireEtapes.getEtape(0));
+    }
+
+    @Test
+    void testgetEtape2(){
+        GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
+        Activite etape1 = new Activite("Activite1");
+        Activite etape2 = new Activite("Activite2");
+        gestionnaireEtapes.ajouter(etape1, etape2);
+        assertEquals(etape2, gestionnaireEtapes.getEtape(1));
+    }
+
+
+    @Test
+    void testgetEtape3(){
+        GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
+        Activite etape1 = new Activite("Activite1");
+        Activite etape2 = new Activite("Activite2");
+        gestionnaireEtapes.ajouter(etape1, etape2);
+        assertNull(gestionnaireEtapes.getEtape(2));
+    }
+
 }

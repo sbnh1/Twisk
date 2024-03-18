@@ -11,7 +11,6 @@ public class SasSortie extends Activite{
 
     public StringBuilder toC(){
         StringBuilder string = new StringBuilder();
-        string.append("");
         return string;
     }
 
