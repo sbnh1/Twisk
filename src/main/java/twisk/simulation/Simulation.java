@@ -1,9 +1,14 @@
 package main.java.twisk.simulation;
 
 import main.java.twisk.monde.*;
+import main.java.twisk.outils.KitC;
 
 public class Simulation {
-    public Simulation(){ }
+    private KitC kitC;
+    public Simulation(KitC kitC){
+        this.kitC = kitC;
+        kitC.creerEnvironnement();
+    }
     public void simuler(Monde monde){
         System.out.println("Vous etes dans une simulation :\n");
 
