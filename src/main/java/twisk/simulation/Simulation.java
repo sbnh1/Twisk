@@ -26,6 +26,6 @@ public class Simulation {
         guichet.ajouterSuccesseur(activiteRestreinte);
         activiteRestreinte.ajouterSuccesseur(sasSortie);
 
-        System.out.println(monde.toC());
+        kitC.creerFichier(monde.toC().toString());
     }
 }

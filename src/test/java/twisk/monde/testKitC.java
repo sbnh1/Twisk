@@ -4,6 +4,8 @@ import main.java.twisk.outils.KitC;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,11 +52,18 @@ public class testKitC {
         assertTrue(file.exists());
     }
     @Test
-    public void testCreerFichier2(){
+    public void testCreerFichier2() {
         KitC kitC = new KitC();
         kitC.creerFichier("test");
         File file = new File("/tmp/twisk/client.c");
-        String string = new String("test");
-        assertEquals(file.toString(), string);
+        try {
+            String content = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+
+            // Vérifier si le contenu est égal à "test"
+            assertEquals("test", content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }
