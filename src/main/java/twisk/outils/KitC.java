@@ -1,5 +1,6 @@
 package main.java.twisk.outils;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
@@ -22,6 +23,19 @@ public class KitC {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void creerFichier(String codeC){
+        FileWriter flot;
+        try{
+            flot = new FileWriter("/tmp/twisk/client.c");
+            flot.write(codeC);
+            flot.close();
+        }
+        catch (IOException e){
+
+            System.out.println("Erreur ecriture client.c");
         }
     }
 }

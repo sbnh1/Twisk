@@ -1,5 +1,6 @@
 package main.java.twisk;
 
+import main.java.twisk.outils.KitC;
 import main.java.twisk.simulation.Simulation;
 import main.java.twisk.monde.*;
 
@@ -12,7 +13,7 @@ public class ClientTwisk {
         //Création d'un second monde
         Monde monde2 = creerMonde2();
 
-        Simulation simulation = new Simulation();
+        Simulation simulation = new Simulation(new KitC());
         simulation.simuler(monde1);
         simulation.simuler(monde2);
 
