@@ -42,7 +42,7 @@ public class Monde implements Iterable<Etape>{
         return res;
     }
 
-    public StringBuilder toC(){
+    public String toC(){
         //toutes les etapes doivent être implémenter dans le bon ordre pour que cela marche en mettant sasEntree au tout début et sasSortie à la fin
         int suite = 0;
         StringBuilder string = new StringBuilder();
@@ -65,7 +65,6 @@ public class Monde implements Iterable<Etape>{
                 i++;
             }
         }
-        string.append("int main(int argc, char** argv){\n" + "    simulation(0);\n" + "    return 0;\n" + "}");
-        return string;
+        return string.toString();
     }
 }

@@ -58,7 +58,6 @@ public class testKitC {
         File file = new File("/tmp/twisk/client.c");
         try {
             String content = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-
             // Vérifier si le contenu est égal à "test"
             assertEquals("test", content);
         } catch (IOException e) {
