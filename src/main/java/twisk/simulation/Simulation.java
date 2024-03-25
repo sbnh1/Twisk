@@ -9,6 +9,9 @@ public class Simulation {
         this.kitC = kitC;
         this.kitC.creerEnvironnement();
     }
+    public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichets);
+    public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
+    public native void nettoyage();
     public void simuler(Monde monde){
         System.out.println("Vous etes dans une simulation\n");
         this.kitC.creerFichier(monde.toC());

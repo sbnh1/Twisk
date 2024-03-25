@@ -48,7 +48,6 @@ public class KitC {
             e.printStackTrace();
         }
     }
-
     public void construireLaBibliotheque(){
         ProcessBuilder pb = new ProcessBuilder("gcc", "-shared", "/tmp/twisk/programmeC.o", "/tmp/twisk/client.o", "-o", "/tmp/twisk/libTwisk.so");
         try {
