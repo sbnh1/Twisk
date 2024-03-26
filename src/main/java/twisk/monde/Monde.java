@@ -46,7 +46,7 @@ public class Monde implements Iterable<Etape>{
         //toutes les etapes doivent être implémenter dans le bon ordre pour que cela marche en mettant sasEntree au tout début et sasSortie à la fin
         int suite = 0;
         StringBuilder string = new StringBuilder();
-        string.append("#include <stdlib.h>\n#include <stdio.h>\n\n#include def.h\n");
+        string.append("#include <stdlib.h>\n#include <stdio.h>\n\n#include \"def.h\"\n");
         string.append("#define sasEntree 0\n");
         for(int i = 0; i < this.nbEtapes(); i++){
             string.append("#define " + this.etapes.getEtape(i).getNom() + " " + (i + 1) + "\n");
