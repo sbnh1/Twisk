@@ -14,16 +14,6 @@ public class testSasSortie {
         SasSortie sortie = new SasSortie("Sortie1");
         assertEquals(0, sortie.getEcartTemps());
     }
-    @Test // test du temps > 0
-    void testSETemps(){
-        SasSortie sortie = new SasSortie("Sortie1", 12, 2);
-        assertEquals(12, sortie.getTemps());
-    }
-    @Test // test de l'ecart temps > 0
-    void testSEEcartTemps(){
-        SasSortie sortie = new SasSortie("Sortie1", 12, 2);
-        assertEquals(2, sortie.getEcartTemps());
-    }
 
     @Test
     void testToC(){

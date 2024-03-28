@@ -36,12 +36,12 @@ public class Guichet extends Etape {
     public StringBuilder toC(){
         StringBuilder string = new StringBuilder();
         string.append("    delai(4,1);\n");
-        string.append("    P(ids, guichet_semaphore" + this.getNumeroSemaphore() + ");\n"); //pour avoir guichet_semaphore1/guichet_semaphore2...
+        string.append("    P(ids, " + this.getNom() + "_semaphore);\n"); //pour avoir guichet_semaphore1/guichet_semaphore2...
         string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() + ");\n");
 
         string.append(this.getSuccesseur().getEtape(0).toC());
 
-        string.append("    V(ids, guichet_semaphore" + this.getNumeroSemaphore() + ");\n");
+        string.append("    V(ids, " + this.getNom() + "_semaphore);\n");
         return string;
     }
 }

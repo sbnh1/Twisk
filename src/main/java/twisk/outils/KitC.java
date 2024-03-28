@@ -27,6 +27,7 @@ public class KitC {
     }
 
     public void creerFichier(String codeC){
+        System.out.println(codeC);
         FileWriter flot;
         try{
             flot = new FileWriter("/tmp/twisk/client.c");

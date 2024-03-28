@@ -51,7 +51,7 @@ public class Monde implements Iterable<Etape>{
         for(int i = 0; i < this.nbEtapes(); i++){
             string.append("#define " + this.etapes.getEtape(i).getNom() + " " + (i + 1) + "\n");
             if(this.etapes.getEtape(i).estUnGuichet()){
-                string.append("#define guichet_semaphore " + suite + "\n");
+                string.append("#define " + this.etapes.getEtape(i).getNom() + "_semaphore " + suite + "\n");
                 suite++;
             }
         }
@@ -65,6 +65,7 @@ public class Monde implements Iterable<Etape>{
                 i++;
             }
         }
+        string.append("}");
         return string.toString();
     }
 }

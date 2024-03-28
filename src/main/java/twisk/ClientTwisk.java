@@ -44,7 +44,7 @@ public class ClientTwisk {
 
     private static Monde creerMonde2(){
         Monde monde2 = new Monde();
-        Etape etape1 = new Guichet("Guichet 1", 10);
+        Etape etape1 = new Guichet("Guichet1", 10);
         Etape etape2 = new Guichet("Guichet2", 10);
         Etape activite1 = new Activite("Tobogan", 5, 2);
         Etape activite2 =  new Activite("Pingpong", 10, 2);

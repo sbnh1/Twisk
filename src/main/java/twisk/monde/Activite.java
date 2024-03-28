@@ -36,7 +36,7 @@ public class Activite extends Etape {
     public StringBuilder toC(){
         StringBuilder string = new StringBuilder();
         string.append("delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n" +
-                "transfert(" + this.getId() + "," + this.getSuccesseur().getEtape(0) +");\n");
+                "transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
         return string;
     }
 

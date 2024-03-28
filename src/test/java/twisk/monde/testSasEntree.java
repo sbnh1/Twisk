@@ -17,16 +17,6 @@ public class testSasEntree {
         SasEntree entree = new SasEntree("Entrée1");
         assertEquals(0, entree.getEcartTemps());
     }
-    @Test // test du temps > 0
-    void testSETemps(){
-        SasEntree entree = new SasEntree("Entrée1", 12, 2);
-        assertEquals(12, entree.getTemps());
-    }
-    @Test // test de l'ecart temps > 0
-    void testSEEcartTemps(){
-        SasEntree entree = new SasEntree("Entrée1", 12, 2);
-        assertEquals(2, entree.getEcartTemps());
-    }
 
     @Test
     void testToC(){
@@ -34,7 +24,7 @@ public class testSasEntree {
         StringBuilder test = new StringBuilder();
         test.append("entrer(sasEntree);\n" +
                 "    delai(6,3);\n" +
-                "    transfert(sasEntree, " + entree.getSuccesseur().getEtape(0) +");");
+                "    transfert(sasEntree, " + entree.getSuccesseur().getEtape(0).getNom() +");");
         assertEquals(test.toString(), entree.toC().toString());
     }
 }

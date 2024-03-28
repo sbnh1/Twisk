@@ -5,10 +5,6 @@ public class SasSortie extends Activite{
         super(nom,0,0);
     }
 
-    public SasSortie(String nom, int temps, int ecartTemps){
-        super(nom, temps, ecartTemps);
-    }
-
     public StringBuilder toC(){
         StringBuilder string = new StringBuilder();
         return string;
