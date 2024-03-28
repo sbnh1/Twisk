@@ -55,7 +55,7 @@ public class Monde implements Iterable<Etape>{
                 suite++;
             }
         }
-        string.append("#define sasSortie " + (this.nbEtapes() + 1)  + "\n");
+        string.append("#define sasSortie " + (this.nbEtapes() + 1)  + "\n\n");
         //jusqu'ici j'ai tout les #include #define
         string.append("void simulation(int ids){\n");
         for(int i = 0; i < this.nbEtapes(); i++){

@@ -50,5 +50,5 @@ public abstract class Etape implements Iterable<Etape>{
         return res;
     }
 
-    public abstract StringBuilder toC();
+    public abstract String toC();
 }

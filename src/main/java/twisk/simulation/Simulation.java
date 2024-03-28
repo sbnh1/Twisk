@@ -13,7 +13,6 @@ public class Simulation {
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
     public native void nettoyage();
     public void simuler(Monde monde){
-        System.out.println("Vous etes dans une simulation\n");
         this.kitC.creerFichier(monde.toC());
         this.kitC.compiler();
         this.kitC.construireLaBibliotheque();

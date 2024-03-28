@@ -33,7 +33,7 @@ public class Guichet extends Etape {
         return this.semaphores;
     }
 
-    public StringBuilder toC(){
+    public String toC(){
         StringBuilder string = new StringBuilder();
         string.append("    delai(4,1);\n");
         string.append("    P(ids, " + this.getNom() + "_semaphore);\n"); //pour avoir guichet_semaphore1/guichet_semaphore2...
@@ -42,6 +42,6 @@ public class Guichet extends Etape {
         string.append(this.getSuccesseur().getEtape(0).toC());
 
         string.append("    V(ids, " + this.getNom() + "_semaphore);\n");
-        return string;
+        return string.toString();
     }
 }

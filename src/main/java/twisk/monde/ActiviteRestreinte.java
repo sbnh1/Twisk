@@ -9,11 +9,11 @@ public class ActiviteRestreinte extends Activite {
         super(nom, temps, ecartTemps);
     }
 
-    public StringBuilder toC(){
+    public String toC(){
         StringBuilder string = new StringBuilder();
-        string.append("    delai(6,2);\n");
-        string.append("    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
-        return string;
+        string.append("delai(6,2);\n");
+        string.append("transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
+        return string.toString();
     }
 
 }

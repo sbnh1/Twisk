@@ -5,9 +5,9 @@ public class SasSortie extends Activite{
         super(nom,0,0);
     }
 
-    public StringBuilder toC(){
+    public String toC(){
         StringBuilder string = new StringBuilder();
-        return string;
+        return string.toString();
     }
 
 }

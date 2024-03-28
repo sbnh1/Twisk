@@ -15,7 +15,7 @@ public class ClientTwisk {
 
         Simulation simulation = new Simulation(new KitC());
         simulation.simuler(monde1);
-        simulation.simuler(monde2);
+        //simulation.simuler(monde2);
 
     }
 
@@ -27,18 +27,22 @@ public class ClientTwisk {
         Etape etape2 = new Guichet("Guichet2");
         //création des activitées
         Etape activite1 = new Activite("Activite1");
-        Etape activite2 = new Activite("Activité2", 10, 2);
-        //lien entre les guichets et les activitéess
-        etape1.ajouterSuccesseur(activite1);
-        etape2.ajouterSuccesseur(activite2);
+        Etape activite2 = new Activite("Activite2", 10, 2);
         //création des entrées et sorties du monde
-        Etape entree = new SasEntree("Entree");
-        Etape sortie = new SasSortie("Sortie");
+        Etape entree = new SasEntree("sasEntree");
+        Etape sortie = new SasSortie("sasSortie");
+        //lien entre les guichets et les activitéess
+        entree.ajouterSuccesseur(etape1);
+        etape1.ajouterSuccesseur(activite1);
+        activite1.ajouterSuccesseur(etape2);
+        etape2.ajouterSuccesseur(activite2);
+        activite2.ajouterSuccesseur(sortie);
+
 
         //Initialisation du monde.
         monde1.aCommeEntree(entree);
         monde1.aCommeSortie(sortie);
-        monde1.ajouter(etape1,etape2);
+        monde1.ajouter(etape1,activite1,etape2, activite2);
         return monde1;
     }
 
@@ -49,8 +53,8 @@ public class ClientTwisk {
         Etape activite1 = new Activite("Tobogan", 5, 2);
         Etape activite2 =  new Activite("Pingpong", 10, 2);
         Etape activite3 =  new Activite("Parc", 10, 4);
-        Etape entree = new SasEntree("Entrée");
-        Etape sortie = new SasSortie("Sortie");
+        Etape entree = new SasEntree("sasEntree");
+        Etape sortie = new SasSortie("sasSortie");
         //lien
         entree.ajouterSuccesseur(etape1);
         etape1.ajouterSuccesseur(activite1, activite2);
