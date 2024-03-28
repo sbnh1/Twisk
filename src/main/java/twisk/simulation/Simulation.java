@@ -1,6 +1,6 @@
 package main.java.twisk.simulation;
 
-import main.java.twisk.monde.*;
+import main.java.twisk.monde.Monde;
 import main.java.twisk.outils.KitC;
 
 public class Simulation {
