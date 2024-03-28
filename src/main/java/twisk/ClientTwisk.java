@@ -13,7 +13,7 @@ public class ClientTwisk {
         //Création d'un second monde
         Monde monde2 = creerMonde2();
 
-        Simulation simulation = new Simulation(new KitC());
+        Simulation simulation = new Simulation();
         simulation.simuler(monde1);
         //simulation.simuler(monde2);
 

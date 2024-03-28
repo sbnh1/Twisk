@@ -34,6 +34,7 @@ public abstract class Etape implements Iterable<Etape>{
     public abstract Boolean estUneActivite();
 
     public abstract Boolean estUnGuichet();
+    public abstract int getNbJetons();
 
     public int nbSuccesseurs() {
         return this.successeur.nbEtapes();

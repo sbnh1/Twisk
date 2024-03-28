@@ -25,6 +25,7 @@ public class Monde implements Iterable<Etape>{
     public int nbEtapes(){ return this.etapes.nbEtapes(); }
 
     public int nbGuichets(){ return this.etapes.nbGuichets(); }
+    public Etape getEtape(int i){return this.etapes.getEtape(i);}
 
 
     @Override

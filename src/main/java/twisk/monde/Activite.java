@@ -25,6 +25,10 @@ public class Activite extends Etape {
         return false;
     }
 
+    @Override
+    public int getNbJetons() {
+        return 0;
+    }
     public int getTemps(){
         return this.temps;
     }
