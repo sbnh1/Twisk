@@ -11,6 +11,7 @@ public class Simulation {
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
     public native void nettoyage();
     public void simuler(Monde monde){
+        this.kitC = new KitC();
         this.kitC.creerEnvironnement();
         this.kitC.creerFichier(monde.toC());
         this.kitC.compiler();
