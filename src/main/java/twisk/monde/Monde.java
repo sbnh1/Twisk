@@ -18,6 +18,14 @@ public class Monde implements Iterable<Etape>{
         this.sortie = etape;
     }
 
+    public Etape getEntree() {
+        return this.entree;
+    }
+
+    public Etape getSortie() {
+        return this.sortie;
+    }
+
     public void ajouter(Etape... etapes){
         this.etapes.ajouter(etapes);
     }
@@ -59,6 +67,7 @@ public class Monde implements Iterable<Etape>{
         string.append("#define sasSortie " + (this.nbEtapes() + 1)  + "\n\n");
         //jusqu'ici j'ai tout les #include #define
         string.append("void simulation(int ids){\n");
+        string.append(this.getEntree().toC());
         for(int i = 0; i < this.nbEtapes(); i++){
             string.append(this.etapes.getEtape(i).toC());
             //pour ne pas faire 2 fois le toC de l'activité restreinte (on le skip donc ici et on l'apelle dans toC() de Guichet)
