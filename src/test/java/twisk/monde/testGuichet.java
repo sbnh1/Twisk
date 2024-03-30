@@ -1,5 +1,6 @@
 package test.java.twisk.monde;
 
+import main.java.twisk.monde.Activite;
 import main.java.twisk.monde.ActiviteRestreinte;
 import main.java.twisk.monde.Guichet;
 import org.junit.jupiter.api.Test;
@@ -47,16 +48,18 @@ public class testGuichet {
     void testToC() {
         ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("Successeur");
         Guichet guichet = new Guichet("Guichet", 5); // Exemple : 5 jetons
+        Activite activite = new Activite("activite");
         guichet.ajouterSuccesseur(activiteRestreinte);
+        activiteRestreinte.ajouterSuccesseur(activite);
 
         StringBuilder expected = new StringBuilder();
         expected.append("    delai(4,1);\n");
-        expected.append("    P(ids, guichet_semaphore" + guichet.getNumeroSemaphore() + ");\n");
-        expected.append("    transfert(" + guichet.getNom() + ", " + activiteRestreinte.getNom() + ");\n");
+        expected.append("    P(ids, Guichet_semaphore);\n");
+        expected.append("    transfert(Guichet, Successeur);\n");
         expected.append("    delai(6,2);\n");
-        expected.append("    transfert(" + activiteRestreinte.getNom() + "," + activiteRestreinte.getSuccesseur().getEtape(0) +");\n");
-        expected.append("    V(ids, guichet_semaphore" + guichet.getNumeroSemaphore() + ");\n");
+        expected.append("    transfert(Successeur, activite);\n");
+        expected.append("    V(ids, Guichet_semaphore);\n");
 
-        assertEquals(expected.toString(), guichet.toC().toString());
+        assertEquals(expected.toString(), guichet.toC());
     }
 }

@@ -42,15 +42,15 @@ public class testMonde {
     @Test
     void testToC() {
         // Création des étapes du monde
-        SasEntree sasEntree = new SasEntree("SasEntree");
+        SasEntree sasEntree = new SasEntree();
         Guichet guichet = new Guichet("Guichet");
         ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("ActiviteRestreinte");
-        SasSortie sasSortie = new SasSortie("SasSortie");
+        SasSortie sasSortie = new SasSortie();
 
         // Ajout des étapes au monde
         Monde monde = new Monde();
         monde.aCommeEntree(sasEntree);
-        monde.ajouter(guichet, activiteRestreinte);
+        monde.ajouter(sasEntree, guichet, activiteRestreinte,sasSortie);
         monde.aCommeSortie(sasSortie);
         sasEntree.ajouterSuccesseur(guichet);
         guichet.ajouterSuccesseur(activiteRestreinte);
@@ -60,23 +60,22 @@ public class testMonde {
 
         // Construction de la chaîne attendue
         StringBuilder expected = new StringBuilder();
-        expected.append("#include <stdlib.h>\n#include <stdio.h>\n\n#include def.h\n");
+        expected.append("#include <stdlib.h>\n#include <stdio.h>\n\n#include \"def.h\"\n");
         expected.append("#define SasEntree 0\n");
         expected.append("#define Guichet 1\n");
-        expected.append("#define guichet_semaphore 0\n");
+        expected.append("#define Guichet_semaphore 0\n");
         expected.append("#define ActiviteRestreinte 2\n");
-        expected.append("#define sasSortie 3\n");
+        expected.append("#define SasSortie 3\n");
         expected.append("void simulation(int ids){\n");
-        expected.append("    delai(4,1);\n" +
-                "    P(ids, guichet_semaphore1);\n" +
+        expected.append("    entrer(SasEntree);\n" +
+                "    delai(6,3);\n" +
+                "    transfert(SasEntree, Guichet);\n" +
+                "    delai(4,1);\n" +
+                "    P(ids, Guichet_semaphore);\n" +
                 "    transfert(Guichet, ActiviteRestreinte);\n" +
                 "    delai(6,2);\n" +
-                "    transfert(ActiviteRestreinte,SasSortie: 0: );\n" +
-                "    V(ids, guichet_semaphore1);\n");
-        expected.append("int main(int argc, char** argv){\n" + "    simulation(0);\n" + "    return 0;\n" + "}\n");
-
-        //System.out.println(expected.toString());
-        //System.out.println(monde.toC().toString());
+                "    transfert(ActiviteRestreinte, SasSortie);\n" +
+                "    V(ids, Guichet_semaphore);\n}");
         assertEquals(expected.toString(), monde.toC().toString());
     }
 }

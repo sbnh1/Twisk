@@ -23,26 +23,26 @@ public class ClientTwisk {
         //création du monde
         Monde monde1 = new Monde();
         //création des étapes
-        Etape etape1 = new Guichet("Guichet1");
-        Etape etape2 = new Guichet("Guichet2");
+        Etape guichet1 = new Guichet("Guichet1");
+        Etape guichet2 = new Guichet("Guichet2");
         //création des activitées
-        Etape activite1 = new ActiviteRestreinte("Activite1");
-        Etape activite2 = new ActiviteRestreinte("Activite2", 10, 2);
+        Etape activite1 = new ActiviteRestreinte("Tobogan");
+        Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);
         //création des entrées et sorties du monde
-        Etape entree = new SasEntree("sasEntree");
-        Etape sortie = new SasSortie("sasSortie");
+        Etape entree = new SasEntree();
+        Etape sortie = new SasSortie();
         //lien entre les guichets et les activitéess
-        entree.ajouterSuccesseur(etape1);
-        etape1.ajouterSuccesseur(activite1);
-        activite1.ajouterSuccesseur(etape2);
-        etape2.ajouterSuccesseur(activite2);
+        entree.ajouterSuccesseur(guichet1);
+        guichet1.ajouterSuccesseur(activite1);
+        activite1.ajouterSuccesseur(guichet2);
+        guichet2.ajouterSuccesseur(activite2);
         activite2.ajouterSuccesseur(sortie);
 
 
         //Initialisation du monde.
         monde1.aCommeEntree(entree);
         monde1.aCommeSortie(sortie);
-        monde1.ajouter(etape1,activite1,etape2, activite2);
+        monde1.ajouter(entree, guichet1, activite1, guichet2, activite2, sortie);
         return monde1;
     }
 
@@ -53,8 +53,8 @@ public class ClientTwisk {
         Etape activite1 = new Activite("Tobogan", 5, 2);
         Etape activite2 =  new Activite("Pingpong", 10, 2);
         Etape activite3 =  new Activite("Parc", 10, 4);
-        Etape entree = new SasEntree("sasEntree");
-        Etape sortie = new SasSortie("sasSortie");
+        Etape entree = new SasEntree();
+        Etape sortie = new SasSortie();
         //lien
         entree.ajouterSuccesseur(etape1);
         etape1.ajouterSuccesseur(activite1, activite2);

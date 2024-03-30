@@ -1,5 +1,6 @@
 package test.java.twisk.monde;
 
+import main.java.twisk.monde.Activite;
 import main.java.twisk.monde.ActiviteRestreinte;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,10 +52,12 @@ public class testActiviteRestreinte {
     @Test
     void testToC() {
         ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("ActiviteTest");
+        Activite activite = new Activite("activite");
+        activiteRestreinte.ajouterSuccesseur(activite);
         StringBuilder test = new StringBuilder();
         test.append("    delai(6,2);\n");
-        test.append("    transfert(" + activiteRestreinte.getNom() + "," + activiteRestreinte.getSuccesseur().getEtape(0) +");\n");
-        assertEquals(test.toString(), activiteRestreinte.toC().toString());
+        test.append("    transfert(ActiviteTest, activite);\n");
+        assertEquals(test.toString(), activiteRestreinte.toC());
     }
 
 

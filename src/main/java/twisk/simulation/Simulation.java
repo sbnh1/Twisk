@@ -44,9 +44,9 @@ public class Simulation {
         while(fin == false){
             posClients = ou_sont_les_clients(monde.nbEtapes(), nbClient);
             for(int i = 0; i < (nbClient + 1) * monde.nbEtapes(); i+=(nbClient + 1)){
-                System.out.println("etape " + i/(nbClient+1) + ":");
+                System.out.print(monde.getEtape(i/(nbClient+1)).getNom() + ": ");
                 for(int j = i; j < i + posClients[i] + 1; j++){
-                    System.out.println(posClients[j] + " ");
+                    System.out.print(posClients[j] + " ");
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()-1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
                     fin = true;
@@ -54,8 +54,6 @@ public class Simulation {
                 System.out.println("\n");
             }
             System.out.println("\n");
-            //pas de free en java ? je met le tableau a null pour que le garbage collector s'en occupe
-            posClients = null;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -63,7 +61,6 @@ public class Simulation {
             }
         }
         nettoyage();
-        //pas de return 0
     }
 }
 /*

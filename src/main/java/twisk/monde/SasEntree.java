@@ -1,14 +1,22 @@
-package main.java.twisk.monde;
+    package main.java.twisk.monde;
 
-public class SasEntree extends Activite{
+    public class SasEntree extends Activite{
 
-    public SasEntree(String nom){ super(nom, 0, 0); }
+        /**
+         * Constructeur d'un sas d'entrée
+         * Initialise un sas d'entrée avec un nom et un temps d'exécution de 0 et un écart de temps de 0
+         */
+        public SasEntree(){ super("SasEntree", 0, 0); }
 
-    public String toC(){
-        StringBuilder string = new StringBuilder();
-        string.append("entrer(sasEntree);\n" +
-                "    delai(6,3);\n" +
-                "    transfert(sasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");");
-        return string.toString();
+        /**
+         * Retourne une représentation en langage C du sas d'entrée
+         * @return Une représentation en langage C du sas d'entrée
+         */
+        public String toC(){
+            StringBuilder string = new StringBuilder();
+            string.append("    entrer(SasEntree);\n" +
+                    "    delai(6,3);\n" +
+                    "    transfert(SasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");\n");
+            return string.toString();
+        }
     }
-}
