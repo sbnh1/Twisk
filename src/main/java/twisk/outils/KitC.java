@@ -35,7 +35,6 @@ public class KitC {
             flot.close();
         }
         catch (IOException e){
-
             System.out.println("Erreur ecriture client.c");
         }
     }
@@ -50,7 +49,7 @@ public class KitC {
         }
     }
     public void construireLaBibliotheque(){
-        ProcessBuilder pb = new ProcessBuilder("gcc", "-shared", "/tmp/twisk/programmeC.o", "o /tmp/twisk/codeNatif.o ", "/tmp/twisk/client.o", "-o", "/tmp/twisk/libTwisk.so");
+        ProcessBuilder pb = new ProcessBuilder("gcc", "-shared", "/tmp/twisk/programmeC.o", "/tmp/twisk/codeNatif.o", "/tmp/twisk/client.o", "-o", "/tmp/twisk/libTwisk.so");
         try {
             pb.inheritIO().start().waitFor();
         } catch (InterruptedException | IOException e) {

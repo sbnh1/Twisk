@@ -26,8 +26,8 @@ public class ClientTwisk {
         Etape etape1 = new Guichet("Guichet1");
         Etape etape2 = new Guichet("Guichet2");
         //création des activitées
-        Etape activite1 = new Activite("Activite1");
-        Etape activite2 = new Activite("Activite2", 10, 2);
+        Etape activite1 = new ActiviteRestreinte("Activite1");
+        Etape activite2 = new ActiviteRestreinte("Activite2", 10, 2);
         //création des entrées et sorties du monde
         Etape entree = new SasEntree("sasEntree");
         Etape sortie = new SasSortie("sasSortie");

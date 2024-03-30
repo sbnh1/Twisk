@@ -24,7 +24,7 @@ public class Simulation {
         int nbClient = 20;
         for(int i = 0; i < monde.nbEtapes(); i++){
             if(monde.getEtape(i).estUnGuichet()){
-                tabJetonsGuichet[monde.getEtape(i).getId() - 1] = monde.getEtape(i).getNbJetons();
+                tabJetonsGuichet[monde.getEtape(i).getId()] = monde.getEtape(i).getNbJetons();
             }
         }
 

@@ -43,6 +43,21 @@ public class testKitC {
         Path directory = Paths.get("/tmp/twisk");
         assertTrue(Files.exists(directory.resolve("def.h")));
     }
+    @Test
+    public void testCreerBibliotheque(){
+        KitC kitC = new KitC();
+        kitC.creerEnvironnement();
+        kitC.creerFichier("#include <stdio.h>\n" +
+                "\n" +
+                "int main() {\n" +
+                "    printf(\"Hello, world!\\n\");\n" +
+                "    return 0;\n" +
+                "}");
+        kitC.compiler();
+        kitC.construireLaBibliotheque();
+        Path directory = Paths.get("/tmp/twisk");
+        assertTrue(Files.exists(directory.resolve("libTwisk.so")));
+    }
 
     @Test
     public void testCreerFichier(){
