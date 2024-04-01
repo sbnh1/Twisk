@@ -78,4 +78,27 @@ public class testMonde {
                 "    V(ids, Guichet_semaphore);\n}");
         assertEquals(expected.toString(), monde.toC().toString());
     }
+
+    @Test
+    void testACommeEntree(){
+        Monde monde = new Monde();
+        Etape e1 = new Activite("Toboggan",3,2);
+        Etape e2 = new Activite("BacASable",5,1);
+        Etape e3 = new Activite("Balancoire",4,2);
+        SasEntree sasEntree = new SasEntree();
+        SasSortie sasSortie = new SasSortie();
+
+        sasEntree.ajouterSuccesseur(e1);
+        e1.ajouterSuccesseur(e2);
+        e2.ajouterSuccesseur(e3);
+        e3.ajouterSuccesseur(sasSortie);
+
+        monde.aCommeEntree(sasEntree);
+        monde.aCommeSortie(sasSortie);
+        monde.ajouter(sasEntree, e1,e2,e3, sasSortie);
+
+        // Vérification que l'étape d'entrée est correctement définie
+        assertEquals(sasEntree, monde.getEntree());
+        assertEquals(sasSortie, monde.getSortie());
+    }
 }

@@ -1,15 +1,33 @@
 package main.java.twisk.simulation;
 
+import main.java.twisk.monde.Guichet;
 import main.java.twisk.monde.Monde;
 import main.java.twisk.outils.KitC;
 
 public class Simulation {
     private KitC kitC;
+    private int nbClient;
+
+    /**
+     * constructeur d'une simulation
+     */
     public Simulation(){
     }
     public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichets);
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
     public native void nettoyage();
+    /**
+     * Défini le nombre de client du monde
+     * @param nbClient le nombre de client dans le monde
+     */
+    public void setNbClient(int nbClient){
+        this.nbClient = nbClient;
+    }
+
+    /**
+     * Retourne la simulation du monde
+     * @param monde le monde a simuler
+     */
     public void simuler(Monde monde){
         this.kitC = new KitC();
         this.kitC.creerEnvironnement();
@@ -19,12 +37,12 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()];
-        //comment choisir le nombre de client, ou est ce qu'on le précise ?????
-        //pour l'instant codé en dure dans le code en dessous
-        int nbClient = 20;
+        //initialisation du nombre de client dans ClientTwisk par la commande : simulation.setNbClient(20);
+        int nbClient = this.nbClient;
         for(int i = 0; i < monde.nbEtapes(); i++){
             if(monde.getEtape(i).estUnGuichet()){
-                tabJetonsGuichet[monde.getEtape(i).getId()] = monde.getEtape(i).getNbJetons();
+                tabJetonsGuichet[((Guichet)monde.getEtape(i)).getNumeroSemaphore()-1] = monde.getEtape(i).getNbJetons();
+
             }
         }
 
@@ -32,7 +50,7 @@ public class Simulation {
 
         System.out.println("ids clients : ");
         for(int i = 0; i < nbClient; i++){
-            System.out.println(pids[i]);
+            System.out.print(pids[i] + " ");
         }
         System.out.println("\n");
 
@@ -43,9 +61,9 @@ public class Simulation {
 
         while(fin == false){
             posClients = ou_sont_les_clients(monde.nbEtapes(), nbClient);
-            for(int i = 0; i < (nbClient + 1) * monde.nbEtapes(); i+=(nbClient + 1)){
+            for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
                 System.out.print(monde.getEtape(i/(nbClient+1)).getNom() + ": ");
-                for(int j = i; j < i + posClients[i] + 1; j++){
+                for(int j = i; j < (i + posClients[i] + 1); j++){
                     System.out.print(posClients[j] + " ");
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()-1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
@@ -63,49 +81,3 @@ public class Simulation {
         nettoyage();
     }
 }
-/*
-
-int main(int argc, char** argv) {
-    int nbEtapes = 6;
-    int nbGuichets = 2;
-    int nbClients = 25;
-    int* tabJetonsGuichet = malloc(sizeof(int)+nbGuichets);
-
-    tabJetonsGuichet[0] = 6;
-    tabJetonsGuichet[1] = 2;
-
-    int* pids = start_simulation(nbEtapes, nbGuichets, nbClients, tabJetonsGuichet);
-
-    printf("ids clients : ");
-    for (int i = 0; i < nbClients; ++i)
-        printf("%d, ", pids[i]);
-    printf("\n");
-
-    printf("\nposition des clients : \n");
-
-    int* posClients;
-    bool fin = false;
-
-    while(fin == false){
-        posClients = ou_sont_les_clients(nbEtapes, nbClients);
-        for (int i = 0; i < (nbClients + 1) * nbEtapes; i += (nbClients + 1)) {
-            printf("etape %d: ", i/(nbClients+1));
-            for (int j = i; j < i + posClients[i] + 1; j++){
-                 printf("%d ", posClients[j]);
-            }
-            if(posClients[((nbClients+1)*(nbEtapes-1))] == nbClients && i == ((nbClients+1)*(nbEtapes-1))){
-                fin = true;
-            }
-            printf("\n");
-        }
-        printf("\n");
-
-        free(posClients);
-
-        sleep(1);
-    }
-
-    nettoyage();
-    return 0;
-}
- */
