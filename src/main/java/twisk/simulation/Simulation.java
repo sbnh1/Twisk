@@ -78,6 +78,7 @@ public class Simulation {
                 throw new RuntimeException(e);
             }
         }
+        posClients = null;
         nettoyage();
     }
 }

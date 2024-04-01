@@ -14,8 +14,7 @@
          */
         public String toC(){
             StringBuilder string = new StringBuilder();
-            string.append("    entrer(SasEntree);\n" +
-                    "    delai(6,3);\n" +
+            string.append("    delai(6,3);\n" +
                     "    transfert(SasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");\n");
             return string.toString();
         }

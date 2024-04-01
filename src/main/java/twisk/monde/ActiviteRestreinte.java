@@ -26,9 +26,14 @@ public class ActiviteRestreinte extends Activite {
      */
     public String toC(){
         StringBuilder string = new StringBuilder();
-        string.append("    delai(6,2);\n");
-        string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() +");\n");
-        return string.toString();
+        if(this.nbSuccesseurs() == 0){
+            string.append("");
+            return string.toString();
+        } else {
+            string.append("    delai(6,2);\n");
+            string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() +");\n");
+            return string.toString();
+        }
     }
 
 }

@@ -74,9 +74,15 @@ public class Activite extends Etape {
      */
     public String toC(){
         StringBuilder string = new StringBuilder();
-        string.append("    delai(6,3);\n" +
-                "    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
-        return string.toString();
+        if(this.nbSuccesseurs() == 0){
+            string.append("");
+            return string.toString();
+        } else {
+            string.append("    delai(6,3);\n" +
+                    "    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
+            return string.toString();
+        }
+
     }
 
 }
