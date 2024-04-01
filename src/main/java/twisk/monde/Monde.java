@@ -102,14 +102,12 @@ public class Monde implements Iterable<Etape>{
 
     public String toC(){
         //toutes les etapes doivent être implémenter dans le bon ordre pour que cela marche en mettant sasEntree au tout début et sasSortie à la fin
-        int suite = 0;
         StringBuilder string = new StringBuilder();
         string.append("#include <stdlib.h>\n#include <stdio.h>\n\n#include \"def.h\"\n");
         for(int i = 0; i < this.nbEtapes(); i++){
-            string.append("#define " + this.etapes.getEtape(i).getNom() + " " + i + "\n");
+            string.append("#define " + this.etapes.getEtape(i).getNom() + " " + this.etapes.getEtape(i).getId() + "\n");
             if(this.etapes.getEtape(i).estUnGuichet()){
-                string.append("#define " + this.etapes.getEtape(i).getNom() + "_semaphore " + suite + "\n");
-                suite++;
+                string.append("#define " + this.etapes.getEtape(i).getNom() + "_semaphore " + ((Guichet)this.etapes.getEtape(i)).getNumeroSemaphore() + "\n");
             }
         }
         //jusqu'ici j'ai tout les #include #define
