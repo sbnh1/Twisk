@@ -2,6 +2,7 @@ package main.java.twisk.simulation;
 
 import main.java.twisk.monde.Guichet;
 import main.java.twisk.monde.Monde;
+import main.java.twisk.outils.FabriqueNumero;
 import main.java.twisk.outils.KitC;
 
 public class Simulation {
@@ -39,10 +40,17 @@ public class Simulation {
     public native void nettoyage();
     /**
      * Défini le nombre de client du monde
-     * @param nbClient le nombre de client dans le monde
+     * @param nbClients le nombre de client dans le monde
      */
-    public void setNbClient(int nbClient){
-        this.nbClient = nbClient;
+    public void setNbClients(int nbClients){
+        this.nbClient = nbClients;
+    }
+
+    public void representation(Monde monde){
+        for(int i = 0; i < monde.nbEtapes(); i++){
+            System.out.println(monde.getEtape(i).toString());
+        }
+        System.out.println();
     }
 
     /**
@@ -50,6 +58,7 @@ public class Simulation {
      * @param monde le monde a simuler
      */
     public void simuler(Monde monde){
+        representation(monde);
         this.kitC = new KitC();
         this.kitC.creerEnvironnement();
         this.kitC.creerFichier(monde.toC());
@@ -83,14 +92,14 @@ public class Simulation {
         while(fin == false){
             posClients = ou_sont_les_clients(monde.nbEtapes(), nbClient);
             for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
-                System.out.print(monde.getEtape(i/(nbClient+1)).getNom() + ": ");
-                for(int j = i; j < (i + posClients[i] + 1); j++){
+                System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
+                for(int j = i+1; j < (i + posClients[i] + 1); j++){
                     System.out.print(posClients[j] + " ");
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()-1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
                     fin = true;
                 }
-                System.out.println("\n");
+                System.out.println();
             }
             System.out.println("\n");
             try {

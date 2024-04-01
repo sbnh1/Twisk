@@ -1,5 +1,7 @@
 package main.java.twisk.monde;
 
+import main.java.twisk.outils.FabriqueNumero;
+
 import java.util.Iterator;
 
 public class Monde implements Iterable<Etape>{
@@ -13,6 +15,8 @@ public class Monde implements Iterable<Etape>{
      */
     public Monde(){
         this.etapes = new GestionnaireEtapes();
+        FabriqueNumero.getInstance().resetNumeroEtape();
+        FabriqueNumero.getInstance().resetNumeroSemaphore();
     }
 
     /**

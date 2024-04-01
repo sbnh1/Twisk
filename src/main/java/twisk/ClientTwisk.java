@@ -10,13 +10,15 @@ public class ClientTwisk {
         Monde monde2 = creerMonde2();
         Monde monde3 = creerMonde3();
         Monde monde4 = creerMonde4();
+        Monde monde5 = creerMonde5();
 
         Simulation simulation = new Simulation();
-        simulation.setNbClient(20);
+        simulation.setNbClients(20);
         //simulation.simuler(monde1);
         //simulation.simuler(monde2);
         //simulation.simuler(monde3);
-        simulation.simuler(monde4);
+        //simulation.simuler(monde4);
+        //simulation.simuler(monde5);
 
     }
 
@@ -52,8 +54,6 @@ public class ClientTwisk {
      * @return Le Monde monde2
      */
     private static Monde creerMonde2(){
-        FabriqueNumero.getInstance().resetNumeroEtape();
-        FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde2 = new Monde();
         Etape entree = new SasEntree();
 
@@ -82,13 +82,11 @@ public class ClientTwisk {
      * @return Le Monde monde3
      */
     private static Monde creerMonde3(){
-        FabriqueNumero.getInstance().resetNumeroEtape();
-        FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde3 = new Monde();
 
         Etape e1 = new Activite("Toboggan",3,1);
         Etape e2 = new Activite("BacASable",5,1);
-        Etape e3 = new Activite("SasSortie",4,2);
+        Etape e3 = new Activite("piscine",4,2);
 
         e1.ajouterSuccesseur(e2);
         e2.ajouterSuccesseur(e3);
@@ -104,8 +102,6 @@ public class ClientTwisk {
      * @return le Monde monde4
      */
     private static Monde creerMonde4(){
-        FabriqueNumero.getInstance().resetNumeroEtape();
-        FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde = new Monde();
 
         Etape e1 = new Guichet("Guichet1", 2);
@@ -123,6 +119,23 @@ public class ClientTwisk {
         monde.aCommeSortie(e5);
         monde.ajouter(e1,e2,e3,e4,e5);
 
+        return monde;
+    }
+
+    private static Monde creerMonde5(){
+        Monde monde = new Monde();
+
+        Activite zoo = new Activite("balade_au_zoo", 3, 1);
+        Guichet guichet = new Guichet("acces_au_toboggan", 2);
+        Activite tob = new ActiviteRestreinte("toboggan", 2, 1);
+
+        zoo.ajouterSuccesseur(guichet);
+        guichet.ajouterSuccesseur(tob);
+
+
+        monde.ajouter(zoo, tob, guichet);
+        monde.aCommeEntree(zoo);
+        monde.aCommeSortie(tob);
         return monde;
     }
 }
