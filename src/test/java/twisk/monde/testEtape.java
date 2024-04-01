@@ -44,7 +44,7 @@ public class testEtape {
 
     @Test //test de l'id sur une Etape activité = 0
     void testIDAct0(){
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape = new Activite("Activité1");
         assertEquals(0, etape.getId());
     }
@@ -59,13 +59,13 @@ public class testEtape {
 
     @Test //test de l'id sur une Etape Guichet = 0
     void testIDGui0(){
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Guichet etape = new Guichet("Guichet1");
         assertEquals(0, etape.getId());
     }
     @Test //test de l'id sur une Etape guichet > 0
     void testIDGui(){
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         Guichet etape3 = new Guichet("Guichet1");
@@ -79,7 +79,7 @@ public class testEtape {
         Activite etape2 = new Activite("Activite2");
         Guichet etape3 = new Guichet("Guichet1");
         Guichet etape4 = new Guichet("Guichet2");
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Etape etape0 = new Guichet("Guichet0");
         assertEquals(0, etape0.getId());
     }
@@ -87,7 +87,7 @@ public class testEtape {
     @Test // test de reset avec plusieurs etapes
     void testReset(){
         Activite etape1 = new Activite("Activite1");
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape2 = new Activite("Activite0");
         Guichet etape3 = new Guichet("Guichet1");
         Guichet etape4 = new Guichet("Guichet2");
@@ -101,9 +101,9 @@ public class testEtape {
         Activite etape2 = new Activite("Activite2");
         Guichet etape3 = new Guichet("Guichet4");
         Guichet etape4 = new Guichet("Guichet5");
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape5 = new Activite("Activite3");
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape6 = new Activite("Activite0");
         Guichet etape7 = new Guichet("Guichet1");
         Guichet etape8 = new Guichet("Guichet2");

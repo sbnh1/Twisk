@@ -13,8 +13,29 @@ public class Simulation {
      */
     public Simulation(){
     }
+
+    /**
+     * Méthode qui permet de démarrer la simulation avec les paramètres suivant
+     * @param nbEtapes le nombre total d'étape de la simulation
+     * @param nbGuichets le nombre total de guichet de la simulation
+     * @param nbClients le nombre total de client dans la simulation
+     * @param tabJetonsGuichets un tableau d'entier avec le nombre de jeton de chaque guichet dans l'ordre
+     * @return un tableau d'entier qui représente la simulation de facon linéaire
+     */
     public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichets);
+
+    /**
+     * Méthode qui retourne les positions actuelles des clients dans la simulation
+     * @param nbEtapes le nombre total d'étape dans la simulation
+     * @param nbClients le nombre total de client dans la simulation
+     * @return un tableau d'entier qui représente la position actuelle des clients de la simulation
+     */
     public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
+
+    /**
+     * Méthode qui effectue le nettoyage des ressources utilisé lors de la simulation
+     * à utiliser a la fin de la simulation
+     */
     public native void nettoyage();
     /**
      * Défini le nombre de client du monde

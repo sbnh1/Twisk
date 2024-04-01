@@ -1,7 +1,6 @@
 package main.java.twisk;
 
 import main.java.twisk.outils.FabriqueNumero;
-import main.java.twisk.outils.KitC;
 import main.java.twisk.simulation.Simulation;
 import main.java.twisk.monde.*;
 
@@ -53,7 +52,7 @@ public class ClientTwisk {
      * @return Le Monde monde2
      */
     private static Monde creerMonde2(){
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde2 = new Monde();
         Etape entree = new SasEntree();
@@ -83,7 +82,7 @@ public class ClientTwisk {
      * @return Le Monde monde3
      */
     private static Monde creerMonde3(){
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde3 = new Monde();
 
@@ -100,8 +99,12 @@ public class ClientTwisk {
         return monde3;
     }
 
+    /**
+     * Création d'un quatrième monde
+     * @return le Monde monde4
+     */
     private static Monde creerMonde4(){
-        FabriqueNumero.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde = new Monde();
 
