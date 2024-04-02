@@ -1,6 +1,7 @@
 package test.java.twisk.monde;
 
 import main.java.twisk.monde.Activite;
+import main.java.twisk.monde.Guichet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,56 +9,64 @@ public class testActivite {
 
     //test du constructeur simple
     @Test
-    void testActiviteTemps0(){
+    public void testActiviteTemps0(){
         Activite activite = new Activite("Activite1");
         assertEquals(0, activite.getTemps());
     }
     @Test
-    void testActiviteEcartTemps0(){
+    public void testActiviteEcartTemps0(){
         Activite activite = new Activite("Activite2");
         assertEquals(0, activite.getEcartTemps());
     }
 
     //Test deuxième constructeur
     @Test
-    void testActiviteTemps(){
+    public void testActiviteTemps(){
         Activite activite = new Activite("Activite1",12, 3);
         assertNotEquals(0, activite.getTemps());
     }
     @Test
-    void testActiviteEcartTemps(){
+    public void testActiviteEcartTemps(){
         Activite activite = new Activite("Activite2",12, 3);
         assertNotEquals(0, activite.getEcartTemps());
     }
     //Test des booléens sur les deux constructeurs
     @Test
-    void testEstUneActivite(){
+    public void testEstUneActivite(){
         Activite activite = new Activite("Activite2",12, 3);
         assertTrue(activite.estUneActivite());
     }
     @Test
-    void testNestPasUneGuichet(){
+    public void testNestPasUneGuichet(){
         Activite activite = new Activite("Activite2",12, 3);
         assertFalse(activite.estUnGuichet());
     }
 
     @Test
-    void testEstUneActiviteSimple(){
+    public void testEstUneActiviteSimple(){
         Activite activite = new Activite("Activite2");
         assertTrue(activite.estUneActivite());
     }
     @Test
-    void testNestPasUneGuichetSimple(){
+    public void testNestPasUneGuichetSimple(){
         Activite activite = new Activite("Activite2");
         assertFalse(activite.estUnGuichet());
     }
 
     @Test
-    void testToC(){
+    public void testToCAvecSuccesseur(){
         Activite activite = new Activite("Activite");
+        Guichet guichet = new Guichet("guichet1");
+        activite.ajouterSuccesseur(guichet);
         StringBuilder test = new StringBuilder();
-        test.append("delai(" + activite.getTemps() + "," + activite.getEcartTemps() + ");\n" +
-                "transfert(" + activite.getId() + "," + activite.getSuccesseur().getEtape(0) +");\n");
+        test.append("    delai(6,3);\n" +
+                "    transfert(Activite,guichet1);\n");
         assertEquals(test.toString(), activite.toC().toString());
+    }
+    @Test
+    public void testToCSansSuccesseur(){
+        Activite activite = new Activite("activite");
+        String string = new String("");
+        assertEquals(string, activite.toC());
     }
 }

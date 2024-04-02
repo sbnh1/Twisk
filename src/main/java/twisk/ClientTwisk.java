@@ -17,7 +17,7 @@ public class ClientTwisk {
         //simulation.simuler(monde1);
         //simulation.simuler(monde2);
         //simulation.simuler(monde3);
-        //simulation.simuler(monde4);
+        simulation.simuler(monde4);
         //simulation.simuler(monde5);
 
     }

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class testEtape {
     @Test
-    void testAjouterSuccesseur() {
+    public void testAjouterSuccesseur() {
         Activite etape1 = new Activite("Etape1");
         Guichet etape2 = new Guichet("Etape2");
         Guichet etape3 = new Guichet("Etape3");
@@ -20,36 +20,36 @@ public class testEtape {
 
     //Test des booléens avec des guichets
     @Test
-    void testEstUneActiviteFaux() {
+    public void testEstUneActiviteFaux() {
         Guichet etape = new Guichet("Guichet1");
         assertFalse(etape.estUneActivite());
     }
     @Test
-    void testEstUnGuichetVrai() {
+    public void testEstUnGuichetVrai() {
         Guichet etape = new Guichet("Guichet2");
         assertTrue(etape.estUnGuichet());
     }
 
     //Test des boolées avec des activitées
     @Test
-    void testEstUneActiviteVrai(){
+    public void testEstUneActiviteVrai(){
         Activite etape = new Activite("Activite1");
         assertTrue(etape.estUneActivite());
     }
     @Test
-    void testEstUnGuichetFaux(){
+    public void testEstUnGuichetFaux(){
         Activite etape = new Activite("Activite2");
         assertFalse(etape.estUnGuichet());
     }
 
     @Test //test de l'id sur une Etape activité = 0
-    void testIDAct0(){
+    public void testIDAct0(){
         FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape = new Activite("Activité1");
         assertEquals(0, etape.getId());
     }
     @Test //test de l'id sur une Etape activité > 0
-    void testIDAct(){
+    public void testIDAct(){
         Activite etape1 = new Activite("Activite1", 4, 5);
         Activite etape2 = new Activite("Activite2", 12, 3);
         Guichet etape3 = new Guichet("Guichet1");
@@ -58,13 +58,13 @@ public class testEtape {
     }
 
     @Test //test de l'id sur une Etape Guichet = 0
-    void testIDGui0(){
+    public void testIDGui0(){
         FabriqueNumero.getInstance().resetNumeroEtape();
         Guichet etape = new Guichet("Guichet1");
         assertEquals(0, etape.getId());
     }
     @Test //test de l'id sur une Etape guichet > 0
-    void testIDGui(){
+    public void testIDGui(){
         FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
@@ -74,7 +74,7 @@ public class testEtape {
     }
 
     @Test //test de reset quand une seul etape est ajouté
-    void testReset0(){
+    public void testReset0(){
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         Guichet etape3 = new Guichet("Guichet1");
@@ -85,7 +85,7 @@ public class testEtape {
     }
 
     @Test // test de reset avec plusieurs etapes
-    void testReset(){
+    public void testReset(){
         Activite etape1 = new Activite("Activite1");
         FabriqueNumero.getInstance().resetNumeroEtape();
         Activite etape2 = new Activite("Activite0");
@@ -96,7 +96,7 @@ public class testEtape {
     }
 
     @Test // test de reset quand on l'utilise plusieurs fois
-    void testResetMultiple(){
+    public void testResetMultiple(){
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         Guichet etape3 = new Guichet("Guichet4");
@@ -113,18 +113,23 @@ public class testEtape {
 
 
     @Test //test du Semaphore sur une Etape Guichet = 0
-    void testSemaphores0(){
+    public void testSemaphores0(){
         FabriqueNumero.getInstance().resetNumeroSemaphore();
         Guichet guichet = new Guichet("Guichet1");
         assertEquals(1, guichet.getNumeroSemaphore());
     }
     @Test //test du Semaphore sur une Etape guichet > 0
-    void testSemaphores(){
+    public void testSemaphores(){
         FabriqueNumero.getInstance().resetNumeroSemaphore();
         Guichet guichet1 = new Guichet("Guichet1");
         Guichet guichet2 = new Guichet("Guichet2");
         assertEquals(2, guichet2.getNumeroSemaphore());
     }
-
+    @Test
+    public void testGetNom(){
+        FabriqueNumero.getInstance().resetNumeroSemaphore();
+        Guichet guichet1 = new Guichet("Guichet1");
+        assertEquals("Guichet1", guichet1.getNom());
+    }
 }
 

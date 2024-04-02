@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class testSasSortie {
     @Test // test du temps dans le constructeur simple
-    void testSETemps0(){
+    public void testSETemps0(){
         SasSortie sortie = new SasSortie();
         assertEquals(0, sortie.getTemps());
     }
     @Test // test de l'ecart temps dans le constructeur simple
-    void testSEEcartTemps0(){
+    public void testSEEcartTemps0(){
         SasSortie sortie = new SasSortie();
         assertEquals(0, sortie.getEcartTemps());
     }
 
     @Test
-    void testToC(){
+    public void testToC(){
         SasSortie sortie = new SasSortie();
         StringBuilder test = new StringBuilder();
         assertEquals(test.toString(), sortie.toC());

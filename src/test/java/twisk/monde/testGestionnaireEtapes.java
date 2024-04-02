@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class testGestionnaireEtapes {
     @Test
-    void testNbEtapes(){
+    public void testNbEtapes(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
@@ -17,12 +17,12 @@ public class testGestionnaireEtapes {
         assertEquals(3, gestionnaireEtapes.nbEtapes());
     }
     @Test
-    void testNbEtapes0(){
+    public void testNbEtapes0(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         assertEquals(0, gestionnaireEtapes.nbEtapes());
     }
     @Test
-    void testNbGuichet(){
+    public void testNbGuichet(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
@@ -31,40 +31,35 @@ public class testGestionnaireEtapes {
         assertEquals(1, gestionnaireEtapes.nbGuichets());
     }
     @Test
-    void testNbGuichet0(){
+    public void testNbGuichet0(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         gestionnaireEtapes.ajouter(etape1, etape2);
         assertEquals(0, gestionnaireEtapes.nbGuichets());
     }
-
     @Test
-    void testgetEtape1(){
+    public void testgetEtape1(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         gestionnaireEtapes.ajouter(etape1, etape2);
         assertEquals(etape1, gestionnaireEtapes.getEtape(0));
     }
-
     @Test
-    void testgetEtape2(){
+    public void testgetEtape2(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         gestionnaireEtapes.ajouter(etape1, etape2);
         assertEquals(etape2, gestionnaireEtapes.getEtape(1));
     }
-
-
     @Test
-    void testgetEtape3(){
+    public void testgetEtape3(){
         GestionnaireEtapes gestionnaireEtapes = new GestionnaireEtapes();
         Activite etape1 = new Activite("Activite1");
         Activite etape2 = new Activite("Activite2");
         gestionnaireEtapes.ajouter(etape1, etape2);
         assertNull(gestionnaireEtapes.getEtape(2));
     }
-
 }
