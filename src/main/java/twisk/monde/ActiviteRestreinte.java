@@ -30,7 +30,7 @@ public class ActiviteRestreinte extends Activite {
             string.append("");
             return string.toString();
         } else {
-            string.append("    delai(6,2);\n");
+            string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
             string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() +");\n");
             return string.toString();
         }

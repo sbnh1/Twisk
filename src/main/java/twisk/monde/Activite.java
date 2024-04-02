@@ -78,7 +78,7 @@ public class Activite extends Etape {
             string.append("");
             return string.toString();
         } else {
-            string.append("    delai(6,3);\n" +
+            string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n" +
                     "    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
             return string.toString();
         }

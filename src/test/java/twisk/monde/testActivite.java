@@ -55,7 +55,7 @@ public class testActivite {
 
     @Test
     public void testToCAvecSuccesseur(){
-        Activite activite = new Activite("Activite");
+        Activite activite = new Activite("Activite", 6,3);
         Guichet guichet = new Guichet("guichet1");
         activite.ajouterSuccesseur(guichet);
         StringBuilder test = new StringBuilder();

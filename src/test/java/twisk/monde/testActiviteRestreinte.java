@@ -51,7 +51,7 @@ public class testActiviteRestreinte {
 
     @Test
     public void testToCAvecSuccesseur() {
-        ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("ActiviteTest");
+        ActiviteRestreinte activiteRestreinte = new ActiviteRestreinte("ActiviteTest", 6,2);
         Activite activite = new Activite("activite");
         activiteRestreinte.ajouterSuccesseur(activite);
         StringBuilder test = new StringBuilder();

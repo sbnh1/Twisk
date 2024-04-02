@@ -8,6 +8,7 @@ import main.java.twisk.outils.KitC;
 public class Simulation {
     private KitC kitC;
     private int nbClient;
+    private GestionnaireClients gestionnaireClients;
 
     /**
      * constructeur d'une simulation
