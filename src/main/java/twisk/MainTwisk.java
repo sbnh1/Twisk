@@ -3,11 +3,11 @@ package main.java.twisk;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import twisk.mondeIG.MondeIG;
+import main.java.twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
-import twisk.vues.VueMenu;
-import twisk.vues.VueOutils;
-import twisk.vues.VueMondeIG;
+import main.java.twisk.vues.VueMenu;
+import main.java.twisk.vues.VueOutils;
+import main.java.twisk.vues.VueMondeIG;
 import javafx.scene.Scene;
 
 

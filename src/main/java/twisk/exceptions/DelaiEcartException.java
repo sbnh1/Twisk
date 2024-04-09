@@ -1,4 +1,4 @@
-package twisk.exceptions;
+package main.java.twisk.exceptions;
 
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;

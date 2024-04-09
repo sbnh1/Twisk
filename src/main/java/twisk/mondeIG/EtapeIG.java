@@ -1,9 +1,9 @@
-package twisk.mondeIG;
+package main.java.twisk.mondeIG;
 
-import twisk.exceptions.DelaiEcartException;
-import twisk.exceptions.TwiskException;
+import main.java.twisk.exceptions.DelaiEcartException;
+import main.java.twisk.exceptions.TwiskException;
 import twisk.outils.FabriqueIdentifiant;
-import twisk.vues.EcouteurBouton;
+import main.java.twisk.vues.EcouteurBouton;
 
 import java.util.ArrayList;
 import java.util.Iterator;

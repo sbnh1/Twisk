@@ -1,8 +1,8 @@
-package twisk.vues;
+package main.java.twisk.vues;
 
 import javafx.geometry.Pos;
-import twisk.mondeIG.EtapeIG;
-import twisk.mondeIG.MondeIG;
+import main.java.twisk.mondeIG.EtapeIG;
+import main.java.twisk.mondeIG.MondeIG;
 import javafx.scene.layout.HBox;
 import twisk.outils.TailleComposants;
 

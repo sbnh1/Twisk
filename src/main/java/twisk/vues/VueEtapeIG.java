@@ -1,10 +1,10 @@
-package twisk.vues;
+package main.java.twisk.vues;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import twisk.mondeIG.EtapeIG;
-import twisk.mondeIG.MondeIG;
+import main.java.twisk.mondeIG.EtapeIG;
+import main.java.twisk.mondeIG.MondeIG;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

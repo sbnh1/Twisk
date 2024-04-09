@@ -1,9 +1,9 @@
-package twisk.vues;
+package main.java.twisk.vues;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import twisk.mondeIG.MondeIG;
+import main.java.twisk.mondeIG.MondeIG;
 import javafx.scene.image.Image;
 
 

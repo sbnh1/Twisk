@@ -1,4 +1,4 @@
-package twisk.exceptions;
+package main.java.twisk.exceptions;
 
 public class PointDeControleException extends TwiskException{
 

@@ -1,10 +1,10 @@
-package twisk.vues;
+package main.java.twisk.vues;
 
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
-import twisk.exceptions.DelaiEcartException;
-import twisk.mondeIG.MondeIG;
+import main.java.twisk.exceptions.DelaiEcartException;
+import main.java.twisk.mondeIG.MondeIG;
 
 import java.util.Optional;
 
