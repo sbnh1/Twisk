@@ -5,7 +5,8 @@ import main.java.twisk.monde.Etape;
 import main.java.twisk.simulation.Client;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class testClient {
     @Test

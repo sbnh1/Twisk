@@ -3,7 +3,8 @@ package test.java.twisk.simulation;
 import main.java.twisk.simulation.GestionnaireClients;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class testGestionnaireClients {
     @Test

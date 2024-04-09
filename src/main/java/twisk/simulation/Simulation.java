@@ -79,6 +79,9 @@ public class Simulation {
 
         int[] pids = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
 
+        this.gestionnaireClients = new GestionnaireClients();
+        this.gestionnaireClients.setClients(pids);
+
         System.out.println("ids clients : ");
         for(int i = 0; i < nbClient; i++){
             System.out.print(pids[i] + " ");
@@ -95,6 +98,7 @@ public class Simulation {
             for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
                 System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
                 for(int j = i+1; j < (i + posClients[i] + 1); j++){
+                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i), nbClient%j);
                     System.out.print(posClients[j] + " ");
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()-1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
