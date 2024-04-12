@@ -61,6 +61,11 @@ public class VueMenu extends MenuBar implements Observateur {
         this.monde.ajouterObservateur(this);
     }
 
+    /**
+     * Méthode qui permet de définir le nouveau nombre de jetons d'un guichet,
+     * ouvre une boite de dialogue pour prendre note du nombre de jetons,
+     * si il n'y a qu'une seul étape de sélectionné et que ce soit un guichet
+     */
     private void defNombreDeJetons() {
         if(this.monde.getNbEtapeSelectionner() == 1 && !this.monde.premiereEtapeSelectionnee().estUneActivite()){
             TextInputDialog text = new TextInputDialog();
@@ -87,12 +92,12 @@ public class VueMenu extends MenuBar implements Observateur {
     }
 
     /**
-     * Méthode qui permet de définir le nouvel écart-temps d'une étape,
+     * Méthode qui permet de définir le nouvel écart-temps d'une activité,
      * ouvre une boite de dialogue pour prendre note de la durée,
      * si il n'y a qu'une seul étape de sélectionné
      */
     private void defEcartTemps() {
-        if (this.monde.getNbEtapeSelectionner() == 1) {
+        if (this.monde.getNbEtapeSelectionner() == 1 && this.monde.premiereEtapeSelectionnee().estUneActivite()) {
             TextInputDialog text = new TextInputDialog();
             text.setTitle("Définir un écart de temps");
             text.setHeaderText(null);
@@ -126,7 +131,7 @@ public class VueMenu extends MenuBar implements Observateur {
      * si il n'y a qu'une seul étape de sélectionné
      */
     private void defDelai() {
-        if (this.monde.getNbEtapeSelectionner() == 1) {
+        if (this.monde.getNbEtapeSelectionner() == 1 && this.monde.premiereEtapeSelectionnee().estUneActivite()) {
             TextInputDialog text = new TextInputDialog();
             text.setTitle("Définir un délais");
             text.setHeaderText(null);

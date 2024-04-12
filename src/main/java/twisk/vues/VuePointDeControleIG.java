@@ -20,7 +20,11 @@ public class VuePointDeControleIG extends Circle {
      */
     public VuePointDeControleIG(PointDeControleIG pointDeControleIG, MondeIG monde){
         super(pointDeControleIG.getPositionX(), pointDeControleIG.getPositionY(), TailleComposants.getInstance().rayonCercle);
-        this.setFill(Color.BLACK);
+        if(pointDeControleIG.estSelectionee()){
+            setFill((Color.RED));
+        } else {
+            this.setFill(Color.BLACK);
+        }
         this.monde = monde;
 
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -28,7 +32,8 @@ public class VuePointDeControleIG extends Circle {
             public void handle(MouseEvent event) {
                 try {
                     monde.pointDeControleSelectionne(pointDeControleIG);
-                    setFill((Color.RED));
+                    monde.notifierObservateur();
+                    //setFill((Color.RED));
                 } catch (TwiskException e) {
                     throw new RuntimeException(e);
                 }

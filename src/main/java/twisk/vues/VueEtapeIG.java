@@ -23,7 +23,15 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
     public VueEtapeIG(MondeIG monde, EtapeIG etape){
         this.etape = etape;
         this.monde = monde;
-        this.label = new Label(etape.getNom() + " " + this.etape.getDelai() + " + " + this.etape.getEcartTemps() + " temps");
+        if(etape.estUneActivite()){
+            this.label = new Label(etape.getNom() + " : " + this.etape.getDelai() + " + " + this.etape.getEcartTemps() + " temps");
+        } else {
+            if(etape.getNbJetons() > 1){
+                this.label = new Label(etape.getNom() + " : " + this.etape.getNbJetons() + " jetons");
+            } else {
+                this.label = new Label(etape.getNom() + " : " + this.etape.getNbJetons() + " jeton");
+            }
+        }
         label.setStyle("-fx-text-fill: black;");
         this.setId(this.etape.getIdentifiant());
         this.setOnDragDetected(new EcouteurDrag(this.monde, this));

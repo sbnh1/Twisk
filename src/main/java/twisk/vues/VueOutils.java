@@ -4,6 +4,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import main.java.twisk.mondeIG.MondeIG;
 import javafx.scene.image.Image;
 
@@ -20,6 +23,13 @@ public class VueOutils extends ToolBar implements Observateur{
         super();
         this.monde = monde;
 
+        Region espaceGauche = new Region();
+        HBox.setHgrow(espaceGauche, Priority.ALWAYS);
+
+        // Créer un espace vide à droite
+        Region espaceDroite = new Region();
+        HBox.setHgrow(espaceDroite, Priority.ALWAYS);
+
         Button boutonActivite = new Button("ACTIVITE");
         Tooltip tooltipActivite = new Tooltip("Ajouter une activité");
         Tooltip.install(boutonActivite, tooltipActivite);
@@ -35,7 +45,7 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonGuichet.setPrefSize(90,30);
         boutonGuichet.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #367FFF;");
 
-        this.getItems().addAll(boutonActivite, boutonGuichet);
+        this.getItems().addAll(espaceGauche ,boutonActivite, boutonGuichet, espaceDroite);
         this.monde.ajouterObservateur(this);
     }
 

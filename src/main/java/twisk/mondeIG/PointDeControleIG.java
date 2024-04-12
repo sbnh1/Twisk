@@ -5,6 +5,7 @@ public class PointDeControleIG {
     private double positionY;
     private String identifiant;
     private EtapeIG etapeIG;
+    private boolean estSelectionnee;
 
     /**
      * Constructeur de la classe PointDeControleIG
@@ -18,6 +19,7 @@ public class PointDeControleIG {
         this.positionY = positionY;
         this.identifiant = identifiant;
         this.etapeIG = etapeIG;
+        this.estSelectionnee = false;
     }
 
     /**
@@ -65,5 +67,13 @@ public class PointDeControleIG {
      */
     public void setPositionY(double positionY){
         this.positionY = positionY;
+    }
+
+    public boolean estSelectionee(){
+        return this.estSelectionnee;
+    }
+
+    public void setEstSelectionnee(boolean estSelectionnee) {
+        this.estSelectionnee = estSelectionnee;
     }
 }

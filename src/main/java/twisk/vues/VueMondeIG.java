@@ -36,10 +36,18 @@ public class VueMondeIG extends Pane implements Observateur{
             getChildren().add(vueArc);
         }
         for (EtapeIG etape : monde) {
-            VueActiviteIG vueActivite = new VueActiviteIG(monde, etape);
-            getChildren().add(vueActivite);
-            vueActivite.positionner(etape.getPosX(), etape.getPosY());
-            vueActivite.taille(etape.getLargeur() , etape.getHauteur() );
+            if(etape.estUneActivite()) {
+                VueActiviteIG vueActivite = new VueActiviteIG(monde, etape);
+                getChildren().add(vueActivite);
+                vueActivite.positionner(etape.getPosX(), etape.getPosY());
+                vueActivite.taille(etape.getLargeur(), etape.getHauteur());
+            } else {
+                VueGuichetIG vueGuichet = new VueGuichetIG(monde, etape);
+                getChildren().add(vueGuichet);
+                vueGuichet.positionner(etape.getPosX(), etape.getPosY());
+                vueGuichet.taille(etape.getLargeur(), etape.getHauteur());
+            }
+
 
             for(PointDeControleIG point : etape.getPointsDeControle()){
                 VuePointDeControleIG vuePoint = new VuePointDeControleIG(point, monde);

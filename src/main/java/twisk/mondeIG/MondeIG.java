@@ -112,8 +112,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     public void pointDeControleSelectionne(PointDeControleIG pointDeControleIG) throws PointDeControleException {
         if(premierPointDeControle == null){
             premierPointDeControle = pointDeControleIG;
+            premierPointDeControle.setEstSelectionnee(true);
         } else {
             ajouter(premierPointDeControle, pointDeControleIG);
+            premierPointDeControle.setEstSelectionnee(false);
             premierPointDeControle = null;
             notifierObservateur();
         }
