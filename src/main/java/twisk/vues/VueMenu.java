@@ -51,12 +51,39 @@ public class VueMenu extends MenuBar implements Observateur {
         delai.setOnAction(event -> defDelai());
         MenuItem ecartTemps =  new MenuItem("Ecart-temps");
         ecartTemps.setOnAction(event -> defEcartTemps());
-        manuParametre.getItems().addAll(delai,ecartTemps);
+        MenuItem jetons = new MenuItem("Jetons");
+        jetons.setOnAction(event -> defNombreDeJetons());
+        manuParametre.getItems().addAll(delai,ecartTemps,jetons);
 
         // Ajout des menus à la barre de menu
         this.getMenus().addAll(menuFichier, menuEdition, menuMonde, manuParametre);
 
         this.monde.ajouterObservateur(this);
+    }
+
+    private void defNombreDeJetons() {
+        if(this.monde.getNbEtapeSelectionner() == 1 && !this.monde.premiereEtapeSelectionnee().estUneActivite()){
+            TextInputDialog text = new TextInputDialog();
+            text.setTitle("Définir le nombre de jetons");
+            text.setHeaderText(null);
+            text.setContentText("Entrez le nouveau nombre de jetons : ");
+            Optional<String> result = text.showAndWait();
+
+            // convertions en entier
+            result.ifPresent(input -> {
+                try {
+                    int jetons = Integer.parseInt(input);
+                    this.monde.premiereEtapeSelectionnee().setNbJetons(jetons);
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Veuillez saisir un entier valide.");
+                    alert.showAndWait();
+                }
+            });
+            this.effacerSelection();
+        }
     }
 
     /**

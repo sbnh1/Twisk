@@ -234,7 +234,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      */
     public void renommer(String nom) {
         premiereEtapeSelectionnee().setNom(nom);
-
     }
 
     /**

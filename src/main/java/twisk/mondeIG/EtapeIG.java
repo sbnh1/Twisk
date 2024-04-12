@@ -21,6 +21,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     private boolean estUneSortie;
     private int delai;
     private int ecartTemps;
+    private int nbJetons;
     private boolean estUneActivite;
 
     private List<PointDeControleIG> pointDeControleIGList;
@@ -42,6 +43,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.estUneSortie = false;
         this.delai = 0;
         this.ecartTemps = 0;
+        this.nbJetons = 0;
 
         Random random = new Random();
         this.posX = 100 + random.nextInt(800);
@@ -234,5 +236,24 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      */
     public boolean estUneActivite(){
         return this.estUneActivite;
+    }
+
+    /**
+     * Méthode qui récupère le nombre de jetons d'un guichet
+     * @return le nombre de jeton d'un guichet
+     */
+    public int getNbJetons(){
+        return this.nbJetons;
+    }
+
+    /**
+     * Défini le nombre de jetons d'une activité
+     * @param nbJetons le nouveau nombre de jetons
+     */
+    public void setNbJetons(int nbJetons){
+        if(!this.estUneActivite){
+            this.nbJetons = nbJetons;
+
+        }
     }
 }
