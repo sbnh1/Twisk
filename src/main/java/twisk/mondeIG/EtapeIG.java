@@ -21,6 +21,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     private boolean estUneSortie;
     private int delai;
     private int ecartTemps;
+    private boolean estUneActivite;
 
     private List<PointDeControleIG> pointDeControleIGList;
 
@@ -30,10 +31,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * @param larg largeur de l'étapeIG
      * @param haut hauteur de l'étapeIG
      */
-    public EtapeIG(String nom, int larg, int haut){
+    public EtapeIG(String nom, int larg, int haut, boolean estUneActivite){
         this.nom = nom;
         this.largeur = larg;
         this.hauteur = haut;
+        this.estUneActivite = estUneActivite;
+
         this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         this.estUneEntree = false;
         this.estUneSortie = false;
@@ -223,5 +226,13 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      */
     public List<PointDeControleIG> getPointsDeControle() {
         return pointDeControleIGList;
+    }
+
+    /**
+     * Méthode qui récupère si une étapeIG est une activité ou non
+     * @return vrai si l'étapeIG est une activité sinon non
+     */
+    public boolean estUneActivite(){
+        return this.estUneActivite;
     }
 }

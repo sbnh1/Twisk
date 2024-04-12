@@ -4,6 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
 import main.java.twisk.exceptions.PointDeControleException;
+import main.java.twisk.monde.Guichet;
 import twisk.outils.TailleComposants;
 
 import java.util.*;
@@ -31,9 +32,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      * @param type le type de l'étape en String
      */
     public void ajouter(String type){
-        EtapeIG etapeAjoute = new ActiviteIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
-        String id = etapeAjoute.getIdentifiant();
-        this.etapes.put(id, etapeAjoute);
+        if(type.equals("activite")){
+            EtapeIG etapeAjoute = new ActiviteIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
+            String id = etapeAjoute.getIdentifiant();
+            this.etapes.put(id, etapeAjoute);
+        } else {
+            EtapeIG guichetAjoute = new GuichetIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
+            String id = guichetAjoute.getIdentifiant();
+            this.etapes.put(id, guichetAjoute);
+        }
     }
 
     /**
