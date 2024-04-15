@@ -51,4 +51,11 @@ public class GestionnaireClients implements Iterable<Client> {
     public Iterator<Client> iterator(){
         return listClient.values().iterator();
     }
+
+    public String toString(){
+        for(Client client : this){
+
+        }
+        return "";
+    }
 }

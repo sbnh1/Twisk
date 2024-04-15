@@ -1,25 +1,52 @@
 package main.java.twisk;
 
-import main.java.twisk.outils.FabriqueNumero;
-import main.java.twisk.simulation.Simulation;
 import main.java.twisk.monde.*;
+import main.java.twisk.outils.ClassLoaderPerso;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public class ClientTwisk {
-    public static void main(String[] args) {
-        Monde monde1 = creerMonde1();
-        Monde monde2 = creerMonde2();
-        Monde monde3 = creerMonde3();
-        Monde monde4 = creerMonde4();
-        Monde monde5 = creerMonde5();
 
-        Simulation simulation = new Simulation();
-        simulation.setNbClients(20);
+    public static void main(String[] args){
+        new ClientTwisk();
+    }
+
+    public ClientTwisk() {
+
+        Monde monde1 = creerMonde1();
+        Monde monde3 = creerMonde3();
+
+        lancerSimulation(monde3, 5);
+        lancerSimulation(monde1, 5);
+
+        //Monde monde2 = creerMonde2();
+        //Monde monde4 = creerMonde4();
+        //Monde monde5 = creerMonde5();
+
+        //Simulation simulation = new Simulation();
+        //simulation.setNbClients(5);
         //simulation.simuler(monde1);
         //simulation.simuler(monde2);
         //simulation.simuler(monde3);
-        simulation.simuler(monde4);
+        //simulation.simuler(monde4);
         //simulation.simuler(monde5);
 
+    }
+
+    public void lancerSimulation(Monde monde, int nb){
+        try{
+            ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
+            Class<?> classPerso = classLoader.loadClass("main.java.twisk.simulation.Simulation");
+            Constructor<?> constructor = classPerso.getConstructor();
+            Object instanceClassperso = constructor.newInstance();
+            Method setNBClient_ = classPerso.getMethod("setNbClients", int.class);
+            Method simuler_ = classPerso.getMethod("simuler", Monde.class);
+            setNBClient_.invoke(instanceClassperso, nb);
+            simuler_.invoke(instanceClassperso, monde);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
