@@ -21,16 +21,20 @@ public class Monde implements Iterable<Etape>{
 
     /**
      * Définit l'étape d'entrée du monde
-     * @param etape L'étape d'entrée du monde
+     * @param etapes Les etapes d'entrée du monde
      */
-    public void aCommeEntree(Etape etape){this.entree = etape;} // ATTENTION ici est attendu potentiellement plusieurs etapes
+    public void aCommeEntree(Etape... etapes){
+        this.entree.ajouterSuccesseur(etapes);
+    } // ATTENTION ici est attendu potentiellement plusieurs etapes
 
     /**
      * Définit l'étape de sortie du monde
-     * @param etape L'étape de sortie du monde
+     * @param etapes Les étapes de sortie du monde
      */
-    public void aCommeSortie(Etape etape){
-        this.sortie = etape;
+    public void aCommeSortie(Etape... etapes){
+        for (Etape etape : etapes){
+            this.sortie.ajouterSuccesseur(etapes);
+        }
     }
 
     /**
