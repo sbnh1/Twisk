@@ -14,16 +14,17 @@ public class ClientTwisk {
 
     public ClientTwisk() {
 
-        Monde monde1 = creerMonde1();
-        Monde monde3 = creerMonde3();
+        Monde monde6 = creerMonde6();
+        lancerSimulation(monde6, 5);
 
-        lancerSimulation(monde3, 5);
-        lancerSimulation(monde1, 5);
 
+        //Monde monde1 = creerMonde1();
+        //Monde monde3 = creerMonde3();
+        //lancerSimulation(monde3, 5);
+        //lancerSimulation(monde1, 5);
         //Monde monde2 = creerMonde2();
         //Monde monde4 = creerMonde4();
         //Monde monde5 = creerMonde5();
-
         //Simulation simulation = new Simulation();
         //simulation.setNbClients(5);
         //simulation.simuler(monde1);
@@ -163,6 +164,36 @@ public class ClientTwisk {
         monde.ajouter(zoo, tob, guichet);
         monde.aCommeEntree(zoo);
         monde.aCommeSortie(tob);
+        return monde;
+    }
+
+    private static Monde creerMonde6(){
+        Monde monde = new Monde();
+
+        Etape entree1 = new Activite("entree1", 5,2);
+        Etape entree2 = new Activite("entree2", 5,2);
+        Etape entree3 = new Activite("entree3", 5,2);
+
+        Etape guichet1 = new Guichet("Guichet1", 5);
+        Etape guichet2 = new Guichet("Guichet2", 5);
+
+        Etape activite1 = new ActiviteRestreinte("Tobogan", 5,2);
+        Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);
+
+        Etape sortie = new SasSortie();
+
+        entree1.ajouterSuccesseur(guichet1);
+        entree2.ajouterSuccesseur(guichet1);
+        entree3.ajouterSuccesseur(guichet1);
+
+        guichet1.ajouterSuccesseur(activite1);
+        activite1.ajouterSuccesseur(guichet2);
+        guichet2.ajouterSuccesseur(activite2);
+        activite2.ajouterSuccesseur(sortie);
+
+        monde.aCommeEntree(entree1, entree2, entree3);
+        monde.aCommeSortie(sortie);
+        monde.ajouter(entree1, entree2, entree3, guichet1, activite1, guichet2, activite2, sortie);
         return monde;
     }
 }

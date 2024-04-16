@@ -19,6 +19,5 @@ public class SasSortie extends Activite{
         string.append("");
         return string.toString();
     }
-
 }
 
