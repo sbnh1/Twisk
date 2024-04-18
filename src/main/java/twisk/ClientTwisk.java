@@ -35,6 +35,7 @@ public class ClientTwisk {
 
     }
 
+    //depuis qu'on lance la simualtion en chargeant la class Simulation avec ClassLoaderPerso les client s'arretent en plein milieu de la simulation
     public void lancerSimulation(Monde monde, int nb){
         try{
             ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
