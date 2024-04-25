@@ -17,6 +17,7 @@ public class Monde implements Iterable<Etape>{
         this.entree = new SasEntree();
         this.sortie = new SasSortie();
         this.etapes = new GestionnaireEtapes();
+        this.etapes.ajouter(this.entree, this.sortie);
         //FabriqueNumero.getInstance().resetNumeroEtape();
         //FabriqueNumero.getInstance().resetNumeroSemaphore();
     }
@@ -35,7 +36,7 @@ public class Monde implements Iterable<Etape>{
      */
     public void aCommeSortie(Etape... etapes){
         for (Etape etape : etapes){
-            this.sortie.ajouterSuccesseur(etapes);
+            etape.ajouterSuccesseur(this.sortie);
         }
     }
 
@@ -114,7 +115,6 @@ public class Monde implements Iterable<Etape>{
         //toutes les etapes doivent être implémenter dans le bon ordre pour que cela marche en mettant sasEntree au tout début et sasSortie à la fin
         StringBuilder string = new StringBuilder();
         string.append("#include <stdlib.h>\n#include <stdio.h>\n#include \"def.h\"\n\n");
-        string.append("#define " + this.entree.getNom() + " " + this.entree.getId() + "\n");
         for(int i = 0; i < this.nbEtapes(); i++){
             string.append("#define " + this.etapes.getEtape(i).getNom() + " " + this.etapes.getEtape(i).getId() + "\n");
             if(this.etapes.getEtape(i).estUnGuichet()){
@@ -123,11 +123,10 @@ public class Monde implements Iterable<Etape>{
         }
 
         //jusqu'ici j'ai tout les #include #define
-        string.append("void simulation(int ids){\n");
-        string.append(this.entree.toC());
+        string.append("\nvoid simulation(int ids){\n");
         for(int i = 0; i < this.nbEtapes(); i++){
             string.append(this.etapes.getEtape(i).toC());
-            //pour ne pas faire 2 fois le toC de l'activité restreinte (on le skip donc ici et on l'apelle dans toC() de Guichet)
+            //pour ne pas faire 2 fois le toC de l'activité restreinte (on le skip donc ici et on l'appelle dans toC() de Guichet)
             if(this.etapes.getEtape(i).estUnGuichet()){
                 i++;
             }

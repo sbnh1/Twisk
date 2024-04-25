@@ -17,7 +17,6 @@ public class ClientTwisk {
         Monde monde6 = creerMonde6();
         lancerSimulation(monde6, 5);
 
-
         //Monde monde1 = creerMonde1();
         //Monde monde3 = creerMonde3();
         //lancerSimulation(monde3, 5);
@@ -181,7 +180,7 @@ public class ClientTwisk {
         Etape activite1 = new ActiviteRestreinte("Tobogan", 5,2);
         Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);
 
-        Etape sortie = new SasSortie();
+        Etape sortie = new ActiviteRestreinte("Fin", 5, 2);
 
         entree1.ajouterSuccesseur(guichet1);
         entree2.ajouterSuccesseur(guichet1);
