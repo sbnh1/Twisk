@@ -32,6 +32,7 @@ public class ActiviteRestreinte extends Activite {
         } else {
             string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
             string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() +");\n");
+            string.append(this.getSuccesseur().getEtape(0).toC());
             return string.toString();
         }
     }
