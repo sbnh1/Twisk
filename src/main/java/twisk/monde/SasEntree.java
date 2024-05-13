@@ -14,7 +14,7 @@
          */
         public String toC(){
             StringBuilder string = new StringBuilder();
-            int nbSuccesseur = this.getSuccesseur().nbEtapes();
+            int nbSuccesseur = this.getSuccesseur().nbEtapes(); //utiliser la fonction nbsuccesseur
             if(nbSuccesseur == 1){
                 string.append("    entrer(" + this.getNom() + ");\n");
                 string.append("    transfert(SasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");\n");
@@ -25,9 +25,9 @@
                 string.append("    switch(bifurcation_" + this.getNom() + "){\n");
                 for(int i = 0; i < nbSuccesseur; i++){
                     string.append("        case " + i + ":\n");
-                    string.append("            transfert(SasEntree, " + this.getSuccesseur().getEtape(i).getNom() +");\n");
+                    string.append("        transfert(SasEntree, " + this.getSuccesseur().getEtape(i).getNom() +");\n");
                     string.append(this.getSuccesseur().getEtape(i).toC());
-                    string.append("            break;\n");
+                    string.append("        break;\n");
                 }
                 string.append("    }\n");
             }

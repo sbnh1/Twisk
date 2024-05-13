@@ -66,11 +66,25 @@ public class Guichet extends Etape {
      */
     public String toC(){
         StringBuilder string = new StringBuilder();
+        int nbSuccesseur = this.getSuccesseur().nbEtapes();
         string.append("    delai(4,1);\n");
-        string.append("    P(ids, " + this.getNom() + "_semaphore);\n"); //pour avoir guichet_semaphore1/guichet_semaphore2...
-        string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() + ");\n");
-        string.append("    V(ids, " + this.getNom() + "_semaphore);\n");
-        string.append(this.getSuccesseur().getEtape(0).toC());
+        string.append("    P(ids, " + this.getNom() + "_semaphore);\n");
+        //supprimer tout sauf ce qu'il y'a dans if si il y'a tjr qu'un seul successeur
+        if(nbSuccesseur == 1) {
+            string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() + ");\n");
+            string.append("    V(ids, " + this.getNom() + "_semaphore);\n");
+            string.append(this.getSuccesseur().getEtape(0).toC());
+        } else if (nbSuccesseur > 1) {
+            string.append("    int bifurcation_" + this.getNom() + " = (int)((rand() / (float) RAND_MAX ) * " + nbSuccesseur + ");\n");
+            string.append("    switch(bifurcation_" + this.getNom() + "){\n");
+            for(int i = 0; i < nbSuccesseur; i++){
+                string.append("        case " + i + ":\n");
+                string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() + ");\n");
+                string.append("    V(ids, " + this.getNom() + "_semaphore);\n");
+                string.append(this.getSuccesseur().getEtape(0).toC());
+                string.append("        break;\n");
+            }
+        }
         return string.toString();
     }
 }

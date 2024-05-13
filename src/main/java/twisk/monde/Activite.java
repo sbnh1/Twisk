@@ -74,16 +74,22 @@ public class Activite extends Etape {
      */
     public String toC(){
         StringBuilder string = new StringBuilder();
-        if(this.nbSuccesseurs() == 0){
-            string.append("");
-            return string.toString();
-        } else {
+        int nbSuccesseur = this.nbSuccesseurs();
+        if(nbSuccesseur == 1){
             string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
             string.append("    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
             string.append(this.getSuccesseur().getEtape(0).toC());
-            return string.toString();
+        } else if (nbSuccesseur > 1){
+            string.append("    int bifurcation_" + this.getNom() + " = (int)((rand() / (float) RAND_MAX ) * " + nbSuccesseur + ");\n");
+            string.append("    switch(bifurcation_" + this.getNom() + "){\n");
+            for(int i = 0; i < nbSuccesseur; i++) {
+                string.append("        case " + i + ":\n");
+                string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
+                string.append("    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() + ");\n");
+                string.append(this.getSuccesseur().getEtape(0).toC());
+                string.append("        break;\n");
+            }
         }
-
+        return string.toString();
     }
-
 }

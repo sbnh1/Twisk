@@ -101,7 +101,7 @@ public class Simulation {
                     this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i), nbClient%j);
                     System.out.print(posClients[j] + " ");
                 }
-                if(posClients[((nbClient+1)*(monde.nbEtapes()-1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
+                if(posClients[((nbClient+1)*(monde.nbEtapes()- monde.nbEtapes() + 1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
                     fin = true;
                 }
                 System.out.println();
