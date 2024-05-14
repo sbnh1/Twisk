@@ -1,4 +1,4 @@
-    package main.java.twisk.monde;
+    package twisk.monde;
 
     public class SasEntree extends Activite{
 
@@ -6,7 +6,7 @@
          * Constructeur d'un sas d'entrée
          * Initialise un sas d'entrée avec un nom et un temps d'exécution de 0 et un écart de temps de 0
          */
-        public SasEntree(){ super("SasEntree", 0, 0); }
+        public SasEntree(){ super("SasEntree", 3, 1); }
 
         /**
          * Retourne une représentation en langage C du sas d'entrée

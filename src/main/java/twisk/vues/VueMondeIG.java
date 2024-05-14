@@ -1,10 +1,10 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.scene.layout.Pane;
-import main.java.twisk.mondeIG.ArcIG;
-import main.java.twisk.mondeIG.EtapeIG;
-import main.java.twisk.mondeIG.MondeIG;
-import main.java.twisk.mondeIG.PointDeControleIG;
+import twisk.mondeIG.ArcIG;
+import twisk.mondeIG.EtapeIG;
+import twisk.mondeIG.MondeIG;
+import twisk.mondeIG.PointDeControleIG;
 
 import java.util.Iterator;
 

@@ -1,6 +1,6 @@
-package main.java.twisk.mondeIG;
+package twisk.mondeIG;
 
-import main.java.twisk.vues.Observateur;
+import twisk.vues.Observateur;
 
 import java.util.ArrayList;
 import java.util.List;

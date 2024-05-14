@@ -1,7 +1,7 @@
-package test.java.twisk.monde;
+package test.twisk.monde;
 
-import main.java.twisk.monde.Activite;
-import main.java.twisk.monde.SasEntree;
+import twisk.monde.Activite;
+import twisk.monde.SasEntree;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

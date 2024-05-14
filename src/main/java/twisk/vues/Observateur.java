@@ -1,4 +1,4 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 public interface Observateur {
     /**

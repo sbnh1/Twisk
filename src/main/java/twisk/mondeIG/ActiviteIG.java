@@ -1,4 +1,4 @@
-package main.java.twisk.mondeIG;
+package twisk.mondeIG;
 
 public class ActiviteIG extends EtapeIG {
     /**

@@ -1,13 +1,13 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import main.java.twisk.mondeIG.ArcIG;
+import twisk.mondeIG.ArcIG;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.mondeIG.MondeIG;
 
 public class VueArcIG extends Pane implements Observateur{
     private ArcIG arc;

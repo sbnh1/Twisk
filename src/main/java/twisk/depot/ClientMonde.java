@@ -1,7 +1,7 @@
-package main.java.twisk.depot;
+package twisk.depot;
 
-import main.java.twisk.monde.*;
-import main.java.twisk.simulation.Simulation;
+import twisk.monde.*;
+import twisk.simulation.Simulation;
 
 public class ClientMonde {
 

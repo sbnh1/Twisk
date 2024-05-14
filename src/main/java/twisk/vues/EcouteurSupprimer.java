@@ -1,10 +1,10 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import main.java.twisk.mondeIG.ArcIG;
-import main.java.twisk.mondeIG.EtapeIG;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.mondeIG.ArcIG;
+import twisk.mondeIG.EtapeIG;
+import twisk.mondeIG.MondeIG;
 
 import java.util.ArrayList;
 import java.util.List;

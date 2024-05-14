@@ -1,12 +1,12 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import main.java.twisk.exceptions.TwiskException;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.exceptions.TwiskException;
+import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
-import main.java.twisk.mondeIG.PointDeControleIG;
+import twisk.mondeIG.PointDeControleIG;
 import javafx.scene.input.MouseEvent;
 
 

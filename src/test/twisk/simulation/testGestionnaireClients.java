@@ -1,6 +1,6 @@
-package test.java.twisk.simulation;
+package test.twisk.simulation;
 
-import main.java.twisk.simulation.GestionnaireClients;
+import twisk.simulation.GestionnaireClients;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

@@ -1,10 +1,10 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.Dragboard;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.mondeIG.MondeIG;
 
 public class EcouteurDrag implements EventHandler<MouseEvent>{
 

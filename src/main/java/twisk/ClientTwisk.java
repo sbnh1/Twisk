@@ -1,67 +1,66 @@
-package main.java.twisk;
+package twisk;
 
-import main.java.twisk.monde.*;
-import main.java.twisk.outils.ClassLoaderPerso;
+import twisk.monde.*;
+import twisk.outils.ClassLoaderPerso;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ClientTwisk {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new ClientTwisk();
     }
 
     public ClientTwisk() {
-
         Monde monde6 = creerMonde6();
         lancerSimulation(monde6, 5);
 
-        //Monde monde1 = creerMonde1();
-        //Monde monde3 = creerMonde3();
-        //lancerSimulation(monde3, 5);
-        //lancerSimulation(monde1, 5);
-        //Monde monde2 = creerMonde2();
-        //Monde monde4 = creerMonde4();
-        //Monde monde5 = creerMonde5();
-        //Simulation simulation = new Simulation();
-        //simulation.setNbClients(5);
-        //simulation.simuler(monde1);
-        //simulation.simuler(monde2);
-        //simulation.simuler(monde3);
-        //simulation.simuler(monde4);
-        //simulation.simuler(monde5);
-
     }
 
-    //depuis qu'on lance la simualtion en chargeant la class Simulation avec ClassLoaderPerso les client s'arretent en plein milieu de la simulation
-    public void lancerSimulation(Monde monde, int nb){
-        try{
+    public void lancerSimulation(Monde monde, int nb) {
+        /*ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
+        Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");
+        Constructor<?> constructor = classPerso.getConstructor();
+        Object instanceClassperso = constructor.newInstance();
+        Method setNBClient_ = classPerso.getMethod("setNbClients", int.class);
+        Method simuler_ = classPerso.getMethod("simuler", Monde.class);
+        setNBClient_.invoke(instanceClassperso, nb);
+        simuler_.invoke(instanceClassperso, monde);*/
+        try {
             ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
-            Class<?> classPerso = classLoader.loadClass("main.java.twisk.simulation.Simulation");
+            Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");
             Constructor<?> constructor = classPerso.getConstructor();
             Object instanceClassperso = constructor.newInstance();
             Method setNBClient_ = classPerso.getMethod("setNbClients", int.class);
             Method simuler_ = classPerso.getMethod("simuler", Monde.class);
             setNBClient_.invoke(instanceClassperso, nb);
             simuler_.invoke(instanceClassperso, monde);
-        }catch (Exception e){
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
             System.out.println(e.getMessage());
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
     /**
      * Creation d'un premier monde
+     *
      * @return Le Monde monde1
      */
-    private static Monde creerMonde1(){
+    private static Monde creerMonde1() {
         //création du monde
         Monde monde1 = new Monde();
         //création des étapes
         Etape entree = new SasEntree();
         Etape guichet1 = new Guichet("Guichet1", 5);
         Etape guichet2 = new Guichet("Guichet2", 5);
-        Etape activite1 = new ActiviteRestreinte("Tobogan", 5,2);
+        Etape activite1 = new ActiviteRestreinte("Tobogan", 5, 2);
         Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);
         Etape sortie = new SasSortie();
         //lien
@@ -79,9 +78,10 @@ public class ClientTwisk {
 
     /**
      * Creation d'un second monde
+     *
      * @return Le Monde monde2
      */
-    private static Monde creerMonde2(){
+    private static Monde creerMonde2() {
         Monde monde2 = new Monde();
         Etape entree = new SasEntree();
 
@@ -89,7 +89,7 @@ public class ClientTwisk {
         Etape etape2 = new Guichet("Guichet2", 10);
 
         Etape activite1 = new ActiviteRestreinte("Tobogan", 5, 2);
-        Etape activite3 =  new ActiviteRestreinte("Parc", 10, 4);
+        Etape activite3 = new ActiviteRestreinte("Parc", 10, 4);
 
         Etape sortie = new SasSortie();
         //lien
@@ -101,42 +101,44 @@ public class ClientTwisk {
         //initialisation
         monde2.aCommeEntree(entree);
         monde2.aCommeSortie(sortie);
-        monde2.ajouter(entree, etape1,activite1,etape2, activite3, sortie);
+        monde2.ajouter(entree, etape1, activite1, etape2, activite3, sortie);
         return monde2;
     }
 
     /**
      * Creation d'un troisième monde
+     *
      * @return Le Monde monde3
      */
-    private static Monde creerMonde3(){
+    private static Monde creerMonde3() {
         Monde monde3 = new Monde();
 
-        Etape e1 = new Activite("Toboggan",3,1);
-        Etape e2 = new Activite("BacASable",5,1);
-        Etape e3 = new Activite("piscine",4,2);
+        Etape e1 = new Activite("Toboggan", 3, 1);
+        Etape e2 = new Activite("BacASable", 5, 1);
+        Etape e3 = new Activite("piscine", 4, 2);
 
         e1.ajouterSuccesseur(e2);
         e2.ajouterSuccesseur(e3);
 
         monde3.aCommeEntree(e1);
         monde3.aCommeSortie(e3);
-        monde3.ajouter(e1,e2,e3);
+        monde3.ajouter(e1, e2, e3);
         return monde3;
     }
 
     /**
      * Création d'un quatrième monde
+     *
      * @return le Monde monde4
      */
-    private static Monde creerMonde4(){
+    private static Monde creerMonde4() {
         Monde monde = new Monde();
 
         Etape e1 = new Guichet("Guichet1", 2);
         Etape e2 = new ActiviteRestreinte("Piscine", 3, 2);
         Etape e3 = new Activite("BaladeAuZoo", 4, 1);
         Etape e4 = new Guichet("Guichet2", 4);
-        Etape e5 = new ActiviteRestreinte("Toboggan", 3,1);
+        Etape e5 = new ActiviteRestreinte("Toboggan", 3, 1);
 
         e1.ajouterSuccesseur(e2);
         e2.ajouterSuccesseur(e3);
@@ -145,12 +147,12 @@ public class ClientTwisk {
 
         monde.aCommeEntree(e1);
         monde.aCommeSortie(e5);
-        monde.ajouter(e1,e2,e3,e4,e5);
+        monde.ajouter(e1, e2, e3, e4, e5);
 
         return monde;
     }
 
-    private static Monde creerMonde5(){
+    private static Monde creerMonde5() {
         Monde monde = new Monde();
 
         Activite zoo = new Activite("balade_au_zoo", 3, 1);
@@ -167,17 +169,17 @@ public class ClientTwisk {
         return monde;
     }
 
-    private static Monde creerMonde6(){
+    private static Monde creerMonde6() {
         Monde monde = new Monde();
 
-        Etape entree1 = new Activite("entree1", 5,2);
-        Etape entree2 = new Activite("entree2", 5,2);
-        Etape entree3 = new Activite("entree3", 5,2);
+        Etape entree1 = new Activite("entree1", 5, 2);
+        Etape entree2 = new Activite("entree2", 5, 2);
+        Etape entree3 = new Activite("entree3", 5, 2);
 
         Etape guichet1 = new Guichet("Guichet1", 5);
         Etape guichet2 = new Guichet("Guichet2", 5);
 
-        Etape activite1 = new ActiviteRestreinte("Tobogan", 5,2);
+        Etape activite1 = new ActiviteRestreinte("Tobogan", 5, 2);
         Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);
 
         Etape sortie = new ActiviteRestreinte("Fin", 5, 2);

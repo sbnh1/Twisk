@@ -1,7 +1,7 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
-import main.java.twisk.mondeIG.EtapeIG;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.mondeIG.EtapeIG;
+import twisk.mondeIG.MondeIG;
 
 public class VueGuichetIG extends VueEtapeIG {
 

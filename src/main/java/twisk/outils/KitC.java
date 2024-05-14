@@ -1,4 +1,4 @@
-package main.java.twisk.outils;
+package twisk.outils;
 
 import java.io.FileWriter;
 import java.io.IOException;

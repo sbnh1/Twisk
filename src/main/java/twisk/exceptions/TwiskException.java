@@ -1,4 +1,4 @@
-package main.java.twisk.exceptions;
+package twisk.exceptions;
 
 public class TwiskException extends Exception {
 

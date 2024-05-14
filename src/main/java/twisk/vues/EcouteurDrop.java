@@ -1,9 +1,9 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.mondeIG.MondeIG;
 
 public class EcouteurDrop implements EventHandler<DragEvent>{
 

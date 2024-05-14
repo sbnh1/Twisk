@@ -1,6 +1,6 @@
-package main.java.twisk.simulation;
+package twisk.simulation;
 
-import main.java.twisk.monde.Etape;
+import twisk.monde.Etape;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ public class GestionnaireClients implements Iterable<Client> {
      * @param etape l'étape de destination
      * @param rang le rang qu'occupera le client dans la file d'attente
      */
-    void allerA(int numeroClient, Etape etape, int rang){
+    public void allerA(int numeroClient, Etape etape, int rang){
         this.listClient.get(numeroClient).allerA(etape, rang);
     }
 

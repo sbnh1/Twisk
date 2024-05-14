@@ -1,9 +1,10 @@
-package main.java.twisk.simulation;
+package twisk.simulation;
 
-import main.java.twisk.monde.Guichet;
-import main.java.twisk.monde.Monde;
-import main.java.twisk.outils.FabriqueNumero;
-import main.java.twisk.outils.KitC;
+import twisk.monde.Guichet;
+import twisk.monde.Monde;
+import twisk.outils.KitC;
+
+import java.util.Arrays;
 
 public class Simulation {
     private KitC kitC;
@@ -47,7 +48,7 @@ public class Simulation {
         this.nbClient = nbClients;
     }
 
-    public void representation(Monde monde){
+    public void afficherMonde(Monde monde){
         for(int i = 0; i < monde.nbEtapes(); i++){
             System.out.println(monde.getEtape(i).toString());
         }
@@ -59,7 +60,7 @@ public class Simulation {
      * @param monde le monde a simuler
      */
     public void simuler(Monde monde){
-        representation(monde);
+        afficherMonde(monde);
         this.kitC = new KitC();
         this.kitC.creerEnvironnement();
         this.kitC.creerFichier(monde.toC());
@@ -68,7 +69,7 @@ public class Simulation {
         System.load("/tmp/twisk/libTwisk.so");
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()];
-        //initialisation du nombre de client dans ClientTwisk par la commande : simulation.setNbClient(20);
+        //initialisation du nombre de clients dans ClientTwisk par la commande : simulation.setNbClient(20);
         int nbClient = this.nbClient;
         for(int i = 0; i < monde.nbEtapes(); i++){
             if(monde.getEtape(i).estUnGuichet()){
@@ -79,9 +80,9 @@ public class Simulation {
 
         int[] pids = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
 
+
         this.gestionnaireClients = new GestionnaireClients();
         this.gestionnaireClients.setClients(pids);
-
         System.out.println("ids clients : ");
         for(int i = 0; i < nbClient; i++){
             System.out.print(pids[i] + " ");
@@ -95,10 +96,11 @@ public class Simulation {
 
         while(fin == false){
             posClients = ou_sont_les_clients(monde.nbEtapes(), nbClient);
+            System.out.println(Arrays.toString(posClients));
             for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
                 System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
                 for(int j = i+1; j < (i + posClients[i] + 1); j++){
-                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i), nbClient%j);
+                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i), nbClient % j);
                     System.out.print(posClients[j] + " ");
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()- monde.nbEtapes() + 1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){

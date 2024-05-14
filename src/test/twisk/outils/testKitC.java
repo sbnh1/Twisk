@@ -1,6 +1,6 @@
-package test.java.twisk.outils;
+package test.twisk.outils;
 
-import main.java.twisk.outils.KitC;
+import twisk.outils.KitC;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

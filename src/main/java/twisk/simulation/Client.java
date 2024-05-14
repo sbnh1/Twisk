@@ -1,6 +1,6 @@
-package main.java.twisk.simulation;
+package twisk.simulation;
 
-import main.java.twisk.monde.Etape;
+import twisk.monde.Etape;
 
 public class Client {
     private int numeroClient;
@@ -15,7 +15,7 @@ public class Client {
         this.numeroClient = numero;
     }
     /**
-     * Méthode qui déplace un client vers l'étape donné et le rang donné
+     * Méthode qui déplace un client vers l'étape donnée et le rang donné
      * @param etape l'étape de destination
      * @param rang le rang qu'occupera le client dans la file d'attente
      */

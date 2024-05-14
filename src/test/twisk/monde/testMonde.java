@@ -1,6 +1,6 @@
-package test.java.twisk.monde;
+package test.twisk.monde;
 
-import main.java.twisk.monde.*;
+import twisk.monde.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

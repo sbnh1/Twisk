@@ -1,10 +1,10 @@
-package main.java.twisk.mondeIG;
+package twisk.mondeIG;
 
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
-import main.java.twisk.exceptions.PointDeControleException;
-import main.java.twisk.monde.Guichet;
+import twisk.exceptions.PointDeControleException;
+import twisk.monde.Guichet;
 import twisk.outils.TailleComposants;
 
 import java.util.*;

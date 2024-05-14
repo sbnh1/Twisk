@@ -1,8 +1,8 @@
-package test.java.twisk.simulation;
+package test.twisk.simulation;
 
-import main.java.twisk.monde.Activite;
-import main.java.twisk.monde.Etape;
-import main.java.twisk.simulation.Client;
+import twisk.monde.Activite;
+import twisk.monde.Etape;
+import twisk.simulation.Client;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

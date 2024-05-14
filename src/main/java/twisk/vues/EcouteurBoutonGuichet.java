@@ -1,9 +1,9 @@
-package main.java.twisk.vues;
+package twisk.vues;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import main.java.twisk.monde.Monde;
-import main.java.twisk.mondeIG.MondeIG;
+import twisk.monde.Monde;
+import twisk.mondeIG.MondeIG;
 
 public class EcouteurBoutonGuichet implements EventHandler<ActionEvent> {
     private MondeIG monde;

@@ -1,9 +1,9 @@
-#include "main_java_twisk_simulation_Simulation.h"
+#include "twisk_simulation_Simulation.h"
 #include "def.h"
 
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 /* Export de la fonction start_simulation de C en java */
-JNIEXPORT jintArray JNICALL Java_main_java_twisk_simulation_Simulation_start_1simulation (JNIEnv *env, jobject obj, jint nbEtapes, jint nbGuichets, jint nbClients, jintArray tabJetonsGuichet)
+JNIEXPORT jintArray JNICALL Java_twisk_simulation_Simulation_start_1simulation (JNIEnv *env, jobject obj, jint nbEtapes, jint nbGuichets, jint nbClients, jintArray tabJetonsGuichet)
 {
   /* récupération du tableau d'entiers passé en argument de la fonction */
   jint *tab = (*env)->GetIntArrayElements(env, tabJetonsGuichet, 0);
@@ -19,7 +19,7 @@ JNIEXPORT jintArray JNICALL Java_main_java_twisk_simulation_Simulation_start_1si
 
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 /* Export de la fonction ou_sont_les_clients de C en java */
-JNIEXPORT jintArray JNICALL Java_main_java_twisk_simulation_Simulation_ou_1sont_1les_1clients (JNIEnv *env, jobject obj, jint nbEtapes, jint nbClients)
+JNIEXPORT jintArray JNICALL Java_twisk_simulation_Simulation_ou_1sont_1les_1clients (JNIEnv *env, jobject obj, jint nbEtapes, jint nbClients)
 {
     int* tableau = ou_sont_les_clients(nbEtapes, nbClients) ;
 
@@ -32,7 +32,7 @@ JNIEXPORT jintArray JNICALL Java_main_java_twisk_simulation_Simulation_ou_1sont_
 
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 /* Export de la fonction nettoyage de C en java */
-JNIEXPORT void JNICALL Java_main_java_twisk_simulation_Simulation_nettoyage (JNIEnv *env, jobject obj)
+JNIEXPORT void JNICALL Java_twisk_simulation_Simulation_nettoyage (JNIEnv *env, jobject obj)
 {
   nettoyage() ;
   return ;
