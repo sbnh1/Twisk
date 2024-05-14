@@ -45,7 +45,15 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonGuichet.setPrefSize(90,30);
         boutonGuichet.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #367FFF;");
 
-        this.getItems().addAll(espaceGauche ,boutonActivite, boutonGuichet, espaceDroite);
+        Button boutonSimulation = new Button("SIMULATION");
+        Tooltip tooltipSimulation = new Tooltip("Lance la simulation du monde");
+        Tooltip.install(boutonSimulation, tooltipSimulation);
+        boutonSimulation.setOnAction(new EcouteurBoutonSimulation(monde));
+        boutonSimulation.setPrefSize(110,30);
+        boutonSimulation.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #00FF00;");
+        ;
+
+        this.getItems().addAll(espaceGauche ,boutonActivite, boutonGuichet, boutonSimulation, espaceDroite);
         this.monde.ajouterObservateur(this);
     }
 

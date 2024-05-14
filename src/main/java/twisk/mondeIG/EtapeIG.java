@@ -23,6 +23,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     private int ecartTemps;
     private int nbJetons;
     private boolean estUneActivite;
+    private boolean estUnGuichet;
 
     private List<PointDeControleIG> pointDeControleIGList;
 
@@ -32,11 +33,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * @param larg largeur de l'étapeIG
      * @param haut hauteur de l'étapeIG
      */
-    public EtapeIG(String nom, int larg, int haut, boolean estUneActivite){
+    public EtapeIG(String nom, int larg, int haut, boolean estUneActivite, boolean estUnGuichet){
         this.nom = nom;
         this.largeur = larg;
         this.hauteur = haut;
-        this.estUneActivite = estUneActivite;
+        this.estUneActivite = false;
+        this.estUnGuichet = false;
 
         this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         this.estUneEntree = false;
@@ -236,6 +238,9 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      */
     public boolean estUneActivite(){
         return this.estUneActivite;
+    }
+    public boolean estUnGuichet(){
+        return this.estUnGuichet;
     }
 
     /**

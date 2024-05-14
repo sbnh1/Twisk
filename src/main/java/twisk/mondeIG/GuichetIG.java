@@ -8,7 +8,7 @@ public class GuichetIG extends EtapeIG{
      * @param haut hauteur de l'activité
      */
     public GuichetIG(String nom, int larg, int haut){
-        super(nom, larg, haut, false);
+        super(nom, larg, haut, false, true);
         this.posX = super.getPosX();
         this.posY = super.getPosY();
     }

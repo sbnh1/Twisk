@@ -8,7 +8,7 @@ public class ActiviteIG extends EtapeIG {
      * @param haut hauteur de l'activité
      */
     public ActiviteIG(String nom, int larg, int haut) {
-        super(nom, larg, haut, true);
+        super(nom, larg, haut, true, false);
         this.posX = super.getPosX();
         this.posY = super.getPosY();
     }
