@@ -1,12 +1,16 @@
 package twisk.simulation;
 
-import twisk.monde.Monde;
+import twisk.monde.*;
 import twisk.mondeIG.*;
 import twisk.exceptions.*;
+import twisk.outils.CorrespondanceEtapes;
+
+import java.util.Iterator;
 
 public class SimulationIG {
 
     private MondeIG monde;
+    private CorrespondanceEtapes correspondanceEtapes;
 
     /**
      * Constructeur de SimulationIG
@@ -17,14 +21,14 @@ public class SimulationIG {
     }
 
     /**
-     * simulation du monde
+     * Simulation du monde
      */
     public void simuler(){
 
     }
 
     /**
-     * verification de la validité du monde
+     * Verification de la validité du monde
      */
     private void verifierMonderIG()throws MondeInvalideException{
         if(!this.monde.aEntree()){
@@ -46,8 +50,50 @@ public class SimulationIG {
         }
     }
 
-    private Monde creerMonde(){
+    public void ajouterEtapes(Monde monde){
+
+        for(EtapeIG etape : this.monde){
+            if(etape.estUnGuichet()){
+                Etape guichet = new Guichet(etape.getNom(), etape.getNbJetons());
+                this.correspondanceEtapes.ajouter(etape, guichet);
+                monde.ajouter(guichet);
+            } else if (etape.estUneActivite()){
+                if(((ActiviteIG)etape).estRestreinte()){
+                    Etape activiteRestreinte = new ActiviteRestreinte(etape.getNom(),etape.getDelai(),etape.getEcartTemps());
+                    this.correspondanceEtapes.ajouter(etape, activiteRestreinte);
+                    monde.ajouter(activiteRestreinte);
+                } else { // n'est pas une activité restreinte
+                    Etape activite = new Activite(etape.getNom(), etape.getDelai(), etape.getEcartTemps());
+                    this.correspondanceEtapes.ajouter(etape, activite);
+                    monde.ajouter(activite);
+                }
+            }
+        }
+
+    }
+
+    public Monde creerMonde(){
         Monde monde = new Monde();
+        this.correspondanceEtapes = new CorrespondanceEtapes();
+        ajouterEtapes(monde);
+
+        for(EtapeIG etapeIG: this.monde){
+            Iterator<EtapeIG> iterator = etapeIG.iteratorEtape();
+            Etape etape = this.correspondanceEtapes.get(etapeIG);
+            while(iterator.hasNext()){
+                Etape successeur = this.correspondanceEtapes.get(iterator.next());
+                etape.ajouterSuccesseur(successeur);
+            }
+
+
+            if(etapeIG.estUneEntree()){
+                monde.aCommeEntree(this.correspondanceEtapes.get(etapeIG));
+            }
+            if(etapeIG.estUneSortie()){
+                monde.aCommeSortie(this.correspondanceEtapes.get(etapeIG));
+            }
+        }
+
         return monde;
     }
 

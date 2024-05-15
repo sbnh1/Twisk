@@ -7,8 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import twisk.mondeIG.MondeIG;
 import javafx.scene.image.Image;
+import twisk.simulation.SimulationIG;
 
 
 public class VueOutils extends ToolBar implements Observateur{
@@ -36,22 +38,23 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonActivite.setOnAction(new EcouteurBouton(monde));
         boutonActivite.setPrefSize(90, 30);
         //boutonActivite.setText("AJOUTER");
-        boutonActivite.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #367FFF;");
+        boutonActivite.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #1e847f;");
 
         Button boutonGuichet = new Button("GUICHET");
         Tooltip tooltipGuichet = new Tooltip("Ajouter un guichet");
         Tooltip.install(boutonGuichet, tooltipGuichet);
         boutonGuichet.setOnAction(new EcouteurBoutonGuichet(monde));
         boutonGuichet.setPrefSize(90,30);
-        boutonGuichet.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #367FFF;");
+        boutonGuichet.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #1e847f;");
 
         Button boutonSimulation = new Button("SIMULATION");
         Tooltip tooltipSimulation = new Tooltip("Lance la simulation du monde");
         Tooltip.install(boutonSimulation, tooltipSimulation);
         boutonSimulation.setOnAction(new EcouteurBoutonSimulation(monde));
         boutonSimulation.setPrefSize(110,30);
-        boutonSimulation.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #00FF00;");
-        ;
+        boutonSimulation.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #c66b3d;");
+
+        this.setStyle("-fx-background-color: #e5e5dc;");
 
         this.getItems().addAll(espaceGauche ,boutonActivite, boutonGuichet, boutonSimulation, espaceDroite);
         this.monde.ajouterObservateur(this);

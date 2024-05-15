@@ -25,6 +25,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     private boolean estUneActivite;
     private boolean estUnGuichet;
 
+
     private List<PointDeControleIG> pointDeControleIGList;
 
     private List<EtapeIG> successeur;
@@ -269,5 +270,13 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
             this.nbJetons = nbJetons;
 
         }
+    }
+
+    /**
+     * Methode qui rend la classe iterable sur les EtapesIG
+     * @return L'iterator de la classe
+     */
+    public Iterator<EtapeIG> iteratorEtape(){
+        return this.successeur.iterator();
     }
 }

@@ -3,11 +3,13 @@ package twisk.vues;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import twisk.mondeIG.MondeIG;
+import twisk.simulation.SimulationIG;
 
 public class EcouteurBoutonSimulation implements EventHandler<ActionEvent> {
     private MondeIG mondeIG;
     public EcouteurBoutonSimulation(MondeIG monde) {
         this.mondeIG = monde;
+
     }
 
     @Override
