@@ -20,14 +20,6 @@ public class ClientTwisk {
     }
 
     public void lancerSimulation(Monde monde, int nb) {
-        /*ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
-        Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");
-        Constructor<?> constructor = classPerso.getConstructor();
-        Object instanceClassperso = constructor.newInstance();
-        Method setNBClient_ = classPerso.getMethod("setNbClients", int.class);
-        Method simuler_ = classPerso.getMethod("simuler", Monde.class);
-        setNBClient_.invoke(instanceClassperso, nb);
-        simuler_.invoke(instanceClassperso, monde);*/
         try {
             ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
             Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");

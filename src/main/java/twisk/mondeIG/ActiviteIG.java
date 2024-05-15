@@ -1,6 +1,7 @@
 package twisk.mondeIG;
 
 public class ActiviteIG extends EtapeIG {
+    private boolean estRestreinte;
     /**
      * Constructeur de la classe ActiviteIG
      * @param nom nom de l'activité
@@ -13,4 +14,18 @@ public class ActiviteIG extends EtapeIG {
         this.posY = super.getPosY();
     }
 
+    /**
+     *  renvoie vrai si c'est une activite restreinte
+     */
+    public boolean estRestreinte(){
+        return this.estRestreinte;
+    }
+
+    /**
+     * Constructeur de la classe ActiviteIG
+     * @param val valeur a definir
+     */
+    public void setEstRestreinte(boolean val){
+        this.estRestreinte = val;
+    }
 }

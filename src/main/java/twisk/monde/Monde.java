@@ -1,7 +1,6 @@
 package twisk.monde;
 
 import twisk.outils.FabriqueNumero;
-
 import java.util.Iterator;
 
 public class Monde implements Iterable<Etape>{

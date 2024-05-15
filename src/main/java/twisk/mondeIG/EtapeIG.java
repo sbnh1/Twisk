@@ -27,6 +27,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     private List<PointDeControleIG> pointDeControleIGList;
 
+    private List<EtapeIG> successeur;
     /**
      * Constructeur de la classe abstraite EtapeIG
      * @param nom nom de l'étapeIG
@@ -60,6 +61,14 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         pointDeControleIGList.add(new PointDeControleIG(this.posX + largeur, milieuY, "PCDroit", this)); // Côté droit
         pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY, "PCHaut", this)); // Haut
         pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY + hauteur, "PCBas", this)); // Bas
+
+        this.successeur = new ArrayList<>();
+    }
+
+    public void ajouter(EtapeIG... etapes){
+        for(EtapeIG etape : etapes){
+            this.successeur.add(etape);
+        }
     }
 
     /**
@@ -74,7 +83,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * Change le nom de l'étapeIG
      * @param newNom le nouveau nom de l'étapeIG
      */
-    public void setNom(String newNom){this.nom = newNom;}
+    public void setNom(String nom){this.nom = nom;}
 
     /**
      * Récupère l'identifiant de l'étapeIG

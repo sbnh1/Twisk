@@ -44,6 +44,30 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     }
 
     /**
+     * renvoie vrai si le monde a bien des une ou plusieurs entrees
+     */
+    public boolean aEntree(){
+        for(EtapeIG etape : this){
+            if(etape.estUneEntree()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * renvoie vrai si le monde a bien des une ou plusieurs sorties
+     */
+    public boolean aSortie(){
+        for(EtapeIG etape: this){
+            if(etape.estUneSortie()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Récupère le nombre d'étape dans le MondeIG
      * @return le nombre d'étape dans le MondeIG
      */
@@ -81,6 +105,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
      * @throws PointDeControleException si les deux points ne respecte pas une des contraintes imposé par le MondeIG
      */
     public void ajouter(PointDeControleIG pt1, PointDeControleIG pt2) throws PointDeControleException {
+        EtapeIG etape1 = pt1.getEtapeIG();
+        EtapeIG etape2 = pt2.getEtapeIG();
+
         try {
             if (pt1.equals(pt2)) {
                 throw new PointDeControleException("Erreur : Les points de contrôle doivent être différents.");
@@ -96,6 +123,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
             ArcIG arcIG = new ArcIG(pt1, pt2);
             this.arcs.add(arcIG);
+            etape1.ajouter(etape2);
         } catch (PointDeControleException e) {
             afficherAlerte(e.getMessage());
         }
