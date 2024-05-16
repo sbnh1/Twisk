@@ -93,7 +93,6 @@ public class SimulationIG {
                 etape.ajouterSuccesseur(successeur);
             }
 
-
             if(etapeIG.estUneEntree()){
                 monde.aCommeEntree(this.correspondanceEtapes.get(etapeIG));
             }

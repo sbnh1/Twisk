@@ -34,9 +34,7 @@ public class Monde implements Iterable<Etape>{
      * @param etapes Les étapes de sortie du monde
      */
     public void aCommeSortie(Etape... etapes){
-        for (Etape etape : etapes){
-            etape.ajouterSuccesseur(this.sortie);
-        }
+       this.sortie.ajouterSuccesseur(etapes);
     }
 
     /**
