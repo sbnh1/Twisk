@@ -15,15 +15,13 @@ public class SimulationIG {
 
     private MondeIG monde;
     private CorrespondanceEtapes correspondanceEtapes;
-    private Simulation simulation;
 
     /**
      * Constructeur de SimulationIG
      * @param monde monde que l'on va verifier et simuler
      */
-    public SimulationIG(MondeIG monde, Simulation simulation){
+    public SimulationIG(MondeIG monde){
         this.monde = monde;
-        this.simulation = simulation;
     }
 
     /**
@@ -84,7 +82,8 @@ public class SimulationIG {
         Monde monde = new Monde();
         this.correspondanceEtapes = new CorrespondanceEtapes();
         ajouterEtapes(monde);
-        simulation.simuler(monde);
+
+        this.ajouterSuccesseursEtapeIG();
 
         for(EtapeIG etapeIG: this.monde){
             Iterator<EtapeIG> iterator = etapeIG.iteratorEtape();
@@ -123,6 +122,89 @@ public class SimulationIG {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Methode qui regarde si un ArcIG fait deja le chemin demande
+     * @param pt1 Le premier PointDeControleIG
+     * @param pt2 Le deuxieme PointDeControleIG
+     * @return true si le chemin existe deja, false sinon
+     */
+    public boolean existChemin(PointDeControleIG pt1, PointDeControleIG pt2){
+
+        boolean exist = false;
+        EtapeIG e1 = pt1.getEtapeIG();
+        EtapeIG e2 = pt2.getEtapeIG();
+        for(PointDeControleIG p1 : e1){
+
+            for(PointDeControleIG p2 : e2){
+
+                if(this.exist(new ArcIG(p1, p2))){
+
+                    exist = true;
+                }
+            }
+        }
+
+        return exist;
+    }
+
+    /**
+     * Methode qui verifie si un ArcIG existe deja
+     * @param arcIG L'ArcIG a verifier
+     * @return True si il existe deja, faux sinon
+     */
+    public boolean exist(ArcIG arcIG){
+
+        boolean exist = false;
+        for(ArcIG a : this.monde.getArcs()){
+
+            if(a.equals(arcIG)){
+
+                exist = true;
+            }
+        }
+        return exist;
+    }
+
+
+    /**
+     * Methode qui verifie si deux EtapeIG sont reliees
+     * @param e1 La premiere EtapeIG
+     * @param e2 La deuxieme EtapeIG
+     * @return True si elles sont reliees, false sinon
+     */
+    private boolean sontReliees(EtapeIG e1, EtapeIG e2){
+
+        boolean reliees = false;
+        for(PointDeControleIG p1 : e1){
+
+            for(PointDeControleIG p2 : e2){
+
+                if(existChemin(p1, p2)){
+
+                    reliees = true;
+                }
+            }
+        }
+        return reliees;
+    }
+
+    /**
+     * Methode qui ajoute les successeurs pour chaque EtapeIG du MondeIG
+     */
+    private void ajouterSuccesseursEtapeIG(){
+
+        for(EtapeIG etape1 : this.monde){
+
+            for(EtapeIG etape2 : this.monde){
+
+                if(sontReliees(etape1, etape2)){
+
+                    etape1.ajouter(etape2);
+                }
+            }
         }
     }
 }

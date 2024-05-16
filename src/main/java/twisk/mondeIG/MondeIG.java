@@ -357,4 +357,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         pause.play();
     }
 
+    private void clearSuccesseurs(){
+        for(EtapeIG etape : this){
+            etape.clearSuccesseurs();
+        }
+    }
+
 }

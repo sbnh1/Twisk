@@ -1,9 +1,7 @@
 package twisk.mondeIG;
 
 import twisk.exceptions.DelaiEcartException;
-import twisk.exceptions.TwiskException;
 import twisk.outils.FabriqueIdentifiant;
-import twisk.vues.EcouteurBouton;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +26,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     private List<PointDeControleIG> pointDeControleIGList;
 
-    private List<EtapeIG> successeur;
+    private List<EtapeIG> successeurs;
     /**
      * Constructeur de la classe abstraite EtapeIG
      * @param nom nom de l'étapeIG
@@ -63,12 +61,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY, "PCHaut", this)); // Haut
         pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY + hauteur, "PCBas", this)); // Bas
 
-        this.successeur = new ArrayList<>();
+        this.successeurs = new ArrayList<>();
     }
 
     public void ajouter(EtapeIG... etapes){
         for(EtapeIG etape : etapes){
-            this.successeur.add(etape);
+            this.successeurs.add(etape);
         }
     }
 
@@ -277,6 +275,13 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
      * @return L'iterator de la classe
      */
     public Iterator<EtapeIG> iteratorEtape(){
-        return this.successeur.iterator();
+        return this.successeurs.iterator();
+    }
+
+    /**
+     * Methode qui vide la liste des successeurs de l'EtapeIG
+     */
+    public void clearSuccesseurs(){
+        this.successeurs.clear();
     }
 }

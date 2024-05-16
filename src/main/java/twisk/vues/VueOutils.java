@@ -26,7 +26,7 @@ public class VueOutils extends ToolBar implements Observateur{
         super();
         this.monde = monde;
 
-        this.simulation = new SimulationIG(monde, new Simulation());
+        this.simulation = new SimulationIG(monde);
 
         Region espaceGauche = new Region();
         HBox.setHgrow(espaceGauche, Priority.ALWAYS);
