@@ -3,8 +3,12 @@ package twisk.simulation;
 import twisk.monde.*;
 import twisk.mondeIG.*;
 import twisk.exceptions.*;
+import twisk.outils.ClassLoaderPerso;
 import twisk.outils.CorrespondanceEtapes;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 
 public class SimulationIG {
@@ -23,8 +27,11 @@ public class SimulationIG {
     /**
      * Simulation du monde
      */
-    public void simuler(){
+    public void simuler() throws MondeInvalideException{
 
+        this.verifierMonderIG();
+        Monde monde = this.creerMonde();
+        this.lancerSimulation(monde, 5);
     }
 
     /**
@@ -34,20 +41,21 @@ public class SimulationIG {
         if(!this.monde.aEntree()){
             throw new MondeInvalideException("Erreur: il n'y a pas d'entree");
         }
+
         if(!this.monde.aSortie()){
             throw new MondeInvalideException("Erreur: il n'y a pas de sortie");
         }
-        while(this.monde.arcIterator().hasNext()){
-            ArcIG arcIG = this.monde.arcIterator().next();
+
+        Iterator<ArcIG> arcIterator = this.monde.arcIterator();
+        while(arcIterator.hasNext()){
+            ArcIG arcIG = arcIterator.next();
             EtapeIG etapeDepart = arcIG.getPointDeControleDepart().getEtapeIG();
             EtapeIG etapeArrivee = arcIG.getPointDeControleArrivee().getEtapeIG();
             if(etapeDepart.estUnGuichet() && etapeArrivee.estUneActivite()){
-                ActiviteIG activite = (ActiviteIG)etapeArrivee;
-                if(!activite.estRestreinte()){
-                    throw new MondeInvalideException("Erreur: Certains guichets ne sont pas suivis d'une activité restreinte");
-                }
+                ((ActiviteIG) etapeArrivee).setEstRestreinte(true);
             }
         }
+
     }
 
     public void ajouterEtapes(Monde monde){
@@ -69,7 +77,6 @@ public class SimulationIG {
                 }
             }
         }
-
     }
 
     public Monde creerMonde(){
@@ -79,8 +86,9 @@ public class SimulationIG {
 
         for(EtapeIG etapeIG: this.monde){
             Iterator<EtapeIG> iterator = etapeIG.iteratorEtape();
-            Etape etape = this.correspondanceEtapes.get(etapeIG);
+            //Etape etape = this.correspondanceEtapes.get(etapeIG);
             while(iterator.hasNext()){
+                Etape etape = this.correspondanceEtapes.get(etapeIG);
                 Etape successeur = this.correspondanceEtapes.get(iterator.next());
                 etape.ajouterSuccesseur(successeur);
             }
@@ -97,4 +105,24 @@ public class SimulationIG {
         return monde;
     }
 
+    public void lancerSimulation(Monde monde, int nb) {
+        try {
+            ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
+            Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");
+            Constructor<?> constructor = classPerso.getConstructor();
+            Object instanceClassperso = constructor.newInstance();
+            Method setNBClient_ = classPerso.getMethod("setNbClients", int.class);
+            Method simuler_ = classPerso.getMethod("simuler", Monde.class);
+            setNBClient_.invoke(instanceClassperso, nb);
+            simuler_.invoke(instanceClassperso, monde);
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            System.out.println(e.getMessage());
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

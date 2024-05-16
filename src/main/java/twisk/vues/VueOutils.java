@@ -16,7 +16,7 @@ import twisk.simulation.SimulationIG;
 public class VueOutils extends ToolBar implements Observateur{
     private MondeIG monde;
     private Tooltip tooltip;
-
+    private SimulationIG simulation;
     /**
      * Constructeur de la classe VueOutils
      * @param monde le MondeIG
@@ -24,6 +24,8 @@ public class VueOutils extends ToolBar implements Observateur{
     public VueOutils(MondeIG monde){
         super();
         this.monde = monde;
+
+        this.simulation = new SimulationIG(monde);
 
         Region espaceGauche = new Region();
         HBox.setHgrow(espaceGauche, Priority.ALWAYS);
@@ -50,7 +52,7 @@ public class VueOutils extends ToolBar implements Observateur{
         Button boutonSimulation = new Button("SIMULATION");
         Tooltip tooltipSimulation = new Tooltip("Lance la simulation du monde");
         Tooltip.install(boutonSimulation, tooltipSimulation);
-        boutonSimulation.setOnAction(new EcouteurBoutonSimulation(monde));
+        boutonSimulation.setOnAction(new EcouteurBoutonSimulation(monde, simulation));
         boutonSimulation.setPrefSize(110,30);
         boutonSimulation.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #c66b3d;");
 

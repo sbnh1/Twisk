@@ -61,10 +61,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
     public boolean aSortie(){
         for(EtapeIG etape: this){
             if(etape.estUneSortie()){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
