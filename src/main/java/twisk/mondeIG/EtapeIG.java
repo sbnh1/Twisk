@@ -43,8 +43,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         this.estUneEntree = false;
         this.estUneSortie = false;
-        this.delai = 0;
-        this.ecartTemps = 0;
+        this.delai = 2;
+        this.ecartTemps = 1;
         this.nbJetons = 0;
 
         Random random = new Random();

@@ -35,6 +35,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         if(type.equals("activite")){
             EtapeIG etapeAjoute = new ActiviteIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
             String id = etapeAjoute.getIdentifiant();
+            etapeAjoute.setNom(id);
             this.etapes.put(id, etapeAjoute);
         } else {
             EtapeIG guichetAjoute = new GuichetIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
