@@ -92,7 +92,7 @@ public abstract class Etape implements Iterable<Etape>{
         res = this.nom + ": " + this.nbSuccesseurs() + ": ";
 
         for(Etape etape : this.successeur){
-            res += etape.nom + " ";
+            res += etape.getNom() + " ";
         }
 
         return res;

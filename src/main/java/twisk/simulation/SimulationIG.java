@@ -15,13 +15,15 @@ public class SimulationIG {
 
     private MondeIG monde;
     private CorrespondanceEtapes correspondanceEtapes;
+    private Simulation simulation;
 
     /**
      * Constructeur de SimulationIG
      * @param monde monde que l'on va verifier et simuler
      */
-    public SimulationIG(MondeIG monde){
+    public SimulationIG(MondeIG monde, Simulation simulation){
         this.monde = monde;
+        this.simulation = simulation;
     }
 
     /**
@@ -59,7 +61,6 @@ public class SimulationIG {
     }
 
     public void ajouterEtapes(Monde monde){
-
         for(EtapeIG etape : this.monde){
             if(etape.estUnGuichet()){
                 Etape guichet = new Guichet(etape.getNom(), etape.getNbJetons());
@@ -83,10 +84,10 @@ public class SimulationIG {
         Monde monde = new Monde();
         this.correspondanceEtapes = new CorrespondanceEtapes();
         ajouterEtapes(monde);
+        simulation.simuler(monde);
 
         for(EtapeIG etapeIG: this.monde){
             Iterator<EtapeIG> iterator = etapeIG.iteratorEtape();
-            //Etape etape = this.correspondanceEtapes.get(etapeIG);
             while(iterator.hasNext()){
                 Etape etape = this.correspondanceEtapes.get(etapeIG);
                 Etape successeur = this.correspondanceEtapes.get(iterator.next());

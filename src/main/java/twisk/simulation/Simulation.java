@@ -60,7 +60,7 @@ public class Simulation {
      * @param monde le monde a simuler
      */
     public void simuler(Monde monde){
-        afficherMonde(monde);
+        //afficherMonde(monde);
         this.kitC = new KitC();
         this.kitC.creerEnvironnement();
         this.kitC.creerFichier(monde.toC());

@@ -39,8 +39,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.nom = nom;
         this.largeur = larg;
         this.hauteur = haut;
-        this.estUneActivite = false;
-        this.estUnGuichet = false;
+        this.estUneActivite = estUneActivite;
+        this.estUnGuichet = estUnGuichet;
 
         this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         this.estUneEntree = false;
@@ -82,7 +82,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     /**
      * Change le nom de l'étapeIG
-     * @param newNom le nouveau nom de l'étapeIG
+     * @param nom le nouveau nom de l'étapeIG
      */
     public void setNom(String nom){this.nom = nom;}
 

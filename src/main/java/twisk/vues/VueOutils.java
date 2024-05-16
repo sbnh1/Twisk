@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import twisk.mondeIG.MondeIG;
 import javafx.scene.image.Image;
+import twisk.simulation.Simulation;
 import twisk.simulation.SimulationIG;
 
 
@@ -25,7 +26,7 @@ public class VueOutils extends ToolBar implements Observateur{
         super();
         this.monde = monde;
 
-        this.simulation = new SimulationIG(monde);
+        this.simulation = new SimulationIG(monde, new Simulation());
 
         Region espaceGauche = new Region();
         HBox.setHgrow(espaceGauche, Priority.ALWAYS);
