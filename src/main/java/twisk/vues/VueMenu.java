@@ -57,6 +57,7 @@ public class VueMenu extends MenuBar implements Observateur {
 
         // Ajout des menus à la barre de menu
         this.getMenus().addAll(menuFichier, menuEdition, menuMonde, manuParametre);
+        this.setStyle("-fx-background-color: #e5e5dc;");
 
         this.monde.ajouterObservateur(this);
     }

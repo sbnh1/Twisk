@@ -2,13 +2,13 @@ package twisk.outils;
 
 public class TailleComposants {
     private static TailleComposants instance = null;
-    public final int activiteLargeur = 160;
+    public final int activiteLargeur = 184;
     public final int activiteHauteur = 70;
-    public final int largeur = 1000;
-    public final int hauteur = 700;
+    public final int largeur = 1300;
+    public final int hauteur = 900;
     public final int rectangleLargeur = 100;
     public final int rectangleHauteur = 30;
-    public final double rayonCercle = 5.;
+    public final double rayonCercle = 6.;
 
     /**
      * Méthode statique permettant d'obtenir l'instance unique de la classe TailleComposants (Singleton).

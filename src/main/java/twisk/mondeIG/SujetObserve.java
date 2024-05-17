@@ -9,7 +9,7 @@ public class SujetObserve {
     private ArrayList<Observateur> obs = new ArrayList<>(20);
 
     /**
-     * Notifie tout les Observateur du mondeIG de tout les changements notifié
+     * Notifie tous les Observateurs du mondeIG de tous les changements notifié
      */
     public void notifierObservateur() {
         for (Observateur o : this.obs) {

@@ -45,7 +45,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.estUneSortie = false;
         this.delai = 2;
         this.ecartTemps = 1;
-        this.nbJetons = 0;
+        this.nbJetons = 3;
 
         Random random = new Random();
         this.posX = 100 + random.nextInt(800);
@@ -58,8 +58,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         //ajout des points de controle
         pointDeControleIGList.add(new PointDeControleIG(this.posX, milieuY, "PCGauche", this)); // Côté gauche
         pointDeControleIGList.add(new PointDeControleIG(this.posX + largeur, milieuY, "PCDroit", this)); // Côté droit
-        pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY, "PCHaut", this)); // Haut
-        pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY + hauteur, "PCBas", this)); // Bas
+        if(this.estUneActivite){
+            pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY, "PCHaut", this)); // Haut
+            pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY + hauteur, "PCBas", this)); // Bas
+        }
 
         this.successeurs = new ArrayList<>();
     }
@@ -215,12 +217,14 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         //droite
         pointDeControleIGList.get(1).setPositionX(this.posX + getLargeur());
         pointDeControleIGList.get(1).setPositionY(milieuY);
-        //haut
-        pointDeControleIGList.get(2).setPositionX(milieuX);
-        pointDeControleIGList.get(2).setPositionY(this.posY);
-        //bas
-        pointDeControleIGList.get(3).setPositionX(milieuX);
-        pointDeControleIGList.get(3).setPositionY(this.posY + getHauteur());
+        if(this.estUneActivite){
+            //haut
+            pointDeControleIGList.get(2).setPositionX(milieuX);
+            pointDeControleIGList.get(2).setPositionY(this.posY);
+            //bas
+            pointDeControleIGList.get(3).setPositionX(milieuX);
+            pointDeControleIGList.get(3).setPositionY(this.posY + getHauteur());
+        }
     }
 
     /**
