@@ -121,16 +121,9 @@ public class Monde implements Iterable<Etape>{
             }
         }
 
-        //jusqu'ici j'ai tout les #include #define
         string.append("\nvoid simulation(int ids){\n");
         string.append(this.etapes.getEtape(0).toC());
-        //for(int i = 0; i < this.nbEtapes(); i++){
-            //string.append(this.etapes.getEtape(i).toC());
-            //pour ne pas faire 2 fois le toC de l'activité restreinte (on le skip donc ici et on l'appelle dans toC() de Guichet)
-            //if(this.etapes.getEtape(i).estUnGuichet()){
-                //i++;
-                //    }
-        //}
+
         string.append("}");
         System.out.println(string.toString());
         return string.toString();

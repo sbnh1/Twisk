@@ -16,20 +16,22 @@
             StringBuilder string = new StringBuilder();
             int nbSuccesseur = this.getSuccesseur().nbEtapes(); //utiliser la fonction nbsuccesseur
             if(nbSuccesseur == 1){
-                string.append("    entrer(" + this.getNom() + ");\n");
-                string.append("    transfert(SasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");\n");
+                string.append("entrer(" + this.getNom() + ");\n");
+                string.append("transfert(SasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");\n");
                 string.append(this.getSuccesseur().getEtape(0).toC());
             }else if(nbSuccesseur > 1){
-                string.append("    int bifurcation_" + this.getNom() + " = (int)((rand() / (float) RAND_MAX ) * " + nbSuccesseur + ");\n");
-                string.append("    entrer(" + this.getNom() + ");\n");
-                string.append("    switch(bifurcation_" + this.getNom() + "){\n");
+                string.append("{\n");
+                string.append("int bifurcation_" + this.getNom() + ";\n");
+                string.append("bifurcation_" + this.getNom() + " = (int)((rand() / (float) RAND_MAX ) * " + nbSuccesseur + ");\n");
+                string.append("entrer(" + this.getNom() + ");\n");
+                string.append("switch(bifurcation_" + this.getNom() + "){\n");
                 for(int i = 0; i < nbSuccesseur; i++){
-                    string.append("        case " + i + ":\n");
-                    string.append("        transfert(SasEntree, " + this.getSuccesseur().getEtape(i).getNom() +");\n");
+                    string.append("case " + i + ":\n");
+                    string.append("transfert(SasEntree, " + this.getSuccesseur().getEtape(i).getNom() +");\n");
                     string.append(this.getSuccesseur().getEtape(i).toC());
-                    string.append("        break;\n");
+                    string.append("break;\n");
                 }
-                string.append("    }\n");
+                string.append("}\n}\n");
             }
             return string.toString();
         }

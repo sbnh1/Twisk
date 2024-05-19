@@ -76,19 +76,22 @@ public class Activite extends Etape {
         StringBuilder string = new StringBuilder();
         int nbSuccesseur = this.nbSuccesseurs();
         if(nbSuccesseur == 1){
-            string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
-            string.append("    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
+            string.append("delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
+            string.append("transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() +");\n");
             string.append(this.getSuccesseur().getEtape(0).toC());
         } else if (nbSuccesseur > 1){
-            string.append("    int bifurcation_" + this.getNom() + " = (int)((rand() / (float) RAND_MAX ) * " + nbSuccesseur + ");\n");
-            string.append("    switch(bifurcation_" + this.getNom() + "){\n");
+            string.append("{\n");
+            string.append("int bifurcation_" + this.getNom() + ";\n");
+            string.append("bifurcation_" + this.getNom() + " = (int)((rand() / (float) RAND_MAX ) * " + nbSuccesseur + ");\n");
+            string.append("switch(bifurcation_" + this.getNom() + "){\n");
             for(int i = 0; i < nbSuccesseur; i++) {
-                string.append("        case " + i + ":\n");
-                string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
-                string.append("    transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() + ");\n");
+                string.append("case " + i + ":\n");
+                string.append("delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
+                string.append("transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() + ");\n");
                 string.append(this.getSuccesseur().getEtape(0).toC());
-                string.append("        break;\n");
+                string.append("break;\n");
             }
+            string.append("}\n}\n");
         }
         return string.toString();
     }

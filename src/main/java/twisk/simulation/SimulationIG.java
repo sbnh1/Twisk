@@ -1,10 +1,12 @@
 package twisk.simulation;
 
+import javafx.concurrent.Task;
 import twisk.monde.*;
 import twisk.mondeIG.*;
 import twisk.exceptions.*;
 import twisk.outils.ClassLoaderPerso;
 import twisk.outils.CorrespondanceEtapes;
+import twisk.outils.ThreadsManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -27,11 +29,17 @@ public class SimulationIG {
     /**
      * Simulation du monde
      */
-    public void simuler() throws MondeInvalideException{
-
+    public void simuler() throws MondeInvalideException {
         this.verifierMonderIG();
         Monde monde = this.creerMonde();
-        this.lancerSimulation(monde, 5);
+        Task<Void> simulation = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                lancerSimulation(monde, 5);
+                return null;
+            }
+        };
+        ThreadsManager.getInstance().startThread(simulation);
     }
 
     /**
