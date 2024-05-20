@@ -9,6 +9,7 @@ public class TailleComposants {
     public final int rectangleLargeur = 100;
     public final int rectangleHauteur = 30;
     public final double rayonCercle = 6.;
+    public final int rayonCercleClient = 5;
 
     /**
      * Méthode statique permettant d'obtenir l'instance unique de la classe TailleComposants (Singleton).

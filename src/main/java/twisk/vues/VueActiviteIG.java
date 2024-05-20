@@ -17,7 +17,7 @@ public class VueActiviteIG extends VueEtapeIG {
         super(monde, etape);
         HBox hbox = new HBox();
         hbox.setPrefSize(etape.getLargeur(), etape.getHauteur());
-        hbox.setStyle("-fx-background-color: grey;-fx-background-radius: 15.0;-fx-border-color: black;");
+        hbox.setStyle("-fx-border-color: #0000FF; -fx-background-color: #FFFFFF; -fx-border-width: 3px 0 0 0;-fx-border-radius: 2.0;");
         getChildren().add(hbox);
     }
 

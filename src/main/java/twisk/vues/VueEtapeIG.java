@@ -49,10 +49,10 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         setAlignment(Pos.TOP_CENTER);
         if(monde.estSelectionneeEtape(etape)){
             // quand l'étape est selectioner
-            this.setStyle("-fx-border-color: red; -fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+            this.setStyle("-fx-border-color: #FF0000;-fx-border-width: 3px;-fx-background-color: #DEDEDE;-fx-border-radius: 5.0;");
         } else {
             // quand l'étape n'est pas selectionner
-            this.setStyle("-fx-border-color: #0059FF; -fx-background-insets: 0 0 -1 0, 0, 1, 2; -fx-background-radius: 3px, 3px, 2px, 1px;");
+            this.setStyle("-fx-border-color: #0000FF;-fx-border-width: 3px;-fx-background-color: #DEDEDE;-fx-border-radius: 5.0;");
         }
 
 
