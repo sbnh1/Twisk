@@ -2,7 +2,7 @@ package twisk.outils;
 
 public class TailleComposants {
     private static TailleComposants instance = null;
-    public final int activiteLargeur = 184;
+    public final int activiteLargeur = 240;
     public final int activiteHauteur = 70;
     public final int largeur = 1300;
     public final int hauteur = 900;

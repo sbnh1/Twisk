@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 
-public class SimulationIG {
+public class SimulationIG extends SujetObserve {
 
     private MondeIG monde;
     private CorrespondanceEtapes correspondanceEtapes;

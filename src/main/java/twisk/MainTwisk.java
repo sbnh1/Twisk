@@ -23,6 +23,7 @@ public class MainTwisk extends Application {
         root.setTop(new VueMenu(monde));
 
         primaryStage.setScene(new Scene(root, TailleComposants.getInstance().largeur, TailleComposants.getInstance().hauteur));
+        monde.creerMondeDeBase(monde);
         monde.notifierObservateur();
         primaryStage.show();
     }

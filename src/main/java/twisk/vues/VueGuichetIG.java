@@ -7,6 +7,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.Priority;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+import javafx.geometry.Pos;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import java.awt.*;
 
@@ -30,14 +36,33 @@ public class VueGuichetIG extends VueEtapeIG {
         HBox.setHgrow(espaceDroite, Priority.ALWAYS);
         this.hBox.getChildren().add(espaceGauche);
 
-        for (int i = 0; i < 7; i++) {
-            Label label = new Label("  ");
+        List<Label> labels = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Label label = new Label(""); // Ajouter du texte unique à chaque label
             label.setPadding(new Insets(6));
             label.setStyle("-fx-border-color: #000000");
+            labels.add(label); // Ajouter le label à la liste
             this.hBox.getChildren().add(label);
         }
+
         this.hBox.getChildren().add(espaceDroite);
         this.getChildren().add(this.hBox);
+
+        int test = 0;
+        for (Label label : labels) {
+            if (test < 4){
+                Circle circle = new Circle(4); // Créer un cercle avec un rayon de 5
+                circle.setFill(Color.RED); // Définir la couleur du cercle
+
+                // Ajouter le cercle à l'intérieur du label
+                HBox circleContainer = new HBox(circle);
+                circleContainer.setAlignment(Pos.CENTER_RIGHT); // Aligner le cercle à droite
+                label.setGraphic(circleContainer);
+            } else {
+                label.setText(" ");
+            }
+            test++;
+        }
     }
 
 

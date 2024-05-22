@@ -2,11 +2,12 @@ package twisk.simulation;
 
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
+import twisk.mondeIG.SujetObserve;
 import twisk.outils.KitC;
 
 import java.util.Arrays;
 
-public class Simulation {
+public class Simulation extends SujetObserve {
     private KitC kitC;
     private int nbClient;
     private GestionnaireClients gestionnaireClients;

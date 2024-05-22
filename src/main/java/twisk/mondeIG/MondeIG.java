@@ -364,4 +364,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         }
     }
 
+    public void creerMondeDeBase(MondeIG monde){
+        monde.ajouter("activite");
+        monde.ajouter("guichet");
+    }
+
+
 }
