@@ -26,7 +26,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     private List<PointDeControleIG> pointDeControleIGList;
 
-    private List<EtapeIG> successeurs;
+    private ArrayList<EtapeIG> successeurs;
+    private ArrayList<EtapeIG> predecesseurs;
     /**
      * Constructeur de la classe abstraite EtapeIG
      * @param nom nom de l'étapeIG
@@ -64,12 +65,43 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         }
 
         this.successeurs = new ArrayList<>();
+        this.predecesseurs = new ArrayList<>();
     }
 
-    public void ajouter(EtapeIG... etapes){
+    /**
+     * ajoute des successeurs
+     * @param etapes liste des etapes a ajouter comme successeur
+     */
+    public void ajouterSuccesseur(EtapeIG... etapes){
         for(EtapeIG etape : etapes){
             this.successeurs.add(etape);
         }
+    }
+
+    /**
+     * ajoute des predecesseurs
+     * @param etapes liste des etapes a ajouter comme predecesseur
+     */
+    public void ajouterPredecesseur(EtapeIG... etapes){
+        for(EtapeIG etape : etapes){
+            this.predecesseurs.add(etape);
+        }
+    }
+
+    /**
+     * retourne l'ArrayList des successeurs
+     * @return liste des successeurs
+     */
+    public ArrayList<EtapeIG> getSuccesseurs(){
+        return this.successeurs;
+    }
+
+    /**
+     * retourne l'ArrayList des successeurs
+     * @return liste des successeurs
+     */
+    public ArrayList<EtapeIG> getPredecesseurs(){
+        return this.predecesseurs;
     }
 
     /**
@@ -274,12 +306,20 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         }
     }
 
-    /**
-     * Methode qui rend la classe iterable sur les EtapesIG
-     * @return L'iterator de la classe
-     */
-    public Iterator<EtapeIG> iteratorEtape(){
+    public int getNbSuccesseurs(){
+        return this.successeurs.size();
+    }
+
+    public int getNbPrececesseurs(){
+        return this.predecesseurs.size();
+    }
+
+    public Iterator<EtapeIG> iteratorSuccesseur(){
         return this.successeurs.iterator();
+    }
+
+    public Iterator<EtapeIG> iteratorPredecesseur(){
+        return this.predecesseurs.iterator();
     }
 
     /**

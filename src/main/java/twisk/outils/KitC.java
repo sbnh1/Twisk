@@ -74,7 +74,7 @@ public class KitC {
      * @throws IOException si une erreur survient lors de l'éxecution du processus
      */
     public void construireLaBibliotheque(){
-        ProcessBuilder pb = new ProcessBuilder("gcc", "-shared", "/tmp/twisk/programmeC.o", "/tmp/twisk/codeNatif.o", "/tmp/twisk/client.o", "-o", "/tmp/twisk/libTwisk.so");
+        ProcessBuilder pb = new ProcessBuilder("gcc", "-shared", "/tmp/twisk/programmeC.o", "/tmp/twisk/codeNatif.o", "/tmp/twisk/client.o", "-o", "/tmp/twisk/libTwisk" + FabriqueIdlib.getInstance().getId() + ".so");
         try {
             pb.inheritIO().start().waitFor();
         } catch (InterruptedException | IOException e) {

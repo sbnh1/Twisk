@@ -4,13 +4,12 @@ import javafx.concurrent.Task;
 import twisk.monde.*;
 import twisk.mondeIG.*;
 import twisk.exceptions.*;
-import twisk.outils.ClassLoaderPerso;
-import twisk.outils.CorrespondanceEtapes;
-import twisk.outils.ThreadsManager;
+import twisk.outils.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SimulationIG extends SujetObserve {
@@ -46,6 +45,7 @@ public class SimulationIG extends SujetObserve {
      * Verification de la validité du monde
      */
     private void verifierMonderIG()throws MondeInvalideException{
+
         if(!this.monde.aEntree()){
             throw new MondeInvalideException("Erreur: il n'y a pas d'entree");
         }
@@ -54,16 +54,28 @@ public class SimulationIG extends SujetObserve {
             throw new MondeInvalideException("Erreur: il n'y a pas de sortie");
         }
 
-        Iterator<ArcIG> arcIterator = this.monde.arcIterator();
-        while(arcIterator.hasNext()){
-            ArcIG arcIG = arcIterator.next();
-            EtapeIG etapeDepart = arcIG.getPointDeControleDepart().getEtapeIG();
-            EtapeIG etapeArrivee = arcIG.getPointDeControleArrivee().getEtapeIG();
-            if(etapeDepart.estUnGuichet() && etapeArrivee.estUneActivite()){
-                ((ActiviteIG) etapeArrivee).setEstRestreinte(true);
+        for(EtapeIG etape : this.monde){
+            ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
+            ArrayList<EtapeIG> predecesseurs = etape.getPredecesseurs();
+            if(etape.estUnGuichet()){
+                if (etape.estUneSortie()){
+                    throw new MondeInvalideException("Erreur: un guichet ne peut etre une sortie");
+                }
+                if (etape.getNbSuccesseurs() > 1){
+                    throw new MondeInvalideException("Erreur: un guichet ne peut avoir qu'un seul successeur");
+                }
+                if(successeurs.get(0).estUnGuichet()){
+                    throw new MondeInvalideException("Erreur: un guichet ne peut avoir comme successeur un autre guichet");
+                }
+                ((ActiviteIG)successeurs.get(0)).setEstRestreinte(true);
+                if (successeurs.get(0).estUneEntree()){
+                    throw new MondeInvalideException("Erreur: une Activité restreinte ne peut etre une entrée");
+                }
+                if(successeurs.get(0).getPredecesseurs().size() > 1){
+                    throw new MondeInvalideException("Erreur: une activité restreinte ne peut avoir qu'un seul predecesseur");
+                }
             }
         }
-
     }
 
     public void ajouterEtapes(Monde monde){
@@ -87,6 +99,9 @@ public class SimulationIG extends SujetObserve {
     }
 
     public Monde creerMonde(){
+        FabriqueIdentifiant.getInstance().reset();
+        FabriqueNumero.getInstance().resetNumeroEtape();
+        FabriqueNumero.getInstance().resetNumeroEtape();
         Monde monde = new Monde();
         this.correspondanceEtapes = new CorrespondanceEtapes();
         ajouterEtapes(monde);
@@ -94,7 +109,7 @@ public class SimulationIG extends SujetObserve {
         this.ajouterSuccesseursEtapeIG();
 
         for(EtapeIG etapeIG: this.monde){
-            Iterator<EtapeIG> iterator = etapeIG.iteratorEtape();
+            Iterator<EtapeIG> iterator = etapeIG.iteratorSuccesseur();
             while(iterator.hasNext()){
                 Etape etape = this.correspondanceEtapes.get(etapeIG);
                 Etape successeur = this.correspondanceEtapes.get(iterator.next());
@@ -210,7 +225,8 @@ public class SimulationIG extends SujetObserve {
 
                 if(sontReliees(etape1, etape2)){
 
-                    etape1.ajouter(etape2);
+                    etape1.ajouterSuccesseur(etape2);
+                    etape2.ajouterPredecesseur(etape1);
                 }
             }
         }

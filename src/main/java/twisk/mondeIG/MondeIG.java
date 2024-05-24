@@ -124,7 +124,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
 
             ArcIG arcIG = new ArcIG(pt1, pt2);
             this.arcs.add(arcIG);
-            etape1.ajouter(etape2);
+            etape1.ajouterSuccesseur(etape2);
+            etape2.ajouterPredecesseur(etape1);
         } catch (PointDeControleException e) {
             afficherAlerte(e.getMessage());
         }

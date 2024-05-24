@@ -3,6 +3,7 @@ package twisk.simulation;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
 import twisk.mondeIG.SujetObserve;
+import twisk.outils.FabriqueIdlib;
 import twisk.outils.KitC;
 
 import java.util.Arrays;
@@ -67,12 +68,14 @@ public class Simulation extends SujetObserve {
         this.kitC.creerFichier(monde.toC());
         this.kitC.compiler();
         this.kitC.construireLaBibliotheque();
-        System.load("/tmp/twisk/libTwisk.so");
+        System.load("/tmp/twisk/libTwisk" + FabriqueIdlib.getInstance().getCurrentId() + ".so");
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()];
         //initialisation du nombre de clients dans ClientTwisk par la commande : simulation.setNbClient(20);
+        System.out.println(monde.nbEtapes());
         int nbClient = this.nbClient;
         for(int i = 0; i < monde.nbEtapes(); i++){
+            System.out.println(111);
             if(monde.getEtape(i).estUnGuichet()){
                 tabJetonsGuichet[((Guichet)monde.getEtape(i)).getNumeroSemaphore()-1] = monde.getEtape(i).getNbJetons();
 
