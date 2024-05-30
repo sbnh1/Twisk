@@ -7,9 +7,11 @@ import twisk.exceptions.*;
 import twisk.outils.*;
 import twisk.vues.Observateur;
 
+import javax.sound.midi.Soundbank;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -50,6 +52,13 @@ public class SimulationIG extends SujetObserve implements Observateur {
     }
 
     /**
+     * stop la simulation
+     */
+    public void stopSimualtion(){
+        ThreadsManager.getInstance().destroyThreads();
+    }
+
+    /**
      * Verification de la validité du monde
      */
     private void verifierMonderIG() throws MondeInvalideException {
@@ -63,7 +72,14 @@ public class SimulationIG extends SujetObserve implements Observateur {
 
         for (EtapeIG etape : this.mondeIG) {
             ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
-            ArrayList<EtapeIG> predecesseurs = etape.getPredecesseurs();
+
+            System.out.println(etape.getNom() + " " + successeurs);
+
+            if(etape.estUneEntree()){
+                if(verifierChemin(etape)){
+                    throw new MondeInvalideException("Erreur: certaines entrée peuvent menées a une impasse");
+                }
+            }
             if (etape.estUnGuichet()) {
                 if (etape.estUneSortie()) {
                     throw new MondeInvalideException("Erreur: un guichet ne peut etre une sortie");
@@ -83,6 +99,21 @@ public class SimulationIG extends SujetObserve implements Observateur {
                 }
             }
         }
+    }
+
+    public boolean verifierChemin(EtapeIG etape) {
+        if (etape.estUneSortie()) {
+            return false;
+        }
+        if (etape.getNbSuccesseurs() == 0) {
+            return true;
+        }
+        for (EtapeIG successeur : etape.getSuccesseurs()) {
+            if (verifierChemin(successeur)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void ajouterEtapes(Monde monde) {

@@ -177,6 +177,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             if (arcs.contains(arc)) {
                 arcs.remove(arc);
             }
+            arc.getPointDeControleDepart().getEtapeIG().supprimerSuccessseur(arc.getPointDeControleArrivee().getEtapeIG());
         }
         notifierObservateur();
     }
@@ -323,6 +324,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void supprimerArcSelectionne() {
         for (ArcIG arc : arcsSelectionnes) {
             arcs.remove(arc);
+            arc.getPointDeControleDepart().getEtapeIG().supprimerSuccessseur(arc.getPointDeControleArrivee().getEtapeIG());
         }
         viderSelectionArc();
         notifierObservateur();

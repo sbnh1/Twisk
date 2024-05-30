@@ -84,6 +84,16 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
     /**
+     * supprime des successeurs
+     * @param etapes
+     */
+    public void supprimerSuccessseur(EtapeIG... etapes){
+        for(EtapeIG etape : etapes){
+            this.successeurs.remove(etape);
+        }
+    }
+
+    /**
      * ajoute des predecesseurs
      * @param etapes liste des etapes a ajouter comme predecesseur
      */
