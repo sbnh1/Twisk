@@ -27,6 +27,15 @@ public class GestionnaireClients implements Iterable<Client> {
     }
 
     /**
+     * Renvoie le client ayant le numéro donné en paramètre
+     * @param numeroClient numéro du client
+     * @return le client ayant le numéro en paramètre
+     */
+    public Client getClients(int numeroClient){
+        return this.listClient.get(numeroClient);
+    }
+
+    /**
      * Méthode qui permet de déplacer un client dans le monde à chaque changement
      * @param numeroClient le numéro du client
      * @param etape l'étape de destination
@@ -42,6 +51,14 @@ public class GestionnaireClients implements Iterable<Client> {
      */
     void nettoyer(){
         this.listClient.clear();
+    }
+
+    /**
+     * Methode qui renvoie la taille de la HashMap
+     * @return La taille de la HashMap clients
+     */
+    public int size(){
+        return this.listClient.size();
     }
 
     /**

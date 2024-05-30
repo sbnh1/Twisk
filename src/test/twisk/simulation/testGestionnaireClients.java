@@ -1,4 +1,4 @@
-package test.twisk.simulation;
+package twisk.simulation;
 
 import twisk.simulation.GestionnaireClients;
 import org.junit.jupiter.api.Test;

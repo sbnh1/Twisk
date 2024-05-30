@@ -5,6 +5,7 @@ import twisk.monde.*;
 import twisk.mondeIG.*;
 import twisk.exceptions.*;
 import twisk.outils.*;
+import twisk.vues.Observateur;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -12,17 +13,22 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class SimulationIG extends SujetObserve {
+public class SimulationIG extends SujetObserve implements Observateur {
 
-    private MondeIG monde;
+    private MondeIG mondeIG;
     private CorrespondanceEtapes correspondanceEtapes;
+    private int nbClient;
+
+    private Object instanceClassperso;
+    private Monde monde;
+    private GestionnaireClients gestionnaireClients;
 
     /**
      * Constructeur de SimulationIG
      * @param monde monde que l'on va verifier et simuler
      */
     public SimulationIG(MondeIG monde){
-        this.monde = monde;
+        this.mondeIG = monde;
     }
 
     /**
@@ -30,7 +36,7 @@ public class SimulationIG extends SujetObserve {
      */
     public void simuler() throws MondeInvalideException {
         this.verifierMonderIG();
-        Monde monde = this.creerMonde();
+        monde = this.creerMonde();
         Task<Void> simulation = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -46,15 +52,15 @@ public class SimulationIG extends SujetObserve {
      */
     private void verifierMonderIG()throws MondeInvalideException{
 
-        if(!this.monde.aEntree()){
+        if(!this.mondeIG.aEntree()){
             throw new MondeInvalideException("Erreur: il n'y a pas d'entree");
         }
 
-        if(!this.monde.aSortie()){
+        if(!this.mondeIG.aSortie()){
             throw new MondeInvalideException("Erreur: il n'y a pas de sortie");
         }
 
-        for(EtapeIG etape : this.monde){
+        for(EtapeIG etape : this.mondeIG){
             ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
             ArrayList<EtapeIG> predecesseurs = etape.getPredecesseurs();
             if(etape.estUnGuichet()){
@@ -79,7 +85,7 @@ public class SimulationIG extends SujetObserve {
     }
 
     public void ajouterEtapes(Monde monde){
-        for(EtapeIG etape : this.monde){
+        for(EtapeIG etape : this.mondeIG){
             if(etape.estUnGuichet()){
                 Etape guichet = new Guichet(etape.getNom(), etape.getNbJetons());
                 this.correspondanceEtapes.ajouter(etape, guichet);
@@ -108,7 +114,7 @@ public class SimulationIG extends SujetObserve {
 
         this.ajouterSuccesseursEtapeIG();
 
-        for(EtapeIG etapeIG: this.monde){
+        for(EtapeIG etapeIG: this.mondeIG){
             Iterator<EtapeIG> iterator = etapeIG.iteratorSuccesseur();
             while(iterator.hasNext()){
                 Etape etape = this.correspondanceEtapes.get(etapeIG);
@@ -127,16 +133,38 @@ public class SimulationIG extends SujetObserve {
         return monde;
     }
 
+    public GestionnaireClients getGestionnaireClients(){
+
+        return this.gestionnaireClients;
+    }
+
+
+    /**
+     * Méthode qui prépare est lance la simulation du monde crééer
+     * @param monde le monde crééer
+     * @param nb le nombre de clients
+     */
     public void lancerSimulation(Monde monde, int nb) {
+        //mettre object et methode en parametre de la classe pour capturer a chaque boucle ce qu'il se passe
         try {
             ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
             Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");
             Constructor<?> constructor = classPerso.getConstructor();
-            Object instanceClassperso = constructor.newInstance();
-            Method setNBClient_ = classPerso.getMethod("setNbClients", int.class);
-            Method simuler_ = classPerso.getMethod("simuler", Monde.class);
-            setNBClient_.invoke(instanceClassperso, nb);
-            simuler_.invoke(instanceClassperso, monde);
+            instanceClassperso =  constructor.newInstance();
+
+            Method setNBClients = classPerso.getMethod("setNbClients", int.class);
+            Method getGestionnaire = classPerso.getMethod("getGestionnaire");
+
+            gestionnaireClients = (GestionnaireClients)getGestionnaire.invoke(instanceClassperso);
+            Method simuler = classPerso.getMethod("simuler", Monde.class);
+
+
+            Method ajouterObservateur = instanceClassperso.getClass().getMethod("ajouterObservateur", Observateur.class);
+            ajouterObservateur.invoke(instanceClassperso, this);
+
+            setNBClients.invoke(instanceClassperso, nb);
+            simuler.invoke(instanceClassperso, monde);
+
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             System.out.println(e.getMessage());
         } catch (InvocationTargetException e) {
@@ -147,6 +175,7 @@ public class SimulationIG extends SujetObserve {
             throw new RuntimeException(e);
         }
     }
+
 
     /**
      * Methode qui regarde si un ArcIG fait deja le chemin demande
@@ -181,7 +210,7 @@ public class SimulationIG extends SujetObserve {
     public boolean exist(ArcIG arcIG){
 
         boolean exist = false;
-        for(ArcIG a : this.monde.getArcs()){
+        for(ArcIG a : this.mondeIG.getArcs()){
 
             if(a.equals(arcIG)){
 
@@ -219,9 +248,9 @@ public class SimulationIG extends SujetObserve {
      */
     private void ajouterSuccesseursEtapeIG(){
 
-        for(EtapeIG etape1 : this.monde){
+        for(EtapeIG etape1 : this.mondeIG){
 
-            for(EtapeIG etape2 : this.monde){
+            for(EtapeIG etape2 : this.mondeIG){
 
                 if(sontReliees(etape1, etape2)){
 
@@ -230,5 +259,29 @@ public class SimulationIG extends SujetObserve {
                 }
             }
         }
+    }
+
+    /**
+     * Renvoie le nombre de clients
+     * @return le nombre de clients
+     */
+    public int getNbClient() {
+        return nbClient;
+    }
+
+    /**
+     * Défini le nouveau nombre de clients
+     * Nombre de clients défini à 5 si méthode non utilisé
+     * @param nbClient le nouveau nombre de clients
+     */
+    public void setNbClient(int nbClient) {
+        this.nbClient = nbClient;
+    }
+
+    @Override
+    public void reagir() {
+        this.gestionnaireClients = getGestionnaireClients();
+        System.out.println("ouiSimulationIG ");
+        this.notifierObservateur();
     }
 }

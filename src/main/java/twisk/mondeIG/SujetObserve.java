@@ -3,7 +3,6 @@ package twisk.mondeIG;
 import twisk.vues.Observateur;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SujetObserve {
     private ArrayList<Observateur> obs = new ArrayList<>(20);
@@ -17,11 +16,28 @@ public class SujetObserve {
         }
     }
 
+
+
     /**
      * Méthode qui permet au Vue de s'inscrire toute seul à la liste des Observateur
      * @param o observateur ajouté à la liste
      */
     public void ajouterObservateur(Observateur o) {
         this.obs.add(o);
+    }
+
+    public void afficherObservateurs() {
+        System.out.println("Liste des observateurs :");
+        for (Observateur o : this.obs) {
+            System.out.println("- " + o.toString());
+        }
+    }
+
+    /**
+     * Retourne le nombre d'observateurs inscrits
+     * @return nombre d'observateurs
+     */
+    public int getNombreObservateurs() {
+        return this.obs.size();
     }
 }

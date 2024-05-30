@@ -12,9 +12,10 @@ public class Simulation extends SujetObserve {
     private KitC kitC;
     private int nbClient;
     private GestionnaireClients gestionnaireClients;
+    private int[] positionClient;
 
     /**
-     * constructeur d'une simulation
+     * Constructeur d'une simulation
      */
     public Simulation(){
     }
@@ -55,6 +56,24 @@ public class Simulation extends SujetObserve {
             System.out.println(monde.getEtape(i).toString());
         }
         System.out.println();
+    }
+
+    public void setPositionClient(int[] positionClient1){
+        this.positionClient = positionClient1;
+        System.out.println(Arrays.toString(this.getPositionClient()));
+    }
+
+    public int[] getPositionClient(){
+        return this.positionClient;
+    }
+
+    /**
+     * Methode qui renvoie le GestionnaireClient de la Simulation
+     * @return Le GestionnaireClient
+     */
+    public GestionnaireClients getGestionnaire(){
+
+        return this.gestionnaireClients;
     }
 
     /**
@@ -113,6 +132,9 @@ public class Simulation extends SujetObserve {
                 System.out.println();
             }
             System.out.println("\n");
+            this.setPositionClient(posClients);
+            this.notifierObservateur();
+            //this.afficherObservateurs();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

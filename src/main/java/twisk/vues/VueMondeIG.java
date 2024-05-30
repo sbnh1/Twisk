@@ -5,11 +5,13 @@ import twisk.mondeIG.ArcIG;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.mondeIG.PointDeControleIG;
+import twisk.simulation.SimulationIG;
 
 import java.util.Iterator;
 
 public class VueMondeIG extends Pane implements Observateur{
-    private MondeIG monde;
+    private MondeIG mondeIG;
+    private SimulationIG simulationIG;
 
 
     /**
@@ -18,10 +20,10 @@ public class VueMondeIG extends Pane implements Observateur{
      */
     public VueMondeIG(MondeIG monde){
         super();
-        this.monde = monde;
-        this.monde.ajouterObservateur(this);
-        this.setOnDragOver(new EcouteurDragOver(this.monde, this));
-        this.setOnDragDropped(new EcouteurDrop(this.monde, this));
+        this.mondeIG = monde;
+        this.mondeIG.ajouterObservateur(this);
+        this.setOnDragOver(new EcouteurDragOver(this.mondeIG, this));
+        this.setOnDragDropped(new EcouteurDrop(this.mondeIG, this));
         initialiserVue();
     }
 
@@ -29,20 +31,20 @@ public class VueMondeIG extends Pane implements Observateur{
      * Initialise la vue du monde en affichant les activités et les arcs à chaque changement dans le MondeIG
      */
     private void initialiserVue() {
-        Iterator<ArcIG> arcIterator = monde.arcIterator();
+        Iterator<ArcIG> arcIterator = mondeIG.arcIterator();
         while (arcIterator.hasNext()) {
             ArcIG arc = arcIterator.next();
-            VueArcIG vueArc = new VueArcIG(arc, monde);
+            VueArcIG vueArc = new VueArcIG(arc, mondeIG);
             getChildren().add(vueArc);
         }
-        for (EtapeIG etape : monde) {
+        for (EtapeIG etape : mondeIG) {
             if(etape.estUneActivite()) {
-                VueActiviteIG vueActivite = new VueActiviteIG(monde, etape);
+                VueActiviteIG vueActivite = new VueActiviteIG(mondeIG, etape);
                 getChildren().add(vueActivite);
                 vueActivite.positionner(etape.getPosX(), etape.getPosY());
                 vueActivite.taille(etape.getLargeur(), etape.getHauteur());
             } else {
-                VueGuichetIG vueGuichet = new VueGuichetIG(monde, etape);
+                VueGuichetIG vueGuichet = new VueGuichetIG(mondeIG, etape);
                 getChildren().add(vueGuichet);
                 vueGuichet.positionner(etape.getPosX(), etape.getPosY());
                 vueGuichet.taille(etape.getLargeur(), etape.getHauteur());
@@ -50,13 +52,14 @@ public class VueMondeIG extends Pane implements Observateur{
 
 
             for(PointDeControleIG point : etape.getPointsDeControle()){
-                VuePointDeControleIG vuePoint = new VuePointDeControleIG(point, monde);
+                VuePointDeControleIG vuePoint = new VuePointDeControleIG(point, mondeIG);
                 getChildren().add(vuePoint);    
             }
         }
     }
 
     public void reagir(){
+        System.out.println("test");
         getChildren().clear();
         initialiserVue();
     }

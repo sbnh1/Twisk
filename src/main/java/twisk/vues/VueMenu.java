@@ -42,9 +42,14 @@ public class VueMenu extends MenuBar implements Observateur {
         Menu menuMonde = new Menu("Monde");
         MenuItem entree = new MenuItem("Entrée");
         entree.setOnAction(event -> this.defEntree());
+        entree.setAccelerator((KeyCombination.keyCombination("Ctrl+I")));
         MenuItem sortie = new MenuItem("Sortie");
         sortie.setOnAction(event -> this.defSortie());
-        menuMonde.getItems().addAll(entree, sortie);
+        sortie.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
+        MenuItem entreeSortie = new MenuItem("Entrée et Sortie");
+        entreeSortie.setOnAction(event -> this.defSortieEtEntree());
+        entreeSortie.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
+        menuMonde.getItems().addAll(entree, sortie, entreeSortie);
 
         Menu manuParametre = new Menu("Paramètre");
         MenuItem delai = new MenuItem("Délai");
@@ -182,6 +187,19 @@ public class VueMenu extends MenuBar implements Observateur {
                 this.monde.premiereEtapeSelectionnee().SupprimerCommeSortie();
             } else {
                 this.monde.premiereEtapeSelectionnee().DefinirCommeSortie();
+            }
+        }
+        this.effacerSelection();
+    }
+
+    private void defSortieEtEntree(){
+        if(this.monde.getNbEtapeSelectionner() == 1){
+            if(!this.monde.premiereEtapeSelectionnee().estUneSortie()){
+                this.monde.premiereEtapeSelectionnee().DefinirCommeSortie();
+            }
+
+            if(!this.monde.premiereEtapeSelectionnee().estUneEntree()){
+                this.monde.premiereEtapeSelectionnee().DefinirCommeEntree();
             }
         }
         this.effacerSelection();

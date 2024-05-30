@@ -1,6 +1,6 @@
 package twisk.vues;
 
-public interface Observateur {
+public interface Observateur  {
     /**
      * Méthode qui permet au Observateur de réagir au changement du mondeIG
      */

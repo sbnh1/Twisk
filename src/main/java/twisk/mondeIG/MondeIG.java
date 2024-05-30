@@ -6,15 +6,20 @@ import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
 import twisk.monde.Guichet;
 import twisk.outils.TailleComposants;
+import twisk.simulation.GestionnaireClients;
+import twisk.simulation.Simulation;
+import twisk.vues.Observateur;
 
 import java.util.*;
 
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
+public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
     private HashMap<String, EtapeIG> etapes;
     private ArrayList<EtapeIG> etapesSelectionnees;
     private ArrayList<ArcIG> arcs;
     private PointDeControleIG premierPointDeControle;
     private ArrayList<ArcIG> arcsSelectionnes;
+    private Simulation simulation;
+    private GestionnaireClients gestionnaireClients;
 
     /**
      * Constructeur de la classe MondeIG
@@ -24,6 +29,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         this.arcs = new ArrayList<>();
         this.etapesSelectionnees = new ArrayList<>();
         this.arcsSelectionnes = new ArrayList<>();
+        //this.ajouterObservateur(this);
     }
 
     /**
@@ -365,10 +371,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG> {
         }
     }
 
+    public GestionnaireClients getGestionnaireClients(){
+        return this.gestionnaireClients;
+    }
+
+    /**
+     * Méthode qui créer une activité et un guichet au lancement de la simulation
+     * @param monde le monde
+     */
     public void creerMondeDeBase(MondeIG monde){
         monde.ajouter("activite");
         monde.ajouter("guichet");
     }
 
 
+    @Override
+    public void reagir() {
+        System.out.println("je suis la boss : " + this.getNombreObservateurs());
+        //this.notifierObservateur();
+        //mettre a jour vumondeig quand il sera dans le bon thread (platform.runnable)
+    }
 }

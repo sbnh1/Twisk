@@ -1,4 +1,4 @@
-package test.twisk.simulation;
+package twisk.simulation;
 
 import twisk.monde.Activite;
 import twisk.monde.Etape;
