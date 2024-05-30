@@ -25,10 +25,11 @@ public class SimulationIG extends SujetObserve implements Observateur {
 
     /**
      * Constructeur de SimulationIG
-     * @param monde monde que l'on va verifier et simuler
+     * @param mondeIG monde que l'on va verifier et simuler
      */
-    public SimulationIG(MondeIG monde){
-        this.mondeIG = monde;
+    public SimulationIG(MondeIG mondeIG){
+        this.mondeIG = mondeIG;
+        this.ajouterObservateur(mondeIG);
     }
 
     /**
@@ -50,49 +51,48 @@ public class SimulationIG extends SujetObserve implements Observateur {
     /**
      * Verification de la validité du monde
      */
-    private void verifierMonderIG()throws MondeInvalideException{
-
-        if(!this.mondeIG.aEntree()){
+    private void verifierMonderIG() throws MondeInvalideException {
+        if (!this.mondeIG.aEntree()) {
             throw new MondeInvalideException("Erreur: il n'y a pas d'entree");
         }
 
-        if(!this.mondeIG.aSortie()){
+        if (!this.mondeIG.aSortie()) {
             throw new MondeInvalideException("Erreur: il n'y a pas de sortie");
         }
 
-        for(EtapeIG etape : this.mondeIG){
+        for (EtapeIG etape : this.mondeIG) {
             ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
             ArrayList<EtapeIG> predecesseurs = etape.getPredecesseurs();
-            if(etape.estUnGuichet()){
-                if (etape.estUneSortie()){
+            if (etape.estUnGuichet()) {
+                if (etape.estUneSortie()) {
                     throw new MondeInvalideException("Erreur: un guichet ne peut etre une sortie");
                 }
-                if (etape.getNbSuccesseurs() > 1){
+                if (etape.getNbSuccesseurs() > 1) {
                     throw new MondeInvalideException("Erreur: un guichet ne peut avoir qu'un seul successeur");
                 }
-                if(successeurs.get(0).estUnGuichet()){
+                if (successeurs.get(0).estUnGuichet()) {
                     throw new MondeInvalideException("Erreur: un guichet ne peut avoir comme successeur un autre guichet");
                 }
-                ((ActiviteIG)successeurs.get(0)).setEstRestreinte(true);
-                if (successeurs.get(0).estUneEntree()){
+                ((ActiviteIG) successeurs.get(0)).setEstRestreinte(true);
+                if (successeurs.get(0).estUneEntree()) {
                     throw new MondeInvalideException("Erreur: une Activité restreinte ne peut etre une entrée");
                 }
-                if(successeurs.get(0).getPredecesseurs().size() > 1){
+                if (successeurs.get(0).getPredecesseurs().size() > 1) {
                     throw new MondeInvalideException("Erreur: une activité restreinte ne peut avoir qu'un seul predecesseur");
                 }
             }
         }
     }
 
-    public void ajouterEtapes(Monde monde){
-        for(EtapeIG etape : this.mondeIG){
-            if(etape.estUnGuichet()){
+    public void ajouterEtapes(Monde monde) {
+        for (EtapeIG etape : this.mondeIG) {
+            if (etape.estUnGuichet()) {
                 Etape guichet = new Guichet(etape.getNom(), etape.getNbJetons());
                 this.correspondanceEtapes.ajouter(etape, guichet);
                 monde.ajouter(guichet);
-            } else if (etape.estUneActivite()){
-                if(((ActiviteIG)etape).estRestreinte()){
-                    Etape activiteRestreinte = new ActiviteRestreinte(etape.getNom(),etape.getDelai(),etape.getEcartTemps());
+            } else if (etape.estUneActivite()) {
+                if (((ActiviteIG) etape).estRestreinte()) {
+                    Etape activiteRestreinte = new ActiviteRestreinte(etape.getNom(), etape.getDelai(), etape.getEcartTemps());
                     this.correspondanceEtapes.ajouter(etape, activiteRestreinte);
                     monde.ajouter(activiteRestreinte);
                 } else { // n'est pas une activité restreinte
@@ -104,7 +104,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
         }
     }
 
-    public Monde creerMonde(){
+    public Monde creerMonde() {
         FabriqueIdentifiant.getInstance().reset();
         FabriqueNumero.getInstance().resetNumeroEtape();
         FabriqueNumero.getInstance().resetNumeroEtape();
@@ -114,18 +114,18 @@ public class SimulationIG extends SujetObserve implements Observateur {
 
         this.ajouterSuccesseursEtapeIG();
 
-        for(EtapeIG etapeIG: this.mondeIG){
+        for (EtapeIG etapeIG : this.mondeIG) {
             Iterator<EtapeIG> iterator = etapeIG.iteratorSuccesseur();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Etape etape = this.correspondanceEtapes.get(etapeIG);
                 Etape successeur = this.correspondanceEtapes.get(iterator.next());
                 etape.ajouterSuccesseur(successeur);
             }
 
-            if(etapeIG.estUneEntree()){
+            if (etapeIG.estUneEntree()) {
                 monde.aCommeEntree(this.correspondanceEtapes.get(etapeIG));
             }
-            if(etapeIG.estUneSortie()){
+            if (etapeIG.estUneSortie()) {
                 monde.aCommeSortie(this.correspondanceEtapes.get(etapeIG));
             }
         }
@@ -133,31 +133,27 @@ public class SimulationIG extends SujetObserve implements Observateur {
         return monde;
     }
 
-    public GestionnaireClients getGestionnaireClients(){
-
+    public GestionnaireClients getGestionnaireClients() {
         return this.gestionnaireClients;
     }
 
-
     /**
-     * Méthode qui prépare est lance la simulation du monde crééer
-     * @param monde le monde crééer
+     * Méthode qui prépare et lance la simulation du monde créé
+     * @param monde le monde créé
      * @param nb le nombre de clients
      */
     public void lancerSimulation(Monde monde, int nb) {
-        //mettre object et methode en parametre de la classe pour capturer a chaque boucle ce qu'il se passe
         try {
             ClassLoaderPerso classLoader = new ClassLoaderPerso(this.getClass().getClassLoader());
             Class<?> classPerso = classLoader.loadClass("twisk.simulation.Simulation");
             Constructor<?> constructor = classPerso.getConstructor();
-            instanceClassperso =  constructor.newInstance();
+            instanceClassperso = constructor.newInstance();
 
             Method setNBClients = classPerso.getMethod("setNbClients", int.class);
             Method getGestionnaire = classPerso.getMethod("getGestionnaire");
 
-            gestionnaireClients = (GestionnaireClients)getGestionnaire.invoke(instanceClassperso);
+            gestionnaireClients = (GestionnaireClients) getGestionnaire.invoke(instanceClassperso);
             Method simuler = classPerso.getMethod("simuler", Monde.class);
-
 
             Method ajouterObservateur = instanceClassperso.getClass().getMethod("ajouterObservateur", Observateur.class);
             ajouterObservateur.invoke(instanceClassperso, this);
@@ -176,66 +172,52 @@ public class SimulationIG extends SujetObserve implements Observateur {
         }
     }
 
-
     /**
-     * Methode qui regarde si un ArcIG fait deja le chemin demande
+     * Methode qui regarde si un ArcIG fait déjà le chemin demandé
      * @param pt1 Le premier PointDeControleIG
-     * @param pt2 Le deuxieme PointDeControleIG
-     * @return true si le chemin existe deja, false sinon
+     * @param pt2 Le deuxième PointDeControleIG
+     * @return true si le chemin existe déjà, false sinon
      */
-    public boolean existChemin(PointDeControleIG pt1, PointDeControleIG pt2){
-
+    public boolean existChemin(PointDeControleIG pt1, PointDeControleIG pt2) {
         boolean exist = false;
         EtapeIG e1 = pt1.getEtapeIG();
         EtapeIG e2 = pt2.getEtapeIG();
-        for(PointDeControleIG p1 : e1){
-
-            for(PointDeControleIG p2 : e2){
-
-                if(this.exist(new ArcIG(p1, p2))){
-
+        for (PointDeControleIG p1 : e1) {
+            for (PointDeControleIG p2 : e2) {
+                if (this.exist(new ArcIG(p1, p2))) {
                     exist = true;
                 }
             }
         }
-
         return exist;
     }
 
     /**
-     * Methode qui verifie si un ArcIG existe deja
-     * @param arcIG L'ArcIG a verifier
-     * @return True si il existe deja, faux sinon
+     * Méthode qui vérifie si un ArcIG existe déjà
+     * @param arcIG L'ArcIG à vérifier
+     * @return True s'il existe déjà, faux sinon
      */
-    public boolean exist(ArcIG arcIG){
-
+    public boolean exist(ArcIG arcIG) {
         boolean exist = false;
-        for(ArcIG a : this.mondeIG.getArcs()){
-
-            if(a.equals(arcIG)){
-
+        for (ArcIG a : this.mondeIG.getArcs()) {
+            if (a.equals(arcIG)) {
                 exist = true;
             }
         }
         return exist;
     }
 
-
     /**
-     * Methode qui verifie si deux EtapeIG sont reliees
-     * @param e1 La premiere EtapeIG
-     * @param e2 La deuxieme EtapeIG
-     * @return True si elles sont reliees, false sinon
+     * Méthode qui vérifie si deux EtapeIG sont reliées
+     * @param e1 La première EtapeIG
+     * @param e2 La deuxième EtapeIG
+     * @return True si elles sont reliées, false sinon
      */
-    private boolean sontReliees(EtapeIG e1, EtapeIG e2){
-
+    private boolean sontReliees(EtapeIG e1, EtapeIG e2) {
         boolean reliees = false;
-        for(PointDeControleIG p1 : e1){
-
-            for(PointDeControleIG p2 : e2){
-
-                if(existChemin(p1, p2)){
-
+        for (PointDeControleIG p1 : e1) {
+            for (PointDeControleIG p2 : e2) {
+                if (existChemin(p1, p2)) {
                     reliees = true;
                 }
             }
@@ -244,16 +226,12 @@ public class SimulationIG extends SujetObserve implements Observateur {
     }
 
     /**
-     * Methode qui ajoute les successeurs pour chaque EtapeIG du MondeIG
+     * Méthode qui ajoute les successeurs pour chaque EtapeIG du MondeIG
      */
-    private void ajouterSuccesseursEtapeIG(){
-
-        for(EtapeIG etape1 : this.mondeIG){
-
-            for(EtapeIG etape2 : this.mondeIG){
-
-                if(sontReliees(etape1, etape2)){
-
+    private void ajouterSuccesseursEtapeIG() {
+        for (EtapeIG etape1 : this.mondeIG) {
+            for (EtapeIG etape2 : this.mondeIG) {
+                if (sontReliees(etape1, etape2)) {
                     etape1.ajouterSuccesseur(etape2);
                     etape2.ajouterPredecesseur(etape1);
                 }
@@ -281,7 +259,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
     @Override
     public void reagir() {
         this.gestionnaireClients = getGestionnaireClients();
-        System.out.println("ouiSimulationIG ");
+        this.mondeIG.setGestionnaireClients(this.gestionnaireClients);
         this.notifierObservateur();
     }
 }

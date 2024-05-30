@@ -12,12 +12,12 @@ public class Simulation extends SujetObserve {
     private KitC kitC;
     private int nbClient;
     private GestionnaireClients gestionnaireClients;
-    private int[] positionClient;
 
     /**
      * Constructeur d'une simulation
      */
     public Simulation(){
+        this.gestionnaireClients = new GestionnaireClients();
     }
 
     /**
@@ -58,21 +58,11 @@ public class Simulation extends SujetObserve {
         System.out.println();
     }
 
-    public void setPositionClient(int[] positionClient1){
-        this.positionClient = positionClient1;
-        System.out.println(Arrays.toString(this.getPositionClient()));
-    }
-
-    public int[] getPositionClient(){
-        return this.positionClient;
-    }
-
     /**
      * Methode qui renvoie le GestionnaireClient de la Simulation
      * @return Le GestionnaireClient
      */
     public GestionnaireClients getGestionnaire(){
-
         return this.gestionnaireClients;
     }
 
@@ -94,7 +84,6 @@ public class Simulation extends SujetObserve {
         System.out.println(monde.nbEtapes());
         int nbClient = this.nbClient;
         for(int i = 0; i < monde.nbEtapes(); i++){
-            System.out.println(111);
             if(monde.getEtape(i).estUnGuichet()){
                 tabJetonsGuichet[((Guichet)monde.getEtape(i)).getNumeroSemaphore()-1] = monde.getEtape(i).getNbJetons();
 
@@ -104,7 +93,7 @@ public class Simulation extends SujetObserve {
         int[] pids = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
 
 
-        this.gestionnaireClients = new GestionnaireClients();
+
         this.gestionnaireClients.setClients(pids);
         System.out.println("ids clients : ");
         for(int i = 0; i < nbClient; i++){
@@ -132,9 +121,7 @@ public class Simulation extends SujetObserve {
                 System.out.println();
             }
             System.out.println("\n");
-            this.setPositionClient(posClients);
             this.notifierObservateur();
-            //this.afficherObservateurs();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

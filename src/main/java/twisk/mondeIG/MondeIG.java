@@ -1,11 +1,13 @@
 package twisk.mondeIG;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
 import twisk.monde.Guichet;
 import twisk.outils.TailleComposants;
+import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
@@ -385,10 +387,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
 
+    public void setGestionnaireClients(GestionnaireClients gestionnaireClients) {
+        this.gestionnaireClients = gestionnaireClients;
+    }
+
     @Override
     public void reagir() {
-        System.out.println("je suis la boss : " + this.getNombreObservateurs());
-        //this.notifierObservateur();
+
+        Platform.runLater(this::notifierObservateur);
         //mettre a jour vumondeig quand il sera dans le bon thread (platform.runnable)
     }
+
 }

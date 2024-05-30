@@ -5,13 +5,15 @@ import twisk.mondeIG.ArcIG;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.mondeIG.PointDeControleIG;
+import twisk.simulation.Client;
+import twisk.simulation.GestionnaireClients;
 import twisk.simulation.SimulationIG;
 
 import java.util.Iterator;
 
 public class VueMondeIG extends Pane implements Observateur{
     private MondeIG mondeIG;
-    private SimulationIG simulationIG;
+    private GestionnaireClients gestionnaireClients;
 
 
     /**
@@ -22,6 +24,7 @@ public class VueMondeIG extends Pane implements Observateur{
         super();
         this.mondeIG = monde;
         this.mondeIG.ajouterObservateur(this);
+        this.setGestionnaireClients(this.mondeIG.getGestionnaireClients());
         this.setOnDragOver(new EcouteurDragOver(this.mondeIG, this));
         this.setOnDragDropped(new EcouteurDrop(this.mondeIG, this));
         initialiserVue();
@@ -58,9 +61,19 @@ public class VueMondeIG extends Pane implements Observateur{
         }
     }
 
+    public void initialiserCercle(){
+        System.out.println(" ");
+    }
+
+    public void setGestionnaireClients(GestionnaireClients gestionnaireClients) {
+        this.gestionnaireClients = gestionnaireClients;
+    }
+
     public void reagir(){
-        System.out.println("test");
+        this.setGestionnaireClients(this.mondeIG.getGestionnaireClients());
+
         getChildren().clear();
         initialiserVue();
+        initialiserCercle();
     }
 }
