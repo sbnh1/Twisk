@@ -87,8 +87,8 @@ public class Activite extends Etape {
             for(int i = 0; i < nbSuccesseur; i++) {
                 string.append("case " + i + ":\n");
                 string.append("delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
-                string.append("transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(0).getNom() + ");\n");
-                string.append(this.getSuccesseur().getEtape(0).toC());
+                string.append("transfert(" + this.getNom() + "," + this.getSuccesseur().getEtape(i).getNom() + ");\n");
+                string.append(this.getSuccesseur().getEtape(i).toC());
                 string.append("break;\n");
             }
             string.append("}\n}\n");
