@@ -4,6 +4,7 @@ import twisk.monde.Etape;
 import twisk.mondeIG.EtapeIG;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class CorrespondanceEtapes {
     private HashMap<EtapeIG, Etape> etapeIGEtapeHashMap;
@@ -31,5 +32,34 @@ public class CorrespondanceEtapes {
      */
     public Etape get(EtapeIG etapeIG){
         return this.etapeIGEtapeHashMap.get(etapeIG);
+    }
+
+    /**
+     * Methode qui renvoie l'EtapeIG associee a l'Etape donnee en parametre
+     * @param etape Etape servant pour obtenir l'EtapeIG
+     * @return L'EtapeIG
+     */
+    public EtapeIG getEtapeIG(Etape etape){
+        for(Map.Entry<EtapeIG, Etape> entry : this.etapeIGEtapeHashMap.entrySet()){
+            if(entry.getValue().equals(etape)){
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Retourne une représentation sous forme de chaîne de caractères de la map
+     * @return une chaîne de caractères représentant les correspondances entre EtapeIG et Etape
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("CorrespondanceEtapes {\n");
+
+        for (Map.Entry<EtapeIG, Etape> entry : etapeIGEtapeHashMap.entrySet()) {
+            sb.append("  ").append(entry.getKey()).append(" -> ").append(entry.getValue()).append("\n");
+        }
+        sb.append("}");
+        return sb.toString();
     }
 }

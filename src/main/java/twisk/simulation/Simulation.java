@@ -112,7 +112,7 @@ public class Simulation extends SujetObserve {
             for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
                 System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
                 for(int j = i+1; j < (i + posClients[i] + 1); j++){
-                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i), nbClient % j);
+                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i/(nbClient+1)), j % nbClient);
                     System.out.print(posClients[j] + " ");
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()- monde.nbEtapes() + 1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
@@ -120,7 +120,8 @@ public class Simulation extends SujetObserve {
                 }
                 System.out.println();
             }
-            System.out.println("\n");
+            System.out.println("\n");;
+            System.out.println("test : " + gestionnaireClients.toString());
             this.notifierObservateur();
             try {
                 Thread.sleep(1000);

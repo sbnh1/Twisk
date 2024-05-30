@@ -19,6 +19,8 @@ import java.awt.*;
 public class VueGuichetIG extends VueEtapeIG {
 
     private HBox hBox;
+    private List<Label> labels;
+
     /**
      * Constructeur de la classe VueGuichetIG
      * @param monde le MondeIG
@@ -36,9 +38,9 @@ public class VueGuichetIG extends VueEtapeIG {
         HBox.setHgrow(espaceDroite, Priority.ALWAYS);
         this.hBox.getChildren().add(espaceGauche);
 
-        List<Label> labels = new ArrayList<>();
+        this.labels = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Label label = new Label(""); // Ajouter du texte unique à chaque label
+            label = new Label(""); // Ajouter du texte unique à chaque label
             label.setPadding(new Insets(6));
             label.setStyle("-fx-border-color: #000000");
             labels.add(label); // Ajouter le label à la liste
@@ -47,7 +49,7 @@ public class VueGuichetIG extends VueEtapeIG {
 
         this.hBox.getChildren().add(espaceDroite);
         this.getChildren().add(this.hBox);
-
+/*
         int test = 0;
         for (Label label : labels) {
             if (test < 4){
@@ -62,12 +64,23 @@ public class VueGuichetIG extends VueEtapeIG {
                 label.setText(" ");
             }
             test++;
+
         }
+        */
     }
 
 
     @Override
     public void reagir() {}
+
+    public Label getLabel(int numero) {
+        if (numero >= 0 && numero < 10) {
+            return labels.get(numero);
+        } else {
+            return null; // Retourne null si le numéro est invalide
+        }
+    }
+
 
     /**
      * Méthode qui permet de définir le nouvel emplacement de l'activité

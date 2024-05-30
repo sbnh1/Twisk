@@ -328,4 +328,5 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     public void clearSuccesseurs(){
         this.successeurs.clear();
     }
+
 }

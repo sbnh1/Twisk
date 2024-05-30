@@ -69,10 +69,14 @@ public class GestionnaireClients implements Iterable<Client> {
         return listClient.values().iterator();
     }
 
-    public String toString(){
-        for(Client client : this){
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GestionnaireClients{\n");
+        for (Client client : listClient.values()) {
+            sb.append("  ").append(client.toString()).append("\n");
         }
-        return "";
+        sb.append('}');
+        return sb.toString();
     }
 }

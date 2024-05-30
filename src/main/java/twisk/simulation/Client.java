@@ -32,4 +32,13 @@ public class Client {
     public int getRang(){
         return this.rang;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "numeroClient=" + numeroClient +
+                ", rang=" + rang +
+                ", etape=" + (etape != null ? etape.getNom() : "null") +
+                '}';
+    }
 }

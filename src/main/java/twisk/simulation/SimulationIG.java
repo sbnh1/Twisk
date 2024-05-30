@@ -109,7 +109,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
         FabriqueNumero.getInstance().resetNumeroEtape();
         FabriqueNumero.getInstance().resetNumeroEtape();
         Monde monde = new Monde();
-        this.correspondanceEtapes = new CorrespondanceEtapes();
+        correspondanceEtapes = new CorrespondanceEtapes();
         ajouterEtapes(monde);
 
         this.ajouterSuccesseursEtapeIG();
@@ -135,6 +135,14 @@ public class SimulationIG extends SujetObserve implements Observateur {
 
     public GestionnaireClients getGestionnaireClients() {
         return this.gestionnaireClients;
+    }
+
+    /**
+     * Methode qui renvoie la CorrespondanceEtapes du MondeIG
+     * @return La CorrespondanceEtapes
+     */
+    public CorrespondanceEtapes getCorrespondanceEtapes(){
+        return this.correspondanceEtapes;
     }
 
     /**
@@ -260,6 +268,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
     public void reagir() {
         this.gestionnaireClients = getGestionnaireClients();
         this.mondeIG.setGestionnaireClients(this.gestionnaireClients);
+        this.mondeIG.setCorrespondanceEtapes(this.correspondanceEtapes);
         this.notifierObservateur();
     }
 }

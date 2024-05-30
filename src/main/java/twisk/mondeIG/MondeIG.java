@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
 import twisk.monde.Guichet;
+import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
@@ -22,6 +23,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private ArrayList<ArcIG> arcsSelectionnes;
     private Simulation simulation;
     private GestionnaireClients gestionnaireClients;
+    private CorrespondanceEtapes corres;
 
     /**
      * Constructeur de la classe MondeIG
@@ -390,10 +392,20 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public void setGestionnaireClients(GestionnaireClients gestionnaireClients) {
         this.gestionnaireClients = gestionnaireClients;
     }
+    public void setCorrespondanceEtapes(CorrespondanceEtapes correspondanceEtapes){
+        this.corres = correspondanceEtapes;
+    }
+
+    /**
+     * Methode qui renvoie la CorrespondanceEtapes du MondeIG
+     * @return La CorrespondanceEtapes
+     */
+    public CorrespondanceEtapes getCorrespondanceEtapes(){
+        return this.corres;
+    }
 
     @Override
     public void reagir() {
-
         Platform.runLater(this::notifierObservateur);
         //mettre a jour vumondeig quand il sera dans le bon thread (platform.runnable)
     }
