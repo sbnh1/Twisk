@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import twisk.monde.Etape;
@@ -13,11 +14,12 @@ import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.mondeIG.PointDeControleIG;
 import twisk.outils.CorrespondanceEtapes;
+import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
-import twisk.simulation.SimulationIG;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class VueMondeIG extends Pane implements Observateur{
     private MondeIG mondeIG;
@@ -65,7 +67,7 @@ public class VueMondeIG extends Pane implements Observateur{
 
             for(PointDeControleIG point : etape.getPointsDeControle()){
                 VuePointDeControleIG vuePoint = new VuePointDeControleIG(point, mondeIG);
-                getChildren().add(vuePoint);    
+                getChildren().add(vuePoint);
             }
         }
     }
@@ -108,18 +110,36 @@ public class VueMondeIG extends Pane implements Observateur{
                 circle.setFill(Color.RED);
                 CorrespondanceEtapes ce = mondeIG.getCorrespondanceEtapes();
                 Etape etape = client.getEtape();
-                //if(!etape.estUneEntree() && !etape.estUneSortie()){
-
                     EtapeIG etapeIG = ce.getEtapeIG(etape);
-                    if(etapeIG != null) {
-                        if (etapeIG.estUneActivite()) {
-                            System.out.println("faut faire ca : activité");
+                    if (etapeIG != null) {
+                    if (etapeIG.estUneActivite()) {
+                        for (Node node : this.getChildren()) {
+                            if (node instanceof VueActiviteIG) {
+                                VueActiviteIG vueActiviteIG = (VueActiviteIG) node;
+                                if (vueActiviteIG.getEtapeIG().equals(etapeIG)) {  // Vérifie que c'est la bonne étape
+                                    HBox hbox = vueActiviteIG.getHbox();
+
+                                    // Determine a random position for the circle
+                                    Random random = new Random();
+                                    double maxPositionX = TailleComposants.getInstance().activiteLargeur / 2;
+                                    double randomPositionX = random.nextDouble() * maxPositionX;
+
+                                    double maxPositionY = TailleComposants.getInstance().activiteHauter / 2;
+                                    double randomPositionY = random.nextDouble() * maxPositionY;
+
+                                    VBox circleContainer = new VBox(circle);
+                                    circleContainer.setTranslateX(randomPositionX);
+                                    circleContainer.setTranslateY(randomPositionY);
+
+                                    hbox.getChildren().add(circleContainer);
+                                }
+                            }
                         }
-                        if (etapeIG.estUnGuichet()){
-                            System.out.println("faut faire ca : guichet");
-                            for (Node node : this.getChildren()) {
-                                if (node instanceof VueGuichetIG) {
-                                    VueGuichetIG vueGuichetIG = (VueGuichetIG)  node;
+                    } else if (etapeIG.estUnGuichet()) {
+                        for (Node node : this.getChildren()) {
+                            if (node instanceof VueGuichetIG) {
+                                VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
+                                if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {  // Vérifie que c'est la bonne étape
                                     Label label = vueGuichetIG.getLabel(client.getRang());
 
                                     HBox circleContainer = new HBox(circle);
@@ -127,8 +147,8 @@ public class VueMondeIG extends Pane implements Observateur{
                                     label.setGraphic(circleContainer);
                                 }
                             }
-
                         }
+                    }
 
                     }
                 //}

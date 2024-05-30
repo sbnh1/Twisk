@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import twisk.outils.TailleComposants;
 
 public class VueActiviteIG extends VueEtapeIG {
+    private HBox hbox;
 
     /**
      * Constructeur de la classe VueActivitéIG
@@ -15,7 +16,7 @@ public class VueActiviteIG extends VueEtapeIG {
      */
     public VueActiviteIG(MondeIG monde, EtapeIG etape){
         super(monde, etape);
-        HBox hbox = new HBox();
+        hbox = new HBox();
         hbox.setPrefSize(etape.getLargeur(), etape.getHauteur());
         hbox.setStyle("-fx-border-color: #0000FF; -fx-background-color: #FFFFFF; -fx-border-width: 3px 0 0 0;-fx-border-radius: 2.0;");
         getChildren().add(hbox);
@@ -23,6 +24,10 @@ public class VueActiviteIG extends VueEtapeIG {
 
     @Override
     public void reagir() {
+    }
+
+    public HBox getHbox(){
+        return this.hbox;
     }
 
     /**

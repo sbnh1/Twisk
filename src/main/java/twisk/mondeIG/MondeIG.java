@@ -5,10 +5,8 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
-import twisk.monde.Guichet;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.TailleComposants;
-import twisk.simulation.Client;
 import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
@@ -43,13 +41,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      */
     public void ajouter(String type){
         if(type.equals("activite")){
-            EtapeIG etapeAjoute = new ActiviteIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
+            EtapeIG etapeAjoute = new ActiviteIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauter);
             String id = etapeAjoute.getIdentifiant();
             etapeAjoute.setNom(id);
             this.etapes.put(id, etapeAjoute);
         } else {
-            EtapeIG guichetAjoute = new GuichetIG(type, TailleComposants.getInstance().activiteLargeur, TailleComposants.getInstance().activiteHauteur);
+            EtapeIG guichetAjoute = new GuichetIG(type, TailleComposants.getInstance().guichetLargeur, TailleComposants.getInstance().guichetHauteur);
             String id = guichetAjoute.getIdentifiant();
+            guichetAjoute.setNom(id);
             this.etapes.put(id, guichetAjoute);
         }
     }

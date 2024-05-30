@@ -121,7 +121,6 @@ public class Simulation extends SujetObserve {
                 System.out.println();
             }
             System.out.println("\n");;
-            System.out.println("test : " + gestionnaireClients.toString());
             this.notifierObservateur();
             try {
                 Thread.sleep(1000);

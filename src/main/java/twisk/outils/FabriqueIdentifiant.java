@@ -35,6 +35,12 @@ public class FabriqueIdentifiant {
         return res;
     }
 
+    public String getIdentifiantGuichet(){
+        String res = "Guichet" + noEtape;
+        incrementerNoEtape();
+        return res;
+    }
+
     /**
      * Méthode pour incrémenter le numéro de l'étape.
      */

@@ -49,24 +49,6 @@ public class VueGuichetIG extends VueEtapeIG {
 
         this.hBox.getChildren().add(espaceDroite);
         this.getChildren().add(this.hBox);
-/*
-        int test = 0;
-        for (Label label : labels) {
-            if (test < 4){
-                Circle circle = new Circle(4); // Créer un cercle avec un rayon de 5
-                circle.setFill(Color.RED); // Définir la couleur du cercle
-
-                // Ajouter le cercle à l'intérieur du label
-                HBox circleContainer = new HBox(circle);
-                circleContainer.setAlignment(Pos.CENTER_RIGHT); // Aligner le cercle à droite
-                label.setGraphic(circleContainer);
-            } else {
-                label.setText(" ");
-            }
-            test++;
-
-        }
-        */
     }
 
 

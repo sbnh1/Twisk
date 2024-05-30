@@ -41,7 +41,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.estUneActivite = estUneActivite;
         this.estUnGuichet = estUnGuichet;
 
-        this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
+        if(this.estUneActivite){
+            this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
+        } else if (this.estUnGuichet) {
+            this.identifiant = FabriqueIdentifiant.getInstance().getIdentifiantGuichet();
+        }
+
         this.estUneEntree = false;
         this.estUneSortie = false;
         this.delai = 2;

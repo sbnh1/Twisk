@@ -30,6 +30,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
     public SimulationIG(MondeIG mondeIG){
         this.mondeIG = mondeIG;
         this.ajouterObservateur(mondeIG);
+        nbClient = 10;
     }
 
     /**
@@ -41,7 +42,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
         Task<Void> simulation = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                lancerSimulation(monde, 5);
+                lancerSimulation(monde, nbClient);
                 return null;
             }
         };
