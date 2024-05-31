@@ -67,7 +67,7 @@ public class Guichet extends Etape {
     public String toC(){
         StringBuilder string = new StringBuilder();
         int nbSuccesseur = this.getSuccesseur().nbEtapes();
-        string.append("delai(4,1);\n");
+        string.append("delai(" + this.getSuccesseur().getEtape(0).getTemps() + "," + this.getSuccesseur().getEtape(0).getEcartTemps() + ");\n");
         string.append("P(ids, " + this.getNom() + "_semaphore);\n");
         string.append("transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() + ");\n");
         string.append("V(ids, " + this.getNom() + "_semaphore);\n");

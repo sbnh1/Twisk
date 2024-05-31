@@ -143,7 +143,19 @@ public class VueMondeIG extends Pane implements Observateur{
                                 }
                             }
                         }
-
+                        for (Node node : this.getChildren()) {
+                            if (node instanceof VueGuichetIG) {
+                                VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
+                                if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {//vérifie que c'est la bonne étape
+                                    int rang = client.getRang() % 10;
+                                    rang = 9 - rang;
+                                    Label label = vueGuichetIG.getLabel(rang);
+                                    HBox circleContainer = new HBox(circle);
+                                    circleContainer.setAlignment(Pos.CENTER);
+                                    label.setGraphic(circleContainer);
+                                }
+                            }
+                        }
                     }
 
                     }

@@ -11,8 +11,8 @@ public class Activite extends Etape {
      */
     public Activite(String nom){
         super(nom);
-        this.temps = 0;
-        this.ecartTemps = 0;
+        this.temps = 4;
+        this.ecartTemps = 1;
     }
 
     /**
@@ -56,14 +56,15 @@ public class Activite extends Etape {
      * Retourne le temps d'exécution de l'activité
      * @return Le temps d'exécution de l'activité
      */
+    @Override
     public int getTemps(){
         return this.temps;
     }
-
     /**
      * Retourne l'écart de temps de l'activité
      * @return L'écart de temps de l'activité
      */
+    @Override
     public int getEcartTemps(){
         return this.ecartTemps;
     }

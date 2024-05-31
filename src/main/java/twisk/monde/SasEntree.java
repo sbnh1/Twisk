@@ -8,15 +8,30 @@
          */
         public SasEntree(){ super("SasEntree", 3, 1); }
 
+
+        private String toCChoixLoi(){
+
+            StringBuilder string = new StringBuilder();
+            string.append("if(loi == 1){\n");
+            string.append("delaiUniforme(10, 4);\n");
+            string.append("} else {\n");
+            string.append("delaiUniforme(10,4);\n");
+            string.append("}\n");
+
+            return string.toString();
+        }
+
+
         /**
          * Retourne une représentation en langage C du sas d'entrée
          * @return Une représentation en langage C du sas d'entrée
          */
         public String toC(){
             StringBuilder string = new StringBuilder();
-            int nbSuccesseur = this.getSuccesseur().nbEtapes(); //utiliser la fonction nbsuccesseur
+            int nbSuccesseur = this.getSuccesseur().nbEtapes();
             if(nbSuccesseur == 1){
                 string.append("entrer(" + this.getNom() + ");\n");
+                string.append(this.toCChoixLoi());
                 string.append("transfert(SasEntree, " + this.getSuccesseur().getEtape(0).getNom() +");\n");
                 string.append(this.getSuccesseur().getEtape(0).toC());
             }else if(nbSuccesseur > 1){
@@ -27,6 +42,7 @@
                 string.append("switch(bifurcation_" + this.getNom() + "){\n");
                 for(int i = 0; i < nbSuccesseur; i++){
                     string.append("case " + i + ":\n");
+                    string.append(this.toCChoixLoi());
                     string.append("transfert(SasEntree, " + this.getSuccesseur().getEtape(i).getNom() +");\n");
                     string.append(this.getSuccesseur().getEtape(i).toC());
                     string.append("break;\n");

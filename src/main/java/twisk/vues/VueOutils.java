@@ -63,10 +63,41 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonNbClients.setPrefSize(110,30);
         boutonNbClients.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #c66b3d;");
 
+        Button boutonChoixLoi = new Button("Loi");
+        Tooltip tooltipChoixLoi = new Tooltip("Choisir la loi d'entrée que vous voulez");
+        Tooltip.install(boutonChoixLoi, tooltipChoixLoi);
+        boutonChoixLoi.setOnAction(event -> defChoixLoi());
+        boutonChoixLoi.setPrefSize(110,30);
+        boutonChoixLoi.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #9E7BB5;");
+
         this.setStyle("-fx-background-color: #e5e5dc;");
 
-        this.getItems().addAll(espaceGauche ,boutonNbClients ,boutonActivite, boutonGuichet, boutonSimulation, espaceDroite);
+        this.getItems().addAll(espaceGauche, boutonChoixLoi, boutonActivite, boutonGuichet, boutonNbClients, boutonSimulation, espaceDroite);
         this.monde.ajouterObservateur(this);
+    }
+
+    private void defChoixLoi() {
+        TextInputDialog text = new TextInputDialog();
+        text.setTitle("Loi à choisir");
+        text.setHeaderText(null);
+        text.setContentText("Loi : \n" +
+                "  - Loi Uniforme (1)\n" +
+                "\n  tappez le nombre correspondant à la loi voulu : ");
+        Optional<String> result = text.showAndWait();
+
+        // convertions en entier
+        result.ifPresent(input -> {
+            try {
+                int choixLoi = Integer.parseInt(input);
+                this.simulationIG.setChoixLoi(choixLoi);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez saisir un entier valide.");
+                alert.showAndWait();
+            }
+        });
     }
 
     private void defNbClient() {

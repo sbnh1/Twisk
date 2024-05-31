@@ -24,6 +24,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
     private Object instanceClassperso;
     private Monde monde;
     private GestionnaireClients gestionnaireClients;
+    private int choixLoi;
 
     /**
      * Constructeur de SimulationIG
@@ -32,7 +33,8 @@ public class SimulationIG extends SujetObserve implements Observateur {
     public SimulationIG(MondeIG mondeIG){
         this.mondeIG = mondeIG;
         this.ajouterObservateur(mondeIG);
-        nbClient = 10;
+        this.nbClient = 10;
+        this.choixLoi = 1;
     }
 
     /**
@@ -77,7 +79,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
      */
     private void verifierMonderIG() throws MondeInvalideException {
         if (!this.mondeIG.aEntree()) {
-            throw new MondeInvalideException("Erreur: il n'y a pas d'entree");
+            throw new MondeInvalideException("Erreur: il n'y a pas d'entrée");
         }
 
         if (!this.mondeIG.aSortie()) {
@@ -94,7 +96,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
             }
             if (etape.estUnGuichet()) {
                 if (etape.estUneSortie()) {
-                    throw new MondeInvalideException("Erreur: un guichet ne peut etre une sortie");
+                    throw new MondeInvalideException("Erreur: un guichet ne peut être une sortie");
                 }
                 if (etape.getNbSuccesseurs() > 1) {
                     throw new MondeInvalideException("Erreur: un guichet ne peut avoir qu'un seul successeur");
@@ -167,6 +169,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
         FabriqueNumero.getInstance().resetNumeroEtape();
         FabriqueNumero.getInstance().resetNumeroEtape();
         Monde monde = new Monde();
+        monde.setChoixLoi(this.getChoixLoi());
         correspondanceEtapes = new CorrespondanceEtapes();
         ajouterEtapes(monde);
 
@@ -324,6 +327,14 @@ public class SimulationIG extends SujetObserve implements Observateur {
      */
     public void setNbClient(int nbClient) {
         this.nbClient = nbClient;
+    }
+
+    public int getChoixLoi() {
+        return choixLoi;
+    }
+
+    public void setChoixLoi(int choixLoi) {
+        this.choixLoi = choixLoi;
     }
 
     @Override

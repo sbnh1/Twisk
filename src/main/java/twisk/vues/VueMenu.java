@@ -84,6 +84,9 @@ public class VueMenu extends MenuBar implements Observateur {
             result.ifPresent(input -> {
                 try {
                     int jetons = Integer.parseInt(input);
+                    if(jetons < 1){
+                        throw new DelaiEcartException("Erreur : un guichet ne peux avoir que un nombre de jetons supérieur à 0");
+                    }
                     this.monde.premiereEtapeSelectionnee().setNbJetons(jetons);
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -91,6 +94,7 @@ public class VueMenu extends MenuBar implements Observateur {
                     alert.setHeaderText(null);
                     alert.setContentText("Veuillez saisir un entier valide.");
                     alert.showAndWait();
+                } catch (DelaiEcartException e) {
                 }
             });
             this.effacerSelection();
@@ -122,7 +126,6 @@ public class VueMenu extends MenuBar implements Observateur {
                     alert.setContentText("Veuillez saisir un entier valide.");
                     alert.showAndWait();
                 } catch (DelaiEcartException e) {
-                    throw new RuntimeException(e);
                 }
             });
 
@@ -148,13 +151,18 @@ public class VueMenu extends MenuBar implements Observateur {
             result.ifPresent(input -> {
                 try {
                     int delai = Integer.parseInt(input);
-                    this.monde.premiereEtapeSelectionnee().setDelai(delai);
+                    if(delai <= this.monde.premiereEtapeSelectionnee().getEcartTemps()){
+                        throw new DelaiEcartException("Erreur : Le delais ne peut pas être plus petit que l'écart-temps");
+                    } else {
+                     this.monde.premiereEtapeSelectionnee().setDelai(delai);
+                    }
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
                     alert.setHeaderText(null);
                     alert.setContentText("Veuillez saisir un entier valide.");
                     alert.showAndWait();
+                } catch (DelaiEcartException e) {
                 }
             });
 

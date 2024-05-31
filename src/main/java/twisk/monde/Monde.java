@@ -1,6 +1,5 @@
 package twisk.monde;
 
-import twisk.outils.FabriqueNumero;
 import java.util.Iterator;
 
 public class Monde implements Iterable<Etape>{
@@ -8,6 +7,7 @@ public class Monde implements Iterable<Etape>{
     private GestionnaireEtapes etapes;
     private Etape entree;
     private Etape sortie;
+    private int choixLoi;
 
     /**
      * Constructeur du monde.
@@ -17,8 +17,7 @@ public class Monde implements Iterable<Etape>{
         this.sortie = new SasSortie();
         this.etapes = new GestionnaireEtapes();
         this.etapes.ajouter(this.entree, this.sortie);
-        //FabriqueNumero.getInstance().resetNumeroEtape();
-        //FabriqueNumero.getInstance().resetNumeroSemaphore();
+        this.choixLoi = 1;
     }
 
     /**
@@ -105,15 +104,44 @@ public class Monde implements Iterable<Etape>{
         return res;
     }
 
+    public void setChoixLoi(int choixLoi){
+        this.choixLoi = choixLoi;
+    }
+
+    public int getChoixLoi(){
+        return this.choixLoi;
+    }
+
+
+    /**
+     * Methode qui genere le code C de la fonction delaiUniforme
+     * @return Le code C de la fonction
+     */
+    private String toCUniforme(){
+
+        StringBuilder s = new StringBuilder();
+        s.append("void delaiUniforme(int temps, int delta){\n");
+        s.append("int bi, bs;\n");
+        s.append("int n, nbSec;\n");
+        s.append("bi = temps - delta;\n");
+        s.append("if (bi < 0) bi = 0 ;\n");
+        s.append("bs = temps + delta ;\n");
+        s.append("n = bs - bi + 1 ;\n");
+        s.append("nbSec = (rand()/ (float)RAND_MAX) * n ;\n");
+        s.append("nbSec += bi ;\n");
+        s.append("sleep(nbSec / 2);\n");
+        s.append("}\n");
+        return s.toString();
+    }
+
+
     /**
      * Retourne une représentation en langage C du monde
      * @return Une représentation en langage C du monde
      */
-
     public String toC(){
-        //toutes les etapes doivent être implémenter dans le bon ordre pour que cela marche en mettant sasEntree au tout début et sasSortie à la fin
         StringBuilder string = new StringBuilder();
-        string.append("#include <stdlib.h>\n#include <stdio.h>\n#include \"def.h\"\n\n");
+        string.append("#include <stdlib.h>\n#include <stdio.h>\n#include \"def.h\"\n#include <math.h>\n#include <time.h>\n#include <unistd.h>\n\n");
         for(int i = 0; i < this.nbEtapes(); i++){
             string.append("#define " + this.etapes.getEtape(i).getNom() + " " + this.etapes.getEtape(i).getId() + "\n");
             if(this.etapes.getEtape(i).estUnGuichet()){
@@ -121,7 +149,11 @@ public class Monde implements Iterable<Etape>{
             }
         }
 
+        string.append(this.toCUniforme());
+
         string.append("\nvoid simulation(int ids){\n");
+        string.append("int loi = " + this.choixLoi + ";\n");
+        string.append("srand(getpid());\n");
         string.append(this.etapes.getEtape(0).toC());
 
         string.append("}");

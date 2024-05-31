@@ -86,8 +86,6 @@ public class Simulation extends SujetObserve {
         System.load("/tmp/twisk/libTwisk" + FabriqueIdlib.getInstance().getCurrentId() + ".so");
 
         int[] tabJetonsGuichet = new int[monde.nbGuichets()];
-        //initialisation du nombre de clients dans ClientTwisk par la commande : simulation.setNbClient(20);
-        System.out.println(monde.nbEtapes());
         int nbClient = this.nbClient;
         for(int i = 0; i < monde.nbEtapes(); i++){
             if(monde.getEtape(i).estUnGuichet()){

@@ -8,6 +8,8 @@ public abstract class Etape implements Iterable<Etape>{
     private String nom;
     private GestionnaireEtapes successeur;
     private int id;
+    private int ecartTemps;
+    private int temps;
 
     /**
      * Constructeur de la classe Etape
@@ -16,6 +18,8 @@ public abstract class Etape implements Iterable<Etape>{
     public Etape(String nom){
         this.nom = nom;
         this.successeur = new GestionnaireEtapes();
+        this.ecartTemps = 1;
+        this.temps = 4;
         this.id = FabriqueNumero.getInstance().getNumeroEtape();
     }
 
@@ -74,6 +78,23 @@ public abstract class Etape implements Iterable<Etape>{
      * @return Le nombre de jetons de l'étape
      */
     public abstract int getNbJetons();
+
+    /**
+     * Retourne le temps d'exécution de l'activité
+     * @return Le temps d'exécution de l'activité
+     */
+    public int getTemps(){
+        return this.temps;
+    }
+
+    /**
+     * Retourne l'écart de temps de l'activité
+     * @return L'écart de temps de l'activité
+     */
+    public int getEcartTemps(){
+        return this.ecartTemps;
+    }
+
 
     /**
      * Retourne le nombre de successeurs de l'étape

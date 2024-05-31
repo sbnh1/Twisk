@@ -49,7 +49,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
         this.estUneEntree = false;
         this.estUneSortie = false;
-        this.delai = 2;
+        this.delai = 3;
         this.ecartTemps = 1;
         this.nbJetons = 3;
 
