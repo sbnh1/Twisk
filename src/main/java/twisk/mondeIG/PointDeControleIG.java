@@ -1,11 +1,18 @@
 package twisk.mondeIG;
 
+import com.google.gson.annotations.Expose;
+import twisk.outils.FabriqueIdPc;
+
 public class PointDeControleIG {
     private double positionX;
     private double positionY;
     private String identifiant;
-    private EtapeIG etapeIG;
-    private boolean estSelectionnee;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient EtapeIG etapeIG;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient boolean estSelectionnee;
     private boolean sensCirculation;
 
     /**
@@ -18,7 +25,7 @@ public class PointDeControleIG {
     public PointDeControleIG(double positionX, double positionY, String identifiant, EtapeIG etapeIG){
         this.positionX = positionX;
         this.positionY = positionY;
-        this.identifiant = identifiant;
+        this.identifiant = identifiant + etapeIG.getIdentifiant();
         this.etapeIG = etapeIG;
         this.estSelectionnee = false;
     }
@@ -91,5 +98,9 @@ public class PointDeControleIG {
 
     public void setSensCirculation(boolean sensCirculation) {
         this.sensCirculation = sensCirculation;
+    }
+
+    public void setIdentifiant(String identifiant){
+        this.identifiant = identifiant;
     }
 }

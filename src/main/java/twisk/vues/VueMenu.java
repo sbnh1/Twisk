@@ -1,12 +1,17 @@
 package twisk.vues;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import twisk.exceptions.DelaiEcartException;
-import twisk.mondeIG.MondeIG;
+import twisk.exceptions.PointDeControleException;
+import twisk.mondeIG.*;
 
-import java.util.Optional;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
 
 public class VueMenu extends MenuBar implements Observateur {
     private MondeIG monde;
@@ -21,9 +26,15 @@ public class VueMenu extends MenuBar implements Observateur {
 
         Menu menuFichier = new Menu("Fichier");
         MenuItem quitter = new MenuItem("Quitter");
+        MenuItem exporter = new MenuItem("exporter");
+        MenuItem importer = new MenuItem("importer");
+        exporter.setOnAction(event -> monde.toJson());
+        importer.setOnAction(event -> this.importer());
         quitter.setOnAction(event -> Platform.exit());
         quitter.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
         menuFichier.getItems().add(quitter);
+        menuFichier.getItems().add(exporter);
+        menuFichier.getItems().add(importer);
 
         Menu menuEdition = new Menu("Édition");
         MenuItem supprimer = new MenuItem("Supprimer");
@@ -238,6 +249,69 @@ public class VueMenu extends MenuBar implements Observateur {
             result.ifPresent(s -> this.monde.renommer(s));
             this.effacerSelection();
         }
+    }
+
+    public void importer(){
+        this.monde.reset();
+        Gson gson = new Gson();
+        FileReader reader = null;
+        try {
+            reader = new FileReader("/home/quidam/twisk-houssei12u-guittien5u/src/main/java/twisk/data.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> data = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {}.getType());
+        Map<String, Object> etapes = (Map<String, Object>) data.get("etapes");
+        List<Map<String, Object>> arcs = (List<Map<String, Object>>) data.get("arcs");
+
+        Map<String, PointDeControleIG> points = new HashMap<>();
+
+        for (Map.Entry<String, Object> entry : etapes.entrySet()) {
+            Map<String, Object> etape = (Map<String, Object>) entry.getValue();
+            if((boolean)etape.get("estUneActivite")){
+                ActiviteIG activite = new ActiviteIG(
+                        (String)etape.get("nom"),
+                        ((Double) etape.get("largeur")).intValue(),
+                        ((Double) etape.get("hauteur")).intValue()
+                );
+                activite.setDelai(((Double)etape.get("delai")).intValue());
+                try {
+                    activite.setEcartTemps(((Double) etape.get("ecartTemps")).intValue());
+                } catch (DelaiEcartException e) {}
+
+
+                for(PointDeControleIG point : activite.getPointsDeControle()){
+                    points.put(point.getIdentifiant(), point);
+                }
+
+                this.monde.ajouter(activite);
+            }else{
+                GuichetIG guichet = new GuichetIG(
+                        (String)etape.get("nom"),
+                        ((Double) etape.get("largeur")).intValue(),
+                        ((Double) etape.get("hauteur")).intValue()
+                );
+
+                guichet.setNbJetons(((Double)etape.get("nbJetons")).intValue());
+
+                for(PointDeControleIG point : guichet.getPointsDeControle()){
+                    points.put(point.getIdentifiant(), point);
+                }
+                this.monde.ajouter(guichet);
+            }
+        }
+
+        for (Map<String, Object> arc : arcs) {
+            try{
+                this.monde.ajouter(
+                        points.get((String)arc.get("arrivee")),
+                        points.get((String)arc.get("depart"))
+                );
+            }catch(PointDeControleException e){
+
+            }
+        }
+        this.monde.notifierObservateur();
     }
 
     @Override

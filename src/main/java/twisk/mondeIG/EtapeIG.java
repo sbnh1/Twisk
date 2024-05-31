@@ -1,5 +1,6 @@
 package twisk.mondeIG;
 
+import com.google.gson.annotations.Expose;
 import twisk.exceptions.DelaiEcartException;
 import twisk.outils.FabriqueIdentifiant;
 
@@ -26,8 +27,11 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     private List<PointDeControleIG> pointDeControleIGList;
 
-    private ArrayList<EtapeIG> successeurs;
-    private ArrayList<EtapeIG> predecesseurs;
+    @Expose(serialize = false, deserialize = false)
+    private transient ArrayList<EtapeIG> successeurs;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient ArrayList<EtapeIG> predecesseurs;
     /**
      * Constructeur de la classe abstraite EtapeIG
      * @param nom nom de l'étapeIG
@@ -277,6 +281,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
             //bas
             pointDeControleIGList.get(3).setPositionX(milieuX);
             pointDeControleIGList.get(3).setPositionY(this.posY + getHauteur());
+        }
+    }
+
+    public void ajouterPointDeControle(PointDeControleIG... points){
+        for(PointDeControleIG point : points){
+            this.pointDeControleIGList.add(point);
         }
     }
 

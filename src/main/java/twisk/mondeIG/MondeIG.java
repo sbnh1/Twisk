@@ -1,8 +1,13 @@
 package twisk.mondeIG;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.reflect.TypeToken;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
 import twisk.outils.CorrespondanceEtapes;
@@ -11,16 +16,32 @@ import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
     private HashMap<String, EtapeIG> etapes;
-    private ArrayList<EtapeIG> etapesSelectionnees;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient ArrayList<EtapeIG> etapesSelectionnees;
+
     private ArrayList<ArcIG> arcs;
-    private PointDeControleIG premierPointDeControle;
-    private ArrayList<ArcIG> arcsSelectionnes;
-    private GestionnaireClients gestionnaireClients;
-    private CorrespondanceEtapes corres;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient PointDeControleIG premierPointDeControle;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient ArrayList<ArcIG> arcsSelectionnes;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient GestionnaireClients gestionnaireClients;
+
+    @Expose(serialize = false, deserialize = false)
+    private transient CorrespondanceEtapes corres;
 
     /**
      * Constructeur de la classe MondeIG
@@ -31,6 +52,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.etapesSelectionnees = new ArrayList<>();
         this.arcsSelectionnes = new ArrayList<>();
         //this.ajouterObservateur(this);
+    }
+
+    public void reset(){
+        this.etapes = new HashMap<>();
+        this.arcs = new ArrayList<>();
+        this.etapesSelectionnees = new ArrayList<>();
+        this.arcsSelectionnes = new ArrayList<>();
     }
 
     /**
@@ -50,6 +78,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             guichetAjoute.setNom(id);
             this.etapes.put(id, guichetAjoute);
         }
+    }
+
+    public void ajouter(EtapeIG etape){
+        this.etapes.put(etape.getIdentifiant(), etape);
     }
 
     /**
@@ -108,10 +140,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public Iterator<ArcIG> arcIterator() { return arcs.iterator(); }
 
     /**
-     * Créer un arc qui respect les contraintes du mondeIG à partir de deux points de controle
-     * @param pt1 point de controle de départ de l'arc
-     * @param pt2 point de controle d'arrivé de l'arc
-     * @throws PointDeControleException si les deux points ne respecte pas une des contraintes imposé par le MondeIG
+
+     Créer un arc qui respect les contraintes du mondeIG à partir de deux points de controle
+     @param pt1 point de controle de départ de l'arc
+     @param pt2 point de controle d'arrivé de l'arc
+     @throws PointDeControleException si les deux points ne respecte pas une des contraintes imposé par le MondeIG
      */
     public void ajouter(PointDeControleIG pt1, PointDeControleIG pt2) throws PointDeControleException {
         EtapeIG etape1 = pt1.getEtapeIG();
@@ -418,5 +451,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         Platform.runLater(this::notifierObservateur);
         //mettre a jour vumondeig quand il sera dans le bon thread (platform.runnable)
     }
+
+    public void toJson(){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        List<Map<String, String>> arcs = new ArrayList<>();
+        for(ArcIG arc : this.arcs){
+            Map<String, String> newArc = new HashMap<>();
+            newArc.put("depart", arc.getPointDeControleDepart().getIdentifiant());
+            newArc.put("arrivee", arc.getPointDeControleArrivee().getIdentifiant());
+            arcs.add(newArc);
+        }
+
+        Map<String, Object> jsonData = new HashMap<>();
+        jsonData.put("etapes", this.etapes);
+        jsonData.put("arcs", arcs);
+
+        System.out.println(gson.toJson(jsonData));
+    }
+
 
 }
