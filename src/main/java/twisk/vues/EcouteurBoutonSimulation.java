@@ -39,7 +39,7 @@ public class EcouteurBoutonSimulation implements EventHandler<ActionEvent> {
                 Tooltip.install(this.bouton, infoBulleSimulation);
             }else{
                 this.bouton.setText("Start");
-                this.simulationIG.stopSimualtion();
+                this.simulationIG.stoperSimulation();
                 infoBulleSimulation = new Tooltip("Lancer la simulation du monde");
                 Tooltip.install(this.bouton, infoBulleSimulation);
             }

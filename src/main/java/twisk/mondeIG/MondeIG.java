@@ -206,8 +206,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         for (EtapeIG etape : etapes) {
             this.etapes.remove(etape.getIdentifiant());
             deselectionnerEtape(etape);
-            if(premierPointDeControle.getEtapeIG() == etape){
-                premierPointDeControle = null;
+            if (premierPointDeControle != null) {
+                if (premierPointDeControle.getEtapeIG() == etape) {
+                    premierPointDeControle = null;
+                }
             }
         }
         notifierObservateur();

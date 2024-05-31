@@ -81,4 +81,10 @@ public class KitC {
             e.printStackTrace();
         }
     }
+
+    public void tuerProcessus(int[] pids) throws IOException{
+        for(int pid : pids){
+            Runtime.getRuntime().exec("kill " + String.valueOf(pid));
+        }
+    }
 }

@@ -54,8 +54,22 @@ public class SimulationIG extends SujetObserve implements Observateur {
     /**
      * stop la simulation
      */
-    public void stopSimualtion(){
-        ThreadsManager.getInstance().destroyThreads();
+    public void stoperSimulation(){
+        try {
+            ClassLoaderPerso classLoader = new ClassLoaderPerso(this.mondeIG.getClass().getClassLoader());
+            Class<?> classePerso = classLoader.loadClass("twisk.simulation.Simulation");
+            Constructor constructor = classePerso.getConstructor();
+            Object instanceClassPerso = constructor.newInstance();
+            Method tuerProcessus = classePerso.getMethod("tuerProcessus");
+            tuerProcessus.invoke(instanceClassperso);
+            ThreadsManager.getInstance().destroyThreads();
+            FabriqueNumero.getInstance().resetNumeroEtape();
+            FabriqueNumero.getInstance().resetNumeroSemaphore();
+            notifierObservateur();
+        }
+        catch(Exception e){
+
+        }
     }
 
     /**

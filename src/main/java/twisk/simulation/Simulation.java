@@ -6,11 +6,13 @@ import twisk.mondeIG.SujetObserve;
 import twisk.outils.FabriqueIdlib;
 import twisk.outils.KitC;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Simulation extends SujetObserve {
     private KitC kitC;
     private int nbClient;
+    private int[] pids;
     private GestionnaireClients gestionnaireClients;
 
     /**
@@ -94,7 +96,7 @@ public class Simulation extends SujetObserve {
             }
         }
 
-        int[] pids = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
+        this.pids = start_simulation(monde.nbEtapes(), monde.nbGuichets(), nbClient, tabJetonsGuichet);
 
 
 
@@ -134,5 +136,17 @@ public class Simulation extends SujetObserve {
         }
         posClients = null;
         nettoyage();
+    }
+
+    public void tuerProcessus(){
+
+        KitC kitC = new KitC();
+        try {
+            kitC.tuerProcessus(this.pids);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
