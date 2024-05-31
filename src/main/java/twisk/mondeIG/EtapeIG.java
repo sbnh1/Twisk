@@ -321,18 +321,34 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         }
     }
 
+    /**
+     * Renvoie le nombre de successeurs de l'étape
+     * @return le nombre de successeurs
+     */
     public int getNbSuccesseurs(){
         return this.successeurs.size();
     }
 
-    public int getNbPrececesseurs(){
+    /**
+     * Renvoie le nombre de prédecesseurs de l'étape
+     * @return le nombre de prédecesseurs
+     */
+    public int getNbPredecesseurs(){
         return this.predecesseurs.size();
     }
 
+    /**
+     * Itère sur les successeurs
+     * @return un itérateur sur les successeurs
+     */
     public Iterator<EtapeIG> iteratorSuccesseur(){
         return this.successeurs.iterator();
     }
 
+    /**
+     * Itère sur les predecesseurs
+     * @return un itérateur sur les predecesseurs
+     */
     public Iterator<EtapeIG> iteratorPredecesseur(){
         return this.predecesseurs.iterator();
     }

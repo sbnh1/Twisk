@@ -16,6 +16,12 @@ public class EcouteurBoutonSimulation implements EventHandler<ActionEvent> {
     private SimulationIG simulationIG;
     private Button bouton;
 
+    /**
+     * Constructeur de la class EcouteurBoutonSimulation
+     * @param monde le monde sur lequel l'événement est déclenché
+     * @param simulation la simulationIG utilisé
+     * @param bouton auquel cet écouteur est raccroché
+     */
     public EcouteurBoutonSimulation(MondeIG monde, SimulationIG simulation, Button bouton) {
         this.mondeIG = monde;
         this.simulationIG = simulation;

@@ -23,12 +23,27 @@ public class Client {
         this.etape = etape;
         this.rang = rang;
     }
+
+    /**
+     * Renvoie le numéro du client
+     * @return le numéro du client
+     */
     public int getNumeroClient(){
         return this.numeroClient;
     }
+
+    /**
+     * Renvoie l'étape du client
+     * @return l'étape du client
+     */
     public Etape getEtape(){
         return this.etape;
     }
+
+    /**
+     * Renvoie le rang du client
+     * @return le rang du client
+     */
     public int getRang(){
         return this.rang;
     }

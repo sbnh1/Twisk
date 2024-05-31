@@ -101,6 +101,12 @@ public class SimulationIG extends SujetObserve implements Observateur {
         }
     }
 
+    /**
+     * Vérifie si il y'a une sortie a chaque fin de chemin
+     * Utilisation du DFS
+     * @param etape l'étape de départ
+     * @return true si le monde est juste, sinon false
+     */
     public boolean verifierChemin(EtapeIG etape) {
         if (etape.estUneSortie()) {
             return false;
@@ -116,6 +122,10 @@ public class SimulationIG extends SujetObserve implements Observateur {
         return false;
     }
 
+    /**
+     * Retranscrit les étapeIG en étape
+     * @param monde le monde où les étapes sont ajoutés.
+     */
     public void ajouterEtapes(Monde monde) {
         for (EtapeIG etape : this.mondeIG) {
             if (etape.estUnGuichet()) {
@@ -136,6 +146,10 @@ public class SimulationIG extends SujetObserve implements Observateur {
         }
     }
 
+    /**
+     * Fabrique un monde à partir du MondeIG
+     * @return le monde créé
+     */
     public Monde creerMonde() {
         FabriqueIdentifiant.getInstance().reset();
         FabriqueNumero.getInstance().resetNumeroEtape();
@@ -165,6 +179,10 @@ public class SimulationIG extends SujetObserve implements Observateur {
         return monde;
     }
 
+    /**
+     * Renvoie le gestionnaire de clients
+     * @return le gestionnaire de clients
+     */
     public GestionnaireClients getGestionnaireClients() {
         return this.gestionnaireClients;
     }

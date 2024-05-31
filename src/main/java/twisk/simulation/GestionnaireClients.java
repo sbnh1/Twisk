@@ -62,7 +62,7 @@ public class GestionnaireClients implements Iterable<Client> {
     }
 
     /**
-     * méthode qui retourne un itérateur sur la liste des clients
+     * Méthode qui retourne un itérateur sur la liste des clients
      * @return un itérateur sur la liste des clients
      */
     public Iterator<Client> iterator(){

@@ -26,10 +26,18 @@ public class FabriqueIdlib {
     }
 
 
+    /**
+     * Renvoie un novel id
+     * @return un nouvel id
+     */
     public int getId() {
         return ++this.id;
     }
 
+    /**
+     * Renvoie l'id actuel
+     * @return l'id actuel
+     */
     public int getCurrentId() {
         return this.id;
     }

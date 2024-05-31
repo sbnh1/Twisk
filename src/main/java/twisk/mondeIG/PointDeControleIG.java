@@ -69,10 +69,17 @@ public class PointDeControleIG {
         this.positionY = positionY;
     }
 
+    /**
+     * @return un booléen true si sélectionné, sinon false
+     */
     public boolean estSelectionee(){
         return this.estSelectionnee;
     }
 
+    /**
+     * Modifie le booléen estSelectionnee avec celui en paramètre
+     * @param estSelectionnee le nouvel état du point de contrôle
+     */
     public void setEstSelectionnee(boolean estSelectionnee) {
         this.estSelectionnee = estSelectionnee;
     }

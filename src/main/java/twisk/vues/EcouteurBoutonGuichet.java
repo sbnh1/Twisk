@@ -7,6 +7,11 @@ import twisk.mondeIG.MondeIG;
 
 public class EcouteurBoutonGuichet implements EventHandler<ActionEvent> {
     private MondeIG monde;
+
+    /**
+     * Constructeur de la classe EcouteurBoutonGuichet
+     * @param monde le monde sur lequel l'événement est déclenché
+     */
     public EcouteurBoutonGuichet(MondeIG monde){
         this.monde  = monde;
     }

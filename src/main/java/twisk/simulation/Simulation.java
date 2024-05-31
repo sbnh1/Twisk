@@ -51,6 +51,10 @@ public class Simulation extends SujetObserve {
         this.nbClient = nbClients;
     }
 
+    /**
+     * Affiche le monde sur la sortie standard
+     * @param monde le monde affiché
+     */
     public void afficherMonde(Monde monde){
         for(int i = 0; i < monde.nbEtapes(); i++){
             System.out.println(monde.getEtape(i).toString());

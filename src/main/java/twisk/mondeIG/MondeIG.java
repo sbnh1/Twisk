@@ -19,7 +19,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private ArrayList<ArcIG> arcs;
     private PointDeControleIG premierPointDeControle;
     private ArrayList<ArcIG> arcsSelectionnes;
-    private Simulation simulation;
     private GestionnaireClients gestionnaireClients;
     private CorrespondanceEtapes corres;
 
@@ -141,18 +140,19 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
-     * Sélectionne un point de controle, appelle la fonction ajouter avec en parametre,
+     * Sélectionne un point de controle, appelle la fonction ajoutée avec en parametre,
      * le point de controle précédemment sélectionné et l'actuel.
-     * Si il n'y a pas de point de controle précédent il le devient,
-     * sinon les deux points de controle sont oublié après l'apelle de la fonction ajouté
+     * S'il n'y a pas de point de controle précédent, il le devient,
+     * sinon les deux points de controle sont oublié après l'apelle de la fonction ajoutée
      * @param pointDeControleIG point de controle sélectionné
-     * @throws PointDeControleException si une erreur est trouvé dans la méthode ajouter(PointDeControleIG pt1, PointDeControleIG pt2)
+     * @throws PointDeControleException si une erreur est trouvé dans la méthode ajouter (PointDeControleIG pt1, PointDeControleIG pt2)
      */
     public void pointDeControleSelectionne(PointDeControleIG pointDeControleIG) throws PointDeControleException {
         if(premierPointDeControle == null){
             premierPointDeControle = pointDeControleIG;
             premierPointDeControle.setEstSelectionnee(true);
         } else {
+            System.out.println(premierPointDeControle.getEtapeIG().toString());
             ajouter(premierPointDeControle, pointDeControleIG);
             premierPointDeControle.setEstSelectionnee(false);
             premierPointDeControle = null;
@@ -204,6 +204,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         for (EtapeIG etape : etapes) {
             this.etapes.remove(etape.getIdentifiant());
             deselectionnerEtape(etape);
+            if(premierPointDeControle.getEtapeIG() == etape){
+                premierPointDeControle = null;
+            }
         }
         notifierObservateur();
     }
@@ -376,6 +379,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
     }
 
+    /**
+     * Renvoie le gestionnaire de clients
+     * @return le gestionnaire de clients
+     */
     public GestionnaireClients getGestionnaireClients(){
         return this.gestionnaireClients;
     }
@@ -390,9 +397,18 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
 
+    /**
+     * Modifie le gestionnaire de clients avec celui donné en paramètre
+     * @param gestionnaireClients le nouveau gestionnaire de client
+     */
     public void setGestionnaireClients(GestionnaireClients gestionnaireClients) {
         this.gestionnaireClients = gestionnaireClients;
     }
+
+    /**
+     * Modifie la correspondance étapes avec celle donnée en paramètre
+     * @param correspondanceEtapes la nouvelle correspondance étapes
+     */
     public void setCorrespondanceEtapes(CorrespondanceEtapes correspondanceEtapes){
         this.corres = correspondanceEtapes;
     }

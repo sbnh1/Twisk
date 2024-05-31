@@ -71,42 +71,18 @@ public class VueMondeIG extends Pane implements Observateur{
             }
         }
     }
-/*
-    public void initialiserCercle(){
-        if(gestionnaireClients != null){
-            for(Client client : gestionnaireClients){
 
-                CorrespondanceEtapes ce = this.mondeIG.getCorres();
-                Etape etape = client.getEtape();
-                //if(!etape.estUneEntree() && !etape.estUneSortie()){
 
-                if(etape != null){
-                    EtapeIG etapeIG = ce.getEtapeIG(etape);
-                    if(etape.estUnGuichet()){
-                        for (Node node : this.getChildren()) {
-                            if (node instanceof VueGuichetIG) {
-                                VueGuichetIG vueGuichetIG = (VueGuichetIG)  node;
-                                Label label = vueGuichetIG.getLabel(client.getRang());
-                                Circle circle = new Circle(4);
-                                circle.setFill(Color.RED);
-                                HBox circleContainer = new HBox(circle);
-                                circleContainer.setAlignment(Pos.CENTER);
-                                label.setGraphic(circleContainer);
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-    }*/
-
+    /**
+     * Initialise la position des cercles dans les étapes
+     */
     public void initialiserCercle(){
         if(mondeIG.getGestionnaireClients() != null) {
 
             for(Client client : mondeIG.getGestionnaireClients()){
 
                 Circle circle = new Circle(4.);
+                //choixCouleur(circle);
                 circle.setFill(Color.RED);
                 CorrespondanceEtapes ce = mondeIG.getCorrespondanceEtapes();
                 Etape etape = client.getEtape();
@@ -119,12 +95,12 @@ public class VueMondeIG extends Pane implements Observateur{
                                 if (vueActiviteIG.getEtapeIG().equals(etapeIG)) {  // Vérifie que c'est la bonne étape
                                     HBox hbox = vueActiviteIG.getHbox();
 
-                                    // Determine a random position for the circle
+                                    //Determine la position du client dans l'activité à chaque tour de boucle
                                     Random random = new Random();
-                                    double maxPositionX = TailleComposants.getInstance().activiteLargeur / 2;
+                                    double maxPositionX = (double) TailleComposants.getInstance().activiteLargeur / 2;
                                     double randomPositionX = random.nextDouble() * maxPositionX;
 
-                                    double maxPositionY = TailleComposants.getInstance().activiteHauter / 2;
+                                    double maxPositionY = (double) TailleComposants.getInstance().activiteHauter / 2;
                                     double randomPositionY = random.nextDouble() * maxPositionY;
 
                                     VBox circleContainer = new VBox(circle);
@@ -139,9 +115,8 @@ public class VueMondeIG extends Pane implements Observateur{
                         for (Node node : this.getChildren()) {
                             if (node instanceof VueGuichetIG) {
                                 VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
-                                if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {  // Vérifie que c'est la bonne étape
-                                    Label label = vueGuichetIG.getLabel(client.getRang());
-
+                                if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {//vérifie que c'est la bonne étape
+                                    Label label = vueGuichetIG.getLabel(client.getRang() % 10);
                                     HBox circleContainer = new HBox(circle);
                                     circleContainer.setAlignment(Pos.CENTER);
                                     label.setGraphic(circleContainer);
@@ -156,12 +131,36 @@ public class VueMondeIG extends Pane implements Observateur{
         }
     }
 
+    /**
+     * Défini le gestionnaire avec celui donné en paramètre
+     * @param gestionnaireClients le gestionnaire à copier
+     */
     public void setGestionnaireClients(GestionnaireClients gestionnaireClients) {
         this.gestionnaireClients = gestionnaireClients;
     }
 
-    public void setCorres(CorrespondanceEtapes correspondanceEtapes){
-        this.correspondanceEtapes = correspondanceEtapes;
+
+
+    /**
+     * Donne une nouvelle couleur à un cercle
+     * @param circle à qui choisir la couleur
+     **/
+    public void choixCouleur(Circle circle){
+        Random random = new Random();
+        int choix = random.nextInt(3);
+        switch (choix) {
+            case 0:
+                circle.setFill(Color.RED);
+                break;
+            case 1:
+                circle.setFill(Color.BLUE);
+                break;
+            case 2:
+                circle.setFill(Color.PEACHPUFF);
+                break;
+            default:
+                circle.setFill(Color.NAVAJOWHITE);
+        }
     }
 
     public void reagir(){
