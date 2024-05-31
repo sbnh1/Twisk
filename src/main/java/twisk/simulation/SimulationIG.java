@@ -87,8 +87,6 @@ public class SimulationIG extends SujetObserve implements Observateur {
         for (EtapeIG etape : this.mondeIG) {
             ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
 
-            System.out.println(etape.getNom() + " " + successeurs);
-
             if(etape.estUneEntree()){
                 if(verifierChemin(etape)){
                     throw new MondeInvalideException("Erreur: certaines entrée peuvent menées a une impasse");

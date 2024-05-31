@@ -134,8 +134,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             this.arcs.add(arcIG);
             etape1.ajouterSuccesseur(etape2);
             etape2.ajouterPredecesseur(etape1);
+            if(etape2.estUnGuichet()){
+                pt2.setSensCirculation(true);
+            }
         } catch (PointDeControleException e) {
-            afficherAlerte(e.getMessage());
         }
     }
 
@@ -152,7 +154,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             premierPointDeControle = pointDeControleIG;
             premierPointDeControle.setEstSelectionnee(true);
         } else {
-            System.out.println(premierPointDeControle.getEtapeIG().toString());
             ajouter(premierPointDeControle, pointDeControleIG);
             premierPointDeControle.setEstSelectionnee(false);
             premierPointDeControle = null;
@@ -330,6 +331,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      */
     public void supprimerArcSelectionne() {
         for (ArcIG arc : arcsSelectionnes) {
+            arc.getPointDeControleDepart().setSensCirculation(false);
+            arc.getPointDeControleArrivee().setSensCirculation(false);
             arcs.remove(arc);
             arc.getPointDeControleDepart().getEtapeIG().supprimerSuccessseur(arc.getPointDeControleArrivee().getEtapeIG());
             arc.getPointDeControleArrivee().getEtapeIG().supprimerPredecesseur(arc.getPointDeControleDepart().getEtapeIG());
@@ -361,22 +364,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.notifierObservateur();
     }
 
-    /**
-     * Affiche une alerte à l'utilisateur
-     * puis la ferme automatiquement après 3 secondes
-     * @param message le message affiché
-     */
-    private void afficherAlerte(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-
-        PauseTransition pause = new PauseTransition(Duration.millis(3000));
-        pause.setOnFinished(event -> alert.close());
-        pause.play();
-    }
 
     private void clearSuccesseurs(){
         for(EtapeIG etape : this){

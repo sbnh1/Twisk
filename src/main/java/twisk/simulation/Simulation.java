@@ -117,9 +117,11 @@ public class Simulation extends SujetObserve {
             System.out.println(Arrays.toString(posClients));
             for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
                 System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
+                int nb = 0;
                 for(int j = i+1; j < (i + posClients[i] + 1); j++){
-                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i/(nbClient+1)), j % nbClient);
+                    this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i/(nbClient+1)), nb%j );
                     System.out.print(posClients[j] + " ");
+                    nb++;
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()- monde.nbEtapes() + 1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
                     fin = true;

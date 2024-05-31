@@ -4,9 +4,9 @@ public class TwiskException extends Exception {
 
     /**
      * Constructeur d'une TwiskException
-     * @param message Le message a afficher
+     * @ message Le message a afficher
      */
-    public TwiskException(String message) {
-        super(message);
+    public TwiskException() {
+        super(null, null, false, false);
     }
 }

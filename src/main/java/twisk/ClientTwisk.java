@@ -15,7 +15,7 @@ public class ClientTwisk {
 
     public ClientTwisk() {
         Monde monde6 = creerMonde6();
-        lancerSimulation(monde6, 5);
+        lancerSimulation(monde6, 10);
 
     }
 
@@ -50,8 +50,8 @@ public class ClientTwisk {
         Monde monde1 = new Monde();
         //création des étapes
         Etape entree = new SasEntree();
-        Etape guichet1 = new Guichet("Guichet1", 5);
-        Etape guichet2 = new Guichet("Guichet2", 5);
+        Etape guichet1 = new Guichet("Guichet1", 2);
+        Etape guichet2 = new Guichet("Guichet2", 2);
         Etape activite1 = new ActiviteRestreinte("Tobogan", 5, 2);
         Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);
         Etape sortie = new SasSortie();
@@ -168,8 +168,8 @@ public class ClientTwisk {
         Etape entree2 = new Activite("entree2", 5, 2);
         Etape entree3 = new Activite("entree3", 5, 2);
 
-        Etape guichet1 = new Guichet("Guichet1", 5);
-        Etape guichet2 = new Guichet("Guichet2", 5);
+        Etape guichet1 = new Guichet("Guichet1", 2);
+        Etape guichet2 = new Guichet("Guichet2", 2);
 
         Etape activite1 = new ActiviteRestreinte("Tobogan", 5, 2);
         Etape activite2 = new ActiviteRestreinte("Piscine", 5, 2);

@@ -10,7 +10,7 @@ public class MondeInvalideException extends TwiskException{
      * @param message Le message a afficher
      */
     public MondeInvalideException(String message){
-        super(message);
+        super();
         afficherAlerte(message);
     }
 

@@ -33,7 +33,6 @@ public class VuePointDeControleIG extends Circle {
                 try {
                     monde.pointDeControleSelectionne(pointDeControleIG);
                     monde.notifierObservateur();
-                    //setFill((Color.RED));
                 } catch (TwiskException e) {
                     throw new RuntimeException(e);
                 }

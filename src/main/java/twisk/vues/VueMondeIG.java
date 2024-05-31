@@ -112,17 +112,38 @@ public class VueMondeIG extends Pane implements Observateur{
                             }
                         }
                     } else if (etapeIG.estUnGuichet()) {
-                        for (Node node : this.getChildren()) {
-                            if (node instanceof VueGuichetIG) {
-                                VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
-                                if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {//vérifie que c'est la bonne étape
-                                    Label label = vueGuichetIG.getLabel(client.getRang() % 10);
-                                    HBox circleContainer = new HBox(circle);
-                                    circleContainer.setAlignment(Pos.CENTER);
-                                    label.setGraphic(circleContainer);
+                        for (PointDeControleIG pointDeControle : etapeIG) {
+                            if(pointDeControle.getSensCirculation()) {//a un sens de circulation  = true
+                                if(pointDeControle.getIdentifiant() == "PCDroit"){ // regarde si la fleche d'entrée des clients est a droite ou à gauche
+                                    for (Node node : this.getChildren()) {
+                                        if (node instanceof VueGuichetIG) {
+                                            VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
+                                            if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {//vérifie que c'est la bonne étape
+                                                Label label = vueGuichetIG.getLabel(client.getRang() % 10);
+                                                HBox circleContainer = new HBox(circle);
+                                                circleContainer.setAlignment(Pos.CENTER);
+                                                label.setGraphic(circleContainer);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    for (Node node : this.getChildren()) {
+                                        if (node instanceof VueGuichetIG) {
+                                            VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
+                                            if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {//vérifie que c'est la bonne étape
+                                                int rang = client.getRang() % 10;
+                                                rang = 9 - rang;
+                                                Label label = vueGuichetIG.getLabel(rang);
+                                                HBox circleContainer = new HBox(circle);
+                                                circleContainer.setAlignment(Pos.CENTER);
+                                                label.setGraphic(circleContainer);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
+
                     }
 
                     }

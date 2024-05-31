@@ -6,6 +6,7 @@ public class PointDeControleIG {
     private String identifiant;
     private EtapeIG etapeIG;
     private boolean estSelectionnee;
+    private boolean sensCirculation;
 
     /**
      * Constructeur de la classe PointDeControleIG
@@ -82,5 +83,13 @@ public class PointDeControleIG {
      */
     public void setEstSelectionnee(boolean estSelectionnee) {
         this.estSelectionnee = estSelectionnee;
+    }
+
+    public boolean getSensCirculation() {
+        return sensCirculation;
+    }
+
+    public void setSensCirculation(boolean sensCirculation) {
+        this.sensCirculation = sensCirculation;
     }
 }

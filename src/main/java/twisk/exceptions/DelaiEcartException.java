@@ -10,7 +10,7 @@ public class DelaiEcartException extends Exception {
      * @param message Le message a afficher
      */
     public DelaiEcartException(String message) {
-        super(message);
+        super();
         afficherAlerte(message);
     }
 

@@ -53,7 +53,8 @@ public class VueGuichetIG extends VueEtapeIG {
 
 
     @Override
-    public void reagir() {}
+    public void reagir() {
+    }
 
     public Label getLabel(int numero) {
         if (numero >= 0 && numero < 10) {
