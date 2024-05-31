@@ -14,6 +14,11 @@ public class MondeInvalideException extends TwiskException{
         afficherAlerte(message);
     }
 
+    /**
+     * Affiche une alerte à l'utilisateur
+     * puis la ferme automatiquement après 3 secondes
+     * @param message le message affiché
+     */
     private void afficherAlerte(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur");

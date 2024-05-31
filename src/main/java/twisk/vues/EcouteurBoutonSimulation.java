@@ -44,7 +44,7 @@ public class EcouteurBoutonSimulation implements EventHandler<ActionEvent> {
                 Tooltip.install(this.bouton, infoBulleSimulation);
             }
         } catch (MondeInvalideException e) {
-            System.out.println(e.getMessage());
+
         }
     }
 }

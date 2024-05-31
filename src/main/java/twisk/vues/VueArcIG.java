@@ -9,7 +9,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
 import twisk.mondeIG.MondeIG;
 
-public class VueArcIG extends Pane implements Observateur{
+public class VueArcIG extends Pane implements Observateur {
     private ArcIG arc;
     private MondeIG monde;
 
@@ -22,32 +22,47 @@ public class VueArcIG extends Pane implements Observateur{
         this.arc = arc;
         this.monde = monde;
         dessinerArc();
-        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (monde.estSelectionneArc(arc)) {
-                    monde.deselectionnerArc(arc);
-                    dessinerArc();
-                    monde.notifierObservateur();
-                } else {
-                    monde.selectionnerArc(arc);
-                    dessinerArc();
-                    monde.notifierObservateur();
-                }
+        this.setOnMouseClicked(event -> {
+            if (monde.estSelectionneArc(arc)) {
+                monde.deselectionnerArc(arc);
+                dessinerArc();
+                monde.notifierObservateur();
+            } else {
+                monde.selectionnerArc(arc);
+                dessinerArc();
+                monde.notifierObservateur();
             }
         });
     }
 
-
     /**
-     * Méthode qui permet de dessiner tout les arcs du MondeIG
+     * Méthode qui permet de dessiner tous les arcs du MondeIG
      */
     private void dessinerArc() {
-        Line ligne = new Line();
-        ligne.setStartX(arc.getPointDeControleDepart().getPositionX());
-        ligne.setStartY(arc.getPointDeControleDepart().getPositionY());
-        ligne.setEndX(arc.getPointDeControleArrivee().getPositionX());
-        ligne.setEndY(arc.getPointDeControleArrivee().getPositionY());
+        getChildren().clear(); // Clear existing children before drawing new ones
+
+        double startX = arc.getPointDeControleDepart().getPositionX();
+        double startY = arc.getPointDeControleDepart().getPositionY();
+        double endX = arc.getPointDeControleArrivee().getPositionX();
+        double endY = arc.getPointDeControleArrivee().getPositionY();
+
+        // Adjust for minimal pane size
+        double minX = Math.min(startX, endX);
+        double minY = Math.min(startY, endY);
+        double maxX = Math.max(startX, endX);
+        double maxY = Math.max(startY, endY);
+        double width = maxX - minX + 20;  // Adding some padding
+        double height = maxY - minY + 20; // Adding some padding
+
+        setMinWidth(width);
+        setMinHeight(height);
+        setPrefWidth(width);
+        setPrefHeight(height);
+
+        setLayoutX(minX - 10); // Adjust layout to include padding
+        setLayoutY(minY - 10); // Adjust layout to include padding
+
+        Line ligne = new Line(startX - minX + 10, startY - minY + 10, endX - minX + 10, endY - minY + 10);
 
         // Calcul de l'angle de la ligne
         double angle = Math.atan2(ligne.getEndY() - ligne.getStartY(), ligne.getEndX() - ligne.getStartX());
@@ -63,9 +78,9 @@ public class VueArcIG extends Pane implements Observateur{
         double y3 = y1 - arrowLength * Math.sin(angle) + arrowWidth * Math.cos(angle);
 
         Polyline triangle = new Polyline();
-        triangle.getPoints().addAll(new Double[]{x2, y2, x1, y1, x3, y3});
+        triangle.getPoints().addAll(x2, y2, x1, y1, x3, y3);
 
-        if(monde.estSelectionneArc(arc)){
+        if (monde.estSelectionneArc(arc)) {
             ligne.setStrokeWidth(2);
             triangle.setStrokeWidth(2);
             ligne.setStroke(Color.RED);
@@ -82,6 +97,6 @@ public class VueArcIG extends Pane implements Observateur{
 
     @Override
     public void reagir() {
-
+        dessinerArc();
     }
 }
