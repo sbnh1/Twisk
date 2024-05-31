@@ -178,6 +178,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 arcs.remove(arc);
             }
             arc.getPointDeControleDepart().getEtapeIG().supprimerSuccessseur(arc.getPointDeControleArrivee().getEtapeIG());
+            arc.getPointDeControleArrivee().getEtapeIG().supprimerPredecesseur(arc.getPointDeControleDepart().getEtapeIG());
+
         }
         notifierObservateur();
     }
@@ -328,6 +330,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         for (ArcIG arc : arcsSelectionnes) {
             arcs.remove(arc);
             arc.getPointDeControleDepart().getEtapeIG().supprimerSuccessseur(arc.getPointDeControleArrivee().getEtapeIG());
+            arc.getPointDeControleArrivee().getEtapeIG().supprimerPredecesseur(arc.getPointDeControleDepart().getEtapeIG());
         }
         viderSelectionArc();
         notifierObservateur();
