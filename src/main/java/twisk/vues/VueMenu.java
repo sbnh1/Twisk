@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 import twisk.exceptions.DelaiEcartException;
 import twisk.exceptions.PointDeControleException;
 import twisk.mondeIG.*;
-import twisk.outils.FabriqueIdPc;
 import twisk.outils.FabriqueIdentifiant;
-import twisk.outils.FabriqueNumero;
 
 import java.io.*;
 import java.io.FileNotFoundException;
@@ -81,11 +79,140 @@ public class VueMenu extends MenuBar implements Observateur {
         MenuItem jetons = new MenuItem("Jetons");
         jetons.setOnAction(event -> defNombreDeJetons());
         menuParametre.getItems().addAll(delai,ecartTemps,jetons);
+
+        Menu menuTwist = new Menu("Monde");
+        MenuItem reset = new MenuItem("supprimer Monde");
+        reset.setOnAction(event -> reset());
+        MenuItem monde1 = new MenuItem("Monde 1");
+        monde1.setOnAction(event -> importerMonde("/import/monde1.json"));
+        MenuItem monde2 = new MenuItem("Monde 2");
+        monde2.setOnAction(event -> importerMonde("/import/monde2.json"));
+        MenuItem monde3 = new MenuItem("Monde 3");
+        monde3.setOnAction(event -> importerMonde("/import/monde3.json"));
+        MenuItem monde4 = new MenuItem("Monde 4");
+        monde4.setOnAction(event -> importerMonde("/import/monde4.json"));
+        menuTwist.getItems().addAll(reset, monde1, monde2, monde3, monde4);
+
         // Ajout des menus à la barre de menu
-        this.getMenus().addAll(menuFichier, menuEdition, menuMonde, menuParametre);
+        this.getMenus().addAll(menuFichier, menuEdition, menuMonde, menuParametre, menuTwist);
         this.setStyle("-fx-background-color: #e5e5dc;");
 
         this.monde.ajouterObservateur(this);
+    }
+
+
+
+    private void importerMonde(String path) {
+        this.monde.reset();
+
+        FabriqueIdentifiant.getInstance().reset();
+
+        Gson gson = new Gson();
+
+
+        InputStream inputStream = getClass().getResourceAsStream(path);
+        if (inputStream == null) {
+            // Affichage d'une alerte si le fichier n'est pas trouvé
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Le fichier data.json n'a pas été trouvé.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Lecture du fichier JSON
+        InputStreamReader reader = new InputStreamReader(inputStream);
+
+        Map<String, Object> data = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {}.getType());
+        Map<String, Object> etapes = (Map<String, Object>) data.get("etapes");
+        List<Map<String, Object>> arcs = (List<Map<String, Object>>) data.get("arcs");
+
+        Map<String, PointDeControleIG> points = new HashMap<>();
+
+
+
+        for (Map.Entry<String, Object> entry : etapes.entrySet()) {
+            Map<String, Object> etape = (Map<String, Object>) entry.getValue();
+            if((boolean)etape.get("estUneActivite")){
+                ActiviteIG activite = new ActiviteIG(
+                        (String)etape.get("nom"),
+                        ((Double)etape.get("largeur")).intValue(),
+                        ((Double)etape.get("hauteur")).intValue(),
+                        (String)etape.get("identifiant")
+                );
+                activite.setPosX(
+                        ((Double) etape.get("posX")).intValue()
+                );
+                activite.setPosY(
+                        ((Double) etape.get("posY")).intValue()
+                );
+                activite.setPosPtCtrl();
+                activite.setDelai(((Double)etape.get("delai")).intValue());
+                if((boolean)etape.get("estUneEntree")){
+                    activite.DefinirCommeEntree();
+                }else if((boolean)etape.get("estUneSortie")){
+                    activite.DefinirCommeSortie();
+                }
+                try {
+                    activite.setEcartTemps(((Double) etape.get("ecartTemps")).intValue());
+                } catch (DelaiEcartException e) {}
+
+
+                for(PointDeControleIG point : activite.getPointsDeControle()){
+                    points.put(point.getIdentifiant(), point);
+                }
+                this.monde.ajouter(activite);
+            }else{
+                GuichetIG guichet = new GuichetIG(
+                        (String)etape.get("nom"),
+                        ((Double) etape.get("largeur")).intValue(),
+                        ((Double) etape.get("hauteur")).intValue(),
+                        (String)etape.get("identifiant")
+                );
+                guichet.setPosX(
+                        ((Double) etape.get("posX")).intValue()
+                );
+                guichet.setPosY(
+                        ((Double) etape.get("posY")).intValue()
+                );
+                guichet.setPosPtCtrl();
+                guichet.setNbJetons(((Double)etape.get("nbJetons")).intValue());
+                if((boolean)etape.get("estUneEntree")){
+                    guichet.DefinirCommeEntree();
+                }else if((boolean)etape.get("estUneSortie")){
+                    guichet.DefinirCommeSortie();
+                }
+                for(PointDeControleIG point : guichet.getPointsDeControle()){
+                    points.put(point.getIdentifiant(), point);
+                }
+                this.monde.ajouter(guichet);
+            }
+        }
+
+        for (Map.Entry<String, PointDeControleIG> entry : points.entrySet()) {
+            String key = entry.getKey();
+            PointDeControleIG value = entry.getValue();
+        }
+
+        for (Map<String, Object> arc : arcs) {
+            try{
+                this.monde.ajouter(
+                        points.get((String)arc.get("depart")),
+                        points.get((String)arc.get("arrivee"))
+                );
+            }catch(PointDeControleException e){
+
+            }
+        }
+        FabriqueIdentifiant.getInstance().setNoEtape(((Double) data.get("fabriqueIdentifiant")).intValue());
+        this.monde.notifierObservateur();
+    }
+
+
+    private void reset(){
+        this.monde.reset();
+        this.monde.notifierObservateur();
     }
 
     /**
@@ -386,5 +513,5 @@ public class VueMenu extends MenuBar implements Observateur {
     public void reagir() {
         // Réaction aux changements dans le monde
     }
-}
 
+}
