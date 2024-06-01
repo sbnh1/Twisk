@@ -78,6 +78,9 @@ public class SimulationIG extends SujetObserve implements Observateur {
      * Verification de la validité du monde
      */
     private void verifierMonderIG() throws MondeInvalideException {
+        if(this.mondeIG.getNbEtape() == 0){
+            throw new MondeInvalideException("Erreur: il n'y a pas d'étapes");
+        }
         if (!this.mondeIG.aEntree()) {
             throw new MondeInvalideException("Erreur: il n'y a pas d'entrée");
         }

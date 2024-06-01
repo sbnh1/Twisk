@@ -51,7 +51,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.arcs = new ArrayList<>();
         this.etapesSelectionnees = new ArrayList<>();
         this.arcsSelectionnes = new ArrayList<>();
-        //this.ajouterObservateur(this);
     }
 
     public void reset(){
@@ -140,11 +139,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public Iterator<ArcIG> arcIterator() { return arcs.iterator(); }
 
     /**
-
-     Créer un arc qui respect les contraintes du mondeIG à partir de deux points de controle
-     @param pt1 point de controle de départ de l'arc
-     @param pt2 point de controle d'arrivé de l'arc
-     @throws PointDeControleException si les deux points ne respecte pas une des contraintes imposé par le MondeIG
+     * Créer un arc qui respect les contraintes du mondeIG à partir de deux points de controle
+     * @param pt1 point de controle de départ de l'arc
+     * @param pt2 point de controle d'arrivé de l'arc
+     * @throws PointDeControleException si les deux points ne respecte pas une des contraintes imposé par le MondeIG
      */
     public void ajouter(PointDeControleIG pt1, PointDeControleIG pt2) throws PointDeControleException {
         EtapeIG etape1 = pt1.getEtapeIG();
@@ -167,12 +165,53 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             this.arcs.add(arcIG);
             etape1.ajouterSuccesseur(etape2);
             etape2.ajouterPredecesseur(etape1);
+
+            if(verifierCycle(etape1, etape2)){
+                this.supprimerArc(arcIG);
+                throw new PointDeControleException("Erreur : Les cycles ne sont pas admis");
+            }
             if(etape2.estUnGuichet()){
                 pt2.setSensCirculation(true);
             }
         } catch (PointDeControleException e) {
         }
     }
+
+    /**
+     * Vérification si le monde est acyclique, en utilisant un DFS
+     * @param candidat l'étape recherchée
+     * @param racine l'étape depuis la quel l'étape candidat est recherché
+     * @return false si acyclique, sinon true
+     */
+    private boolean verifierCycle(EtapeIG candidat, EtapeIG racine) {
+        // Initialisation de l'ensemble des étapes visitées
+        Set<EtapeIG> visitees = new HashSet<>();
+        Stack<EtapeIG> pile = new Stack<>();
+
+        pile.push(racine);
+
+        while (!pile.isEmpty()) {
+            EtapeIG current = pile.pop();
+            // Si on trouve le candidat, il y a un cycle
+            if (current.equals(candidat)) {
+                return true;
+            }
+            // Ajouter l'étape courante à l'ensemble des visités
+            if (!visitees.contains(current)) {
+                visitees.add(current);
+                // Ajouter tous les successeurs non visités à la pile pour le parcours en profondeur
+                for (EtapeIG successeur : current.getSuccesseurs()) {
+                    if (!visitees.contains(successeur)) {
+                        pile.push(successeur);
+                    }
+                }
+            }
+        }
+
+        // Si on a parcouru tout le graphe sans trouver le candidat, il n'y a pas de cycle
+        return false;
+    }
+
 
     /**
      * Sélectionne un point de controle, appelle la fonction ajoutée avec en parametre,
@@ -213,7 +252,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             }
             arc.getPointDeControleDepart().getEtapeIG().supprimerSuccessseur(arc.getPointDeControleArrivee().getEtapeIG());
             arc.getPointDeControleArrivee().getEtapeIG().supprimerPredecesseur(arc.getPointDeControleDepart().getEtapeIG());
-
         }
         notifierObservateur();
     }

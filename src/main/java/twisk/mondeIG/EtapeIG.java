@@ -109,7 +109,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     public void supprimerPredecesseur(EtapeIG... etapes){
         for(EtapeIG etape : etapes){
-            this.successeurs.remove(etape);
+            this.predecesseurs.remove(etape);
         }
     }
 
