@@ -136,6 +136,22 @@ public class Monde implements Iterable<Etape>{
 
 
     /**
+     * Methode qui genere le code C de la fonction delaiGauss
+     * @return Le code C de la fonction
+     */
+    private String toCGauss(){
+
+        StringBuilder s = new StringBuilder();
+        s.append("void delaiGauss(double moyenne, double ecartype){\n");
+        s.append("double U1 = (double)rand()/RAND_MAX;\n");
+        s.append("double U2 = (double)rand()/RAND_MAX;\n");
+        s.append("double X = (sqrt(-2*log(U1))) * (cos(2*PI*U2)*ecartype) + moyenne; \n");
+        s.append("usleep(X * 500000);\n");
+        s.append("}\n");
+        return s.toString();
+    }
+
+    /**
      * Retourne une représentation en langage C du monde
      * @return Une représentation en langage C du monde
      */

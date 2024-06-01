@@ -11,14 +11,17 @@
 
         private String toCChoixLoi(){
 
-            StringBuilder string = new StringBuilder();
-            string.append("if(loi == 1){\n");
-            string.append("delaiUniforme(10, 4);\n");
-            string.append("} else {\n");
-            string.append("delaiUniforme(10,4);\n");
-            string.append("}\n");
-
-            return string.toString();
+            StringBuilder s = new StringBuilder();
+            s.append("if(loi == 1){\n");
+            s.append("delaiUniforme(10, 4);\n");
+            s.append("}\n");
+            s.append("else if(loi == 2){\n");
+            s.append("delaiGauss(10, 4);\n");
+            s.append("}\n");
+            s.append("else{\n");
+            s.append("delaiExponentiel(0.1);\n");
+            s.append("}\n");
+            return s.toString();
         }
 
 

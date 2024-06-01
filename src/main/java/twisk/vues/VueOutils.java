@@ -82,6 +82,8 @@ public class VueOutils extends ToolBar implements Observateur{
         text.setHeaderText(null);
         text.setContentText("Loi : \n" +
                 "  - Loi Uniforme (1)\n" +
+                "  - Loi Gauss (2)\n" +
+                "  - Loi Exponentiel (3)\n" +
                 "\n  tappez le nombre correspondant à la loi voulu : ");
         Optional<String> result = text.showAndWait();
 
