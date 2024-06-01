@@ -12,6 +12,7 @@ import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
+import twisk.outils.KitC;
 import twisk.outils.TailleComposants;
 import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
@@ -508,5 +509,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         jsonData.put("fabriqueIdentifiant", FabriqueIdentifiant.getInstance().getNoEtape());
 
         return gson.toJson(jsonData);
+    }
+
+    public void tuerProcessus(){
+        KitC kitC = new KitC();
+        try {;
+            kitC.tuerProcessus(this.gestionnaireClients);
+            this.gestionnaireClients.nettoyer();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

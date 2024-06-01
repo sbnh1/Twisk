@@ -56,11 +56,16 @@ public class VueGuichetIG extends VueEtapeIG {
     public void reagir() {
     }
 
+    /**
+     * Méthode qui permet d'avoir le label correspondant au numéro entré en paramètre
+     * @param numero le numéro du Label
+     * @return le label correspondant au numéro
+     */
     public Label getLabel(int numero) {
         if (numero >= 0 && numero < 10) {
             return labels.get(numero);
         } else {
-            return null; // Retourne null si le numéro est invalide
+            return null;
         }
     }
 

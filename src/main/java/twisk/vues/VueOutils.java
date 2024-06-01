@@ -13,11 +13,10 @@ import java.util.Optional;
 
 public class VueOutils extends ToolBar implements Observateur{
     private MondeIG monde;
-    private Tooltip tooltip;
     private SimulationIG simulationIG;
-    private Simulation simulation;
     private int nbClientBouton;
     private Button boutonNbClients;
+    private Button boutonChoixLoi;
     /**
      * Constructeur de la classe VueOutils
      * @param monde le MondeIG
@@ -32,7 +31,6 @@ public class VueOutils extends ToolBar implements Observateur{
         Region espaceGauche = new Region();
         HBox.setHgrow(espaceGauche, Priority.ALWAYS);
 
-        // Créer un espace vide à droite
         Region espaceDroite = new Region();
         HBox.setHgrow(espaceDroite, Priority.ALWAYS);
 
@@ -41,7 +39,6 @@ public class VueOutils extends ToolBar implements Observateur{
         Tooltip.install(boutonActivite, tooltipActivite);
         boutonActivite.setOnAction(new EcouteurBouton(monde));
         boutonActivite.setPrefSize(90, 30);
-        //boutonActivite.setText("AJOUTER");
         boutonActivite.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #1e847f;");
 
         Button boutonGuichet = new Button("GUICHET");
@@ -66,7 +63,7 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonNbClients.setPrefSize(110,30);
         boutonNbClients.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #c66b3d;");
 
-        Button boutonChoixLoi = new Button("Loi");
+        boutonChoixLoi = new Button("Loi : " + simulationIG.getChoixLoi());
         Tooltip tooltipChoixLoi = new Tooltip("Choisir la loi d'entrée que vous voulez");
         Tooltip.install(boutonChoixLoi, tooltipChoixLoi);
         boutonChoixLoi.setOnAction(event -> defChoixLoi());
@@ -79,6 +76,9 @@ public class VueOutils extends ToolBar implements Observateur{
         this.monde.ajouterObservateur(this);
     }
 
+    /**
+     * Défini la loi d'entrée des clients
+     */
     private void defChoixLoi() {
         TextInputDialog text = new TextInputDialog();
         text.setTitle("Loi à choisir");
@@ -95,6 +95,11 @@ public class VueOutils extends ToolBar implements Observateur{
             try {
                 int choixLoi = Integer.parseInt(input);
                 this.simulationIG.setChoixLoi(choixLoi);
+                if(choixLoi > 2){
+                    boutonChoixLoi.setText("Loi : 3");
+                } else {
+                    boutonChoixLoi.setText("Loi : " + choixLoi);
+                }
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
@@ -105,6 +110,9 @@ public class VueOutils extends ToolBar implements Observateur{
         });
     }
 
+    /**
+     * Défini le nombre de clients dans la simulation
+     */
     private void defNbClient() {
         TextInputDialog text = new TextInputDialog();
         text.setTitle("Définir le nombre de clients");

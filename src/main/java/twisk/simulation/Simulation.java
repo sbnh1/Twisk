@@ -20,6 +20,7 @@ public class Simulation extends SujetObserve {
      */
     public Simulation(){
         this.gestionnaireClients = new GestionnaireClients();
+        this.pids = new int[this.nbClient];
     }
 
     /**
@@ -90,7 +91,6 @@ public class Simulation extends SujetObserve {
         for(int i = 0; i < monde.nbEtapes(); i++){
             if(monde.getEtape(i).estUnGuichet()){
                 tabJetonsGuichet[((Guichet)monde.getEtape(i)).getNumeroSemaphore()-1] = monde.getEtape(i).getNbJetons();
-
             }
         }
 
@@ -131,22 +131,9 @@ public class Simulation extends SujetObserve {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
         posClients = null;
         nettoyage();
-    }
-
-    public void tuerProcessus(){
-
-        KitC kitC = new KitC();
-        try {
-            kitC.tuerProcessus(this.pids);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 }

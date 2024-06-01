@@ -8,6 +8,7 @@ import twisk.outils.*;
 import twisk.vues.Observateur;
 
 import javax.sound.midi.Soundbank;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -56,23 +57,21 @@ public class SimulationIG extends SujetObserve implements Observateur {
     /**
      * stop la simulation
      */
-    public void stoperSimulation(){
+    public void stoperSimulation() {
+        ThreadsManager.getInstance().destroyThreads();
         try {
             ClassLoaderPerso classLoader = new ClassLoaderPerso(this.mondeIG.getClass().getClassLoader());
             Class<?> classePerso = classLoader.loadClass("twisk.simulation.Simulation");
-            Constructor constructor = classePerso.getConstructor();
-            Object instanceClassPerso = constructor.newInstance();
-            Method tuerProcessus = classePerso.getMethod("tuerProcessus");
-            tuerProcessus.invoke(instanceClassperso);
-            ThreadsManager.getInstance().destroyThreads();
+            Constructor<?> constructor = classePerso.getConstructor();
+            this.mondeIG.tuerProcessus();
             FabriqueNumero.getInstance().resetNumeroEtape();
             FabriqueNumero.getInstance().resetNumeroSemaphore();
             notifierObservateur();
-        }
-        catch(Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();  // Imprimer la pile d'appels de l'exception
         }
     }
+
 
     /**
      * Verification de la validité du monde
@@ -91,7 +90,11 @@ public class SimulationIG extends SujetObserve implements Observateur {
 
         for (EtapeIG etape : this.mondeIG) {
             ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
-
+            if(etape.estUneSortie()){
+                if(etape.getNbSuccesseurs() > 0){
+                    throw new MondeInvalideException("Erreur: Une sortie ne peut avoir de successeurs");
+                }
+            }
             if(etape.estUneEntree()){
                 if(verifierChemin(etape)){
                     throw new MondeInvalideException("Erreur: certaines entrée peuvent menées a une impasse");

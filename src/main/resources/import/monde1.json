@@ -1,8 +1,8 @@
 {
-  "fabriqueIdentifiant": 0,
+  "fabriqueIdentifiant": 3,
   "etapes": {
     "Activite0": {
-      "estRestreinte": true,
+      "estRestreinte": false,
       "nom": "Balancoire",
       "identifiant": "Activite0",
       "posX": 865,

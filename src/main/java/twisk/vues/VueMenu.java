@@ -11,6 +11,7 @@ import twisk.exceptions.DelaiEcartException;
 import twisk.exceptions.PointDeControleException;
 import twisk.mondeIG.*;
 import twisk.outils.FabriqueIdentifiant;
+import twisk.simulation.SimulationIG;
 
 import java.io.*;
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ import java.util.*;
 
 public class VueMenu extends MenuBar implements Observateur {
     private MondeIG monde;
-
+    private SimulationIG simulationIG;
     private Stage primaryStage;
 
     /**
@@ -39,7 +40,10 @@ public class VueMenu extends MenuBar implements Observateur {
         MenuItem importer = new MenuItem("importer");
         exporter.setOnAction(event -> this.exporter());
         importer.setOnAction(event -> this.importer());
-        quitter.setOnAction(event -> Platform.exit());
+        quitter.setOnAction(event -> {
+            Platform.exit();
+            this.monde.tuerProcessus();
+        });
         quitter.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
         menuFichier.getItems().add(quitter);
         menuFichier.getItems().add(exporter);
@@ -101,7 +105,10 @@ public class VueMenu extends MenuBar implements Observateur {
     }
 
 
-
+    /**
+     * Méthode qui créer un monde, depuis un monde sous Json déjà existant
+     * @param path le chemin vers le monde depuis le repertoire resources root
+     */
     private void importerMonde(String path) {
         this.monde.reset();
 
@@ -112,7 +119,6 @@ public class VueMenu extends MenuBar implements Observateur {
 
         InputStream inputStream = getClass().getResourceAsStream(path);
         if (inputStream == null) {
-            // Affichage d'une alerte si le fichier n'est pas trouvé
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -121,7 +127,6 @@ public class VueMenu extends MenuBar implements Observateur {
             return;
         }
 
-        // Lecture du fichier JSON
         InputStreamReader reader = new InputStreamReader(inputStream);
 
         Map<String, Object> data = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {}.getType());
@@ -228,7 +233,6 @@ public class VueMenu extends MenuBar implements Observateur {
             text.setContentText("Entrez le nouveau nombre de jetons : ");
             Optional<String> result = text.showAndWait();
 
-            // convertions en entier
             result.ifPresent(input -> {
                 try {
                     int jetons = Integer.parseInt(input);

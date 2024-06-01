@@ -49,7 +49,7 @@ public class GestionnaireClients implements Iterable<Client> {
      * Méthode qui nettoie la liste des clients
      * méthode utilisé pour préparer une nouvelle simulation
      */
-    void nettoyer(){
+    public void nettoyer(){
         this.listClient.clear();
     }
 
