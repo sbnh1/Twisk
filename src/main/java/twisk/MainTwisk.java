@@ -20,7 +20,7 @@ public class MainTwisk extends Application {
         primaryStage.setTitle("Twisk");
         root.setBottom(new VueOutils(monde));
         root.setCenter(new VueMondeIG(monde));
-        root.setTop(new VueMenu(monde));
+        root.setTop(new VueMenu(monde ,primaryStage));
 
         primaryStage.setScene(new Scene(root, TailleComposants.getInstance().largeur, TailleComposants.getInstance().hauteur));
         monde.creerMondeDeBase(monde);

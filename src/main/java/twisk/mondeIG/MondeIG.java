@@ -490,7 +490,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         //mettre a jour vumondeig quand il sera dans le bon thread (platform.runnable)
     }
 
-    public void toJson(){
+    public String toJson(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         List<Map<String, String>> arcs = new ArrayList<>();
@@ -505,8 +505,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         jsonData.put("etapes", this.etapes);
         jsonData.put("arcs", arcs);
 
-        System.out.println(gson.toJson(jsonData));
+        return gson.toJson(jsonData);
     }
-
-
 }

@@ -5,30 +5,34 @@ import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import twisk.exceptions.DelaiEcartException;
 import twisk.exceptions.PointDeControleException;
 import twisk.mondeIG.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 
 public class VueMenu extends MenuBar implements Observateur {
     private MondeIG monde;
 
+    private Stage primaryStage;
+
     /**
      * Constructeur de la classe VueMenu
      * @param monde le MondeIG
      */
-    public VueMenu(MondeIG monde) {
+    public VueMenu(MondeIG monde, Stage primaryStage) {
         super();
         this.monde = monde;
+        this.primaryStage = primaryStage;
 
         Menu menuFichier = new Menu("Fichier");
         MenuItem quitter = new MenuItem("Quitter");
         MenuItem exporter = new MenuItem("exporter");
         MenuItem importer = new MenuItem("importer");
-        exporter.setOnAction(event -> monde.toJson());
+        exporter.setOnAction(event -> this.exporter());
         importer.setOnAction(event -> this.importer());
         quitter.setOnAction(event -> Platform.exit());
         quitter.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
@@ -251,15 +255,39 @@ public class VueMenu extends MenuBar implements Observateur {
         }
     }
 
+    public void exporter(){
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers Json (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(this.primaryStage);
+
+        if (file != null) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write(this.monde.toJson());
+            } catch (IOException e) {
+            }
+        }
+    }
+
     public void importer(){
         this.monde.reset();
         Gson gson = new Gson();
+
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers Json (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showOpenDialog(this.primaryStage);
+
         FileReader reader = null;
+
         try {
-            reader = new FileReader("/home/quidam/twisk-houssei12u-guittien5u/src/main/java/twisk/data.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+            reader = new FileReader(file);
+        }catch (FileNotFoundException e){}
+
+
         Map<String, Object> data = gson.fromJson(reader, new TypeToken<Map<String, Object>>() {}.getType());
         Map<String, Object> etapes = (Map<String, Object>) data.get("etapes");
         List<Map<String, Object>> arcs = (List<Map<String, Object>>) data.get("arcs");
