@@ -19,7 +19,7 @@
             s.append("delaiGauss(10, 4);\n");
             s.append("}\n");
             s.append("else{\n");
-            s.append("delaiUniforme(10, 4);\n");
+            s.append("delaiExponentiel(0.1);\n");
             s.append("}\n");
             return s.toString();
         }

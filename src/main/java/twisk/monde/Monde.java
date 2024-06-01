@@ -151,6 +151,22 @@ public class Monde implements Iterable<Etape>{
         return s.toString();
     }
 
+
+    /**
+     * Methode qui genere le code C de la fonction delaiExponentiel
+     * @return Le code C de la fonction
+     */
+    private String toCExpo(){
+
+        StringBuilder s = new StringBuilder();
+        s.append("void delaiExponentiel(double lambda){\n");
+        s.append("double U = (double)rand()/RAND_MAX;\n");
+        s.append("double X = -log(U)/lambda;\n");
+        s.append("sleep(X /2);\n");
+        s.append("}\n");
+        return s.toString();
+    }
+
     /**
      * Retourne une représentation en langage C du monde
      * @return Une représentation en langage C du monde
@@ -167,6 +183,7 @@ public class Monde implements Iterable<Etape>{
         string.append("#define PI 3.14159265358979323846\n");
         string.append(this.toCUniforme());
         string.append(this.toCGauss());
+        string.append(this.toCExpo());
 
         string.append("\nvoid simulation(int ids){\n");
         string.append("int loi = " + this.choixLoi + ";\n");
