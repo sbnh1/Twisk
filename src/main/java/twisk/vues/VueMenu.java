@@ -15,6 +15,10 @@ import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.FabriqueNumero;
 
 import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class VueMenu extends MenuBar implements Observateur {
@@ -69,17 +73,16 @@ public class VueMenu extends MenuBar implements Observateur {
         entreeSortie.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
         menuMonde.getItems().addAll(entree, sortie, entreeSortie);
 
-        Menu manuParametre = new Menu("Paramètre");
+        Menu menuParametre = new Menu("Paramètre");
         MenuItem delai = new MenuItem("Délai");
         delai.setOnAction(event -> defDelai());
         MenuItem ecartTemps =  new MenuItem("Ecart-temps");
         ecartTemps.setOnAction(event -> defEcartTemps());
         MenuItem jetons = new MenuItem("Jetons");
         jetons.setOnAction(event -> defNombreDeJetons());
-        manuParametre.getItems().addAll(delai,ecartTemps,jetons);
-
+        menuParametre.getItems().addAll(delai,ecartTemps,jetons);
         // Ajout des menus à la barre de menu
-        this.getMenus().addAll(menuFichier, menuEdition, menuMonde, manuParametre);
+        this.getMenus().addAll(menuFichier, menuEdition, menuMonde, menuParametre);
         this.setStyle("-fx-background-color: #e5e5dc;");
 
         this.monde.ajouterObservateur(this);

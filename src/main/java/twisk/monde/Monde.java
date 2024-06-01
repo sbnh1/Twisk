@@ -146,7 +146,7 @@ public class Monde implements Iterable<Etape>{
         s.append("double U1 = (double)rand()/RAND_MAX;\n");
         s.append("double U2 = (double)rand()/RAND_MAX;\n");
         s.append("double X = (sqrt(-2*log(U1))) * (cos(2*PI*U2)*ecartype) + moyenne; \n");
-        s.append("usleep(X * 500000);\n");
+        s.append("sleep(X /2);\n");
         s.append("}\n");
         return s.toString();
     }
@@ -164,8 +164,9 @@ public class Monde implements Iterable<Etape>{
                 string.append("#define " + this.etapes.getEtape(i).getNom() + "_semaphore " + ((Guichet)this.etapes.getEtape(i)).getNumeroSemaphore() + "\n");
             }
         }
-
+        string.append("#define PI 3.14159265358979323846\n");
         string.append(this.toCUniforme());
+        string.append(this.toCGauss());
 
         string.append("\nvoid simulation(int ids){\n");
         string.append("int loi = " + this.choixLoi + ";\n");

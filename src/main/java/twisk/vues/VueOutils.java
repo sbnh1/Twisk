@@ -16,6 +16,8 @@ public class VueOutils extends ToolBar implements Observateur{
     private Tooltip tooltip;
     private SimulationIG simulationIG;
     private Simulation simulation;
+    private int nbClientBouton;
+    private Button boutonNbClients;
     /**
      * Constructeur de la classe VueOutils
      * @param monde le MondeIG
@@ -25,6 +27,7 @@ public class VueOutils extends ToolBar implements Observateur{
         this.monde = monde;
 
         this.simulationIG = new SimulationIG(monde);
+        this.nbClientBouton = this.simulationIG.getNbClient();
 
         Region espaceGauche = new Region();
         HBox.setHgrow(espaceGauche, Priority.ALWAYS);
@@ -56,7 +59,7 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonSimulation.setPrefSize(110,30);
         boutonSimulation.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #c66b3d;");
 
-        Button boutonNbClients = new Button("Clients");
+        boutonNbClients = new Button("Clients : " + nbClientBouton);
         Tooltip tooltipClients = new Tooltip("Choisir le nombre de clients");
         Tooltip.install(boutonNbClients, tooltipClients);
         boutonNbClients.setOnAction(event -> defNbClient());
@@ -114,7 +117,7 @@ public class VueOutils extends ToolBar implements Observateur{
             try {
                 int clients = Integer.parseInt(input);
                 this.simulationIG.setNbClient(clients);
-                //this.simulation.setNbClients(clients);
+                boutonNbClients.setText("Clients : " + clients);
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
