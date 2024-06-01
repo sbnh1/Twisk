@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import twisk.exceptions.PointDeControleException;
 import twisk.outils.CorrespondanceEtapes;
+import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
@@ -504,6 +505,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         Map<String, Object> jsonData = new HashMap<>();
         jsonData.put("etapes", this.etapes);
         jsonData.put("arcs", arcs);
+        jsonData.put("fabriqueIdentifiant", FabriqueIdentifiant.getInstance().getNoEtape());
 
         return gson.toJson(jsonData);
     }

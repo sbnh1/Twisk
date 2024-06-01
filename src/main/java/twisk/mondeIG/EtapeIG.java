@@ -77,6 +77,41 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         this.predecesseurs = new ArrayList<>();
     }
 
+    public EtapeIG(String nom, int larg, int haut, boolean estUneActivite, boolean estUnGuichet, String identifiant){
+        this.nom = nom;
+        this.largeur = larg;
+        this.hauteur = haut;
+        this.estUneActivite = estUneActivite;
+        this.estUnGuichet = estUnGuichet;
+
+        this.identifiant = identifiant;
+
+        this.estUneEntree = false;
+        this.estUneSortie = false;
+        this.delai = 3;
+        this.ecartTemps = 1;
+        this.nbJetons = 3;
+
+        Random random = new Random();
+        this.posX = 100 + random.nextInt(800);
+        this.posY = 100 + random.nextInt(500);
+
+        pointDeControleIGList = new ArrayList<>();
+        int milieuX = this.posX + (largeur / 2);
+        int milieuY = this.posY + (hauteur / 2);
+
+        //ajout des points de controle
+        pointDeControleIGList.add(new PointDeControleIG(this.posX, milieuY, "PCGauche", this)); // Côté gauche
+        pointDeControleIGList.add(new PointDeControleIG(this.posX + largeur, milieuY, "PCDroit", this)); // Côté droit
+        if(this.estUneActivite){
+            pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY, "PCHaut", this)); // Haut
+            pointDeControleIGList.add(new PointDeControleIG(milieuX, this.posY + hauteur, "PCBas", this)); // Bas
+        }
+
+        this.successeurs = new ArrayList<>();
+        this.predecesseurs = new ArrayList<>();
+    }
+
     /**
      * ajoute des successeurs
      * @param etapes liste des etapes a ajouter comme successeur

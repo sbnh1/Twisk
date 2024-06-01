@@ -12,4 +12,10 @@ public class GuichetIG extends EtapeIG{
         this.posX = super.getPosX();
         this.posY = super.getPosY();
     }
+
+    public GuichetIG(String nom, int larg, int haut, String identifiant){
+        super(nom, larg, haut, false, true, identifiant);
+        this.posX = super.getPosX();
+        this.posY = super.getPosY();
+    }
 }

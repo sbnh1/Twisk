@@ -12,6 +12,14 @@ public class FabriqueIdentifiant {
         this.noEtape = 0;
     }
 
+    public void setNoEtape(int noEtape){
+        this.noEtape = noEtape;
+    }
+
+    public int getNoEtape(){
+        return noEtape;
+    }
+
     /**
      * Méthode statique permettant d'obtenir l'instance unique de la fabrique (Singleton).
      * Si aucune instance n'existe, une nouvelle instance est créée.

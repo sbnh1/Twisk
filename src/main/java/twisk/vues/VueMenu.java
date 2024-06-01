@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import twisk.exceptions.DelaiEcartException;
 import twisk.exceptions.PointDeControleException;
 import twisk.mondeIG.*;
+import twisk.outils.FabriqueIdPc;
+import twisk.outils.FabriqueIdentifiant;
+import twisk.outils.FabriqueNumero;
 
 import java.io.*;
 import java.util.*;
@@ -272,6 +275,9 @@ public class VueMenu extends MenuBar implements Observateur {
 
     public void importer(){
         this.monde.reset();
+
+        FabriqueIdentifiant.getInstance().reset();
+
         Gson gson = new Gson();
 
         FileChooser fileChooser = new FileChooser();
@@ -294,13 +300,16 @@ public class VueMenu extends MenuBar implements Observateur {
 
         Map<String, PointDeControleIG> points = new HashMap<>();
 
+
+
         for (Map.Entry<String, Object> entry : etapes.entrySet()) {
             Map<String, Object> etape = (Map<String, Object>) entry.getValue();
             if((boolean)etape.get("estUneActivite")){
                 ActiviteIG activite = new ActiviteIG(
                         (String)etape.get("nom"),
-                        ((Double) etape.get("largeur")).intValue(),
-                        ((Double) etape.get("hauteur")).intValue()
+                        ((Double)etape.get("largeur")).intValue(),
+                        ((Double)etape.get("hauteur")).intValue(),
+                        (String)etape.get("identifiant")
                 );
                 activite.setDelai(((Double)etape.get("delai")).intValue());
                 try {
@@ -311,13 +320,14 @@ public class VueMenu extends MenuBar implements Observateur {
                 for(PointDeControleIG point : activite.getPointsDeControle()){
                     points.put(point.getIdentifiant(), point);
                 }
-
+                System.out.println(activite.getIdentifiant());
                 this.monde.ajouter(activite);
             }else{
                 GuichetIG guichet = new GuichetIG(
                         (String)etape.get("nom"),
                         ((Double) etape.get("largeur")).intValue(),
-                        ((Double) etape.get("hauteur")).intValue()
+                        ((Double) etape.get("hauteur")).intValue(),
+                        (String)etape.get("identifiant")
                 );
 
                 guichet.setNbJetons(((Double)etape.get("nbJetons")).intValue());
@@ -325,20 +335,29 @@ public class VueMenu extends MenuBar implements Observateur {
                 for(PointDeControleIG point : guichet.getPointsDeControle()){
                     points.put(point.getIdentifiant(), point);
                 }
+                System.out.println(guichet.getIdentifiant());
                 this.monde.ajouter(guichet);
             }
         }
 
+        for (Map.Entry<String, PointDeControleIG> entry : points.entrySet()) {
+            String key = entry.getKey();
+            PointDeControleIG value = entry.getValue();
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+
         for (Map<String, Object> arc : arcs) {
+            System.out.println((String)arc.get("depart") + " " + (String)arc.get("arrivee"));
             try{
                 this.monde.ajouter(
-                        points.get((String)arc.get("arrivee")),
-                        points.get((String)arc.get("depart"))
+                        points.get((String)arc.get("depart")),
+                        points.get((String)arc.get("arrivee"))
                 );
             }catch(PointDeControleException e){
 
             }
         }
+        FabriqueIdentifiant.getInstance().setNoEtape(((Double) data.get("fabriqueIdentifiant")).intValue());
         this.monde.notifierObservateur();
     }
 
