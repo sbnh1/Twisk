@@ -12,10 +12,18 @@ public class FabriqueIdentifiant {
         this.noEtape = 0;
     }
 
+    /**
+     * Défini à quel numéro d'étape est la fabrique
+     * @param noEtape le numéro de l'étape auquel la fabrique est
+     */
     public void setNoEtape(int noEtape){
         this.noEtape = noEtape;
     }
 
+    /**
+     * Retourne à quel numéro étape en est la fabrique
+     * @return le numéro étape
+     */
     public int getNoEtape(){
         return noEtape;
     }
@@ -33,7 +41,7 @@ public class FabriqueIdentifiant {
     }
 
     /**
-     * Méthode pour obtenir un identifiant unique pour une étape.
+     * Méthode pour obtenir un identifiant unique pour une activité.
      * L'identifiant est de la forme "Activite" suivi d'un numéro incrémenté.
      * @return un identifiant unique pour une étape
      */
@@ -43,6 +51,11 @@ public class FabriqueIdentifiant {
         return res;
     }
 
+    /**
+     * Méthode pour obtenir un identifiant unique pour un guichet
+     * L'identifiant est de la forme "Guichet" suivi d'un nombre incrémenté
+     * @return un identifiant unique pour un guichet
+     */
     public String getIdentifiantGuichet(){
         String res = "Guichet" + noEtape;
         incrementerNoEtape();

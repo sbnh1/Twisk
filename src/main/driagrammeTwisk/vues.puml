@@ -1,0 +1,132 @@
+@startuml
+package vues {
+    class Observateur {
+        + reagir(): void
+    }
+    
+    class EcouteurBouton {
+        - monde: MondeIG
+        + EcouteurBouton(monde: MondeIG)
+        + handle(event: ActionEvent): void
+    }
+    
+    class EcouteurBoutonGuichet {
+        - monde: MondeIG
+        + EcouteurBoutonGuichet(monde: MondeIG)
+        + handle(event: ActionEvent): void
+    }
+    
+    class EcouteurBoutonSimulation {
+        - mondeIG: MondeIG
+        - simulationIG: SimulationIG
+        - bouton: Button
+        + EcouteurBoutonSimulation(monde: MondeIG, simulation: SimulationIG, bouton: Button)
+        + handle(actionEvent: ActionEvent): void
+    }
+    
+    class EcouteurDrag {
+        - monde: MondeIG
+        - vueEtapeIG: VueEtapeIG
+        + EcouteurDrag(monde: MondeIG, vueEtapeIG: VueEtapeIG)
+        + handle(event: MouseEvent): void
+    }
+    
+    class EcouteurDragOver {
+        - monde: MondeIG
+        - vueMondeIG: VueMondeIG
+        + EcouteurDragOver(monde: MondeIG, vueMondeIG: VueMondeIG)
+        + handle(event: DragEvent): void
+    }
+    
+    class EcouteurDrop {
+        - monde: MondeIG
+        - vueMondeIG: VueMondeIG
+        + EcouteurDrop(monde: MondeIG, vueMondeIG: VueMondeIG)
+        + handle(event: DragEvent): void
+    }
+    
+    class EcouteurSupprimer {
+        - monde: MondeIG
+        + EcouteurSupprimer(monde: MondeIG)
+        + handle(actionEvent: ActionEvent): void
+    }
+    
+    class VueEtapeIG implements Observateur{
+        - monde: MondeIG
+        - etape: EtapeIG
+        - label: Label
+        - entreSortie: Label
+        + VueEtapeIG(monde: MondeIG, etape: EtapeIG)
+        + getEtapeIG(): Object
+    }
+    
+    class VueGuichetIG extends VueEtapeIG{
+        - hBox: HBox
+        - labels: List<Label>
+        + VueGuichetIG(monde: MondeIG, etape: EtapeIG)
+        + reagir(): void
+        + getLabel(numero: int): Label
+        + positionner(posX: double, posY: double): void
+        + taille(largeur: int, hauteur: int): void
+    }
+    class VueMenu implements Observateur{
+        - monde: MondeIG
+        - primaryStage: Stage
+        + VueMenu(monde: MondeIG, primaryStage: Stage)
+        - importerMonde(path: String): void
+        - reset(): void
+        - defNombreDeJetons(): void
+        - defEcartTemps(): void
+        - defDelai(): void
+        - defEntree(): void
+        - defSortie(): void
+        - defSortieEtEntree(): void
+        - effacerSelection(): void
+        - renommerEtape(): void
+        + exporter(): void
+        + importer(): void
+        + reagir(): void
+    }
+class VueMondeIG implements Observateur{
+    - mondeIG: MondeIG
+    - gestionnaireClients: GestionnaireClients
+    - correspondanceEtapes: CorrespondanceEtapes
+    + VueMondeIG(monde: MondeIG)
+    - initialiserVue()
+    + initialiserCercle()
+    + setGestionnaireClients(gestionnaireClients: GestionnaireClients)
+    + choixCouleur(circle: Circle)
+    + reagir()
+}
+class VueOutils implements Observateur{
+    - monde: MondeIG
+    - tooltip: Tooltip
+    - simulationIG: SimulationIG
+    - simulation: Simulation
+    - nbClientBouton: int
+    - boutonNbClients: Button
+    + VueOutils(monde: MondeIG)
+    - defChoixLoi()
+    - defNbClient()
+    + reagir()
+}
+class VuePointDeControleIG {
+    - monde: MondeIG
+    + VuePointDeControleIG(pointDeControleIG: PointDeControleIG, monde: MondeIG)
+}
+class VueActiviteIG  extends VueEtapeIG{
+    - hbox: HBox
+    + VueActiviteIG(monde: MondeIG, etape: EtapeIG)
+    + reagir()
+    + getHbox(): HBox
+    + positionner(posX: double, posY: double): void
+    + taille(largeur: int, hauteur: int): void
+}
+EcouteurBouton - MondeIG
+EcouteurBoutonGuichet - MondeIG
+EcouteurBoutonSimulation - MondeIG
+EcouteurDrag - MondeIG
+EcouteurSupprimer - MondeIG
+VuePointDeControleIG - MondeIG
+}
+@enduml

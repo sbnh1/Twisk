@@ -99,34 +99,34 @@ public class Simulation extends SujetObserve {
 
 
         this.gestionnaireClients.setClients(pids);
-        System.out.println("ids clients : ");
+        //System.out.println("ids clients : ");
         for(int i = 0; i < nbClient; i++){
-            System.out.print(pids[i] + " ");
+            //System.out.print(pids[i] + " ");
         }
-        System.out.println("\n");
+        //System.out.println("\n");
 
-        System.out.println("\nposition des clients : \n");
+        //System.out.println("\nposition des clients : \n");
 
         int[] posClients;
         boolean fin = false;
 
         while(fin == false){
             posClients = ou_sont_les_clients(monde.nbEtapes(), nbClient);
-            System.out.println(Arrays.toString(posClients));
+            //System.out.println(Arrays.toString(posClients));
             for(int i = 0; i < ((nbClient + 1) * monde.nbEtapes()); i+=(nbClient + 1)){
-                System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
+                //System.out.print("étape " + i/(nbClient+1) + "  (" + monde.getEtape(i/(nbClient+1)).getNom() + ")  " + posClients[i] + " clients : ");
                 int nb = 0;
                 for(int j = i+1; j < (i + posClients[i] + 1); j++){
                     this.gestionnaireClients.allerA(posClients[j], monde.getEtape(i/(nbClient+1)), nb%j );
-                    System.out.print(posClients[j] + " ");
+                    //System.out.print(posClients[j] + " ");
                     nb++;
                 }
                 if(posClients[((nbClient+1)*(monde.nbEtapes()- monde.nbEtapes() + 1))] == nbClient && i == ((nbClient+1)*(monde.nbEtapes()-1))){
                     fin = true;
                 }
-                System.out.println();
+                //System.out.println();
             }
-            System.out.println("\n");;
+            //System.out.println("\n");;
             this.notifierObservateur();
             try {
                 Thread.sleep(1000);

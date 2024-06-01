@@ -11,7 +11,6 @@ import twisk.exceptions.DelaiEcartException;
 import twisk.exceptions.PointDeControleException;
 import twisk.mondeIG.*;
 import twisk.outils.FabriqueIdentifiant;
-import twisk.simulation.SimulationIG;
 
 import java.io.*;
 import java.io.FileNotFoundException;
@@ -22,7 +21,6 @@ import java.util.*;
 
 public class VueMenu extends MenuBar implements Observateur {
     private MondeIG monde;
-    private SimulationIG simulationIG;
     private Stage primaryStage;
 
     /**
@@ -392,6 +390,9 @@ public class VueMenu extends MenuBar implements Observateur {
         }
     }
 
+    /**
+     * Exporte le mondeIG en fichier Json
+     */
     public void exporter(){
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Fichiers Json (*.json)", "*.json");
@@ -407,6 +408,9 @@ public class VueMenu extends MenuBar implements Observateur {
         }
     }
 
+    /**
+     * Importe le fichier Json en mondeIG
+     */
     public void importer(){
         this.monde.reset();
 

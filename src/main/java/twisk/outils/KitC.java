@@ -51,7 +51,6 @@ public class KitC {
             flot.close();
         }
         catch (IOException e){
-            System.out.println("Erreur ecriture client.c");
         }
     }
 
@@ -91,8 +90,10 @@ public class KitC {
      * @throws IOException l'exception du siècle
      */
     public void tuerProcessus(GestionnaireClients gestionnaireClients) throws IOException{
-        for(Client c : gestionnaireClients) {
-            Runtime.getRuntime().exec("kill -9 " + c.getNumeroClient());
+        if(gestionnaireClients != null) {
+            for (Client c : gestionnaireClients) {
+                Runtime.getRuntime().exec("kill -9 " + c.getNumeroClient());
+            }
         }
     }
 }

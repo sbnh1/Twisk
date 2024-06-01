@@ -26,6 +26,10 @@ public class VueActiviteIG extends VueEtapeIG {
     public void reagir() {
     }
 
+    /**
+     * Retourne la hbox de l'activité
+     * @return la hbox
+     */
     public HBox getHbox(){
         return this.hbox;
     }

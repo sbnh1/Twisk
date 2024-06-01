@@ -9,8 +9,11 @@
         public SasEntree(){ super("SasEntree", 3, 1); }
 
 
+        /**
+         * Retourne une représentation en c du choix possible des lois
+         * @return une représentation en c du choix des lois
+         */
         private String toCChoixLoi(){
-
             StringBuilder s = new StringBuilder();
             s.append("if(loi == 1){\n");
             s.append("delaiUniforme(10, 4);\n");
@@ -26,8 +29,8 @@
 
 
         /**
-         * Retourne une représentation en langage C du sas d'entrée
-         * @return Une représentation en langage C du sas d'entrée
+         * Retourne une représentation en C du sas d'entrée
+         * @return Une représentation en C du sas d'entrée
          */
         public String toC(){
             StringBuilder string = new StringBuilder();

@@ -120,8 +120,8 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     /**
-     * Retourne une représentation en langage C de l'étape
-     * @return Une représentation en langage C de l'étape
+     * Retourne une représentation en C de l'étape
+     * @return Une représentation en C de l'étape
      */
     public abstract String toC();
 }

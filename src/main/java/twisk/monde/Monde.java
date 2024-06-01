@@ -26,7 +26,7 @@ public class Monde implements Iterable<Etape>{
      */
     public void aCommeEntree(Etape... etapes){
         this.entree.ajouterSuccesseur(etapes);
-    } // ATTENTION ici est attendu potentiellement plusieurs etapes
+    }
 
     /**
      * Définit l'étape de sortie du monde
@@ -104,10 +104,18 @@ public class Monde implements Iterable<Etape>{
         return res;
     }
 
+    /**
+     * Défini la loi à utiliser
+     * @param choixLoi la loi choisie
+     */
     public void setChoixLoi(int choixLoi){
         this.choixLoi = choixLoi;
     }
 
+    /**
+     * Renvoie la loi définie
+     * @return la loi définie
+     */
     public int getChoixLoi(){
         return this.choixLoi;
     }
@@ -168,8 +176,8 @@ public class Monde implements Iterable<Etape>{
     }
 
     /**
-     * Retourne une représentation en langage C du monde
-     * @return Une représentation en langage C du monde
+     * Retourne une représentation en C du monde
+     * @return Une représentation en C du monde
      */
     public String toC(){
         StringBuilder string = new StringBuilder();
@@ -191,7 +199,6 @@ public class Monde implements Iterable<Etape>{
         string.append(this.etapes.getEtape(0).toC());
 
         string.append("}");
-        System.out.println(string.toString());
         return string.toString();
     }
 }

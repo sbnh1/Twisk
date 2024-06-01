@@ -123,7 +123,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
     /**
-     * supprime des successeurs
+     * Supprime des successeurs
      * @param etapes
      */
     public void supprimerSuccessseur(EtapeIG... etapes){
@@ -133,8 +133,8 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
     /**
-     * ajoute des predecesseurs
-     * @param etapes liste des etapes a ajouter comme predecesseur
+     * Ajoute des predecesseurs
+     * @param etapes liste des étapes à ajouter comme predecesseur
      */
     public void ajouterPredecesseur(EtapeIG... etapes){
         for(EtapeIG etape : etapes){
@@ -142,6 +142,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
         }
     }
 
+    /**
+     * Supprime une/des étapes de la liste des predecesseurs
+     * @param etapes liste des étapes à supprimer
+     */
     public void supprimerPredecesseur(EtapeIG... etapes){
         for(EtapeIG etape : etapes){
             this.predecesseurs.remove(etape);
@@ -149,7 +153,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
     /**
-     * retourne l'ArrayList des successeurs
+     * Retourne l'ArrayList des successeurs
      * @return liste des successeurs
      */
     public ArrayList<EtapeIG> getSuccesseurs(){
@@ -157,7 +161,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
     }
 
     /**
-     * retourne l'ArrayList des successeurs
+     * Retourne l'ArrayList des successeurs
      * @return liste des successeurs
      */
     public ArrayList<EtapeIG> getPredecesseurs(){
@@ -344,11 +348,16 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG> {
 
     /**
      * Méthode qui récupère si une étapeIG est une activité ou non
-     * @return vrai si l'étapeIG est une activité sinon non
+     * @return vrai si l'étapeIG est une activité, sinon non
      */
     public boolean estUneActivite(){
         return this.estUneActivite;
     }
+
+    /**
+     * Méthode qui récupère si une étapeIG est un guichet ou non
+     * @return vrai si l'étapeIG est un guichet, sinon non
+     */
     public boolean estUnGuichet(){
         return this.estUnGuichet;
     }

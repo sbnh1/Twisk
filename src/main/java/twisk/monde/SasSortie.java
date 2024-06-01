@@ -11,8 +11,8 @@ public class SasSortie extends Activite{
     }
 
     /**
-     * Retourne une représentation en langage C du sas de sortie
-     * @return Une représentation en langage C du sas de sortie
+     * Retourne une représentation en C du sas de sortie
+     * @return Une représentation en C du sas de sortie
      */
     public String toC(){
         StringBuilder string = new StringBuilder();

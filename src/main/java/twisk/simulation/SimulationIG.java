@@ -7,12 +7,9 @@ import twisk.exceptions.*;
 import twisk.outils.*;
 import twisk.vues.Observateur;
 
-import javax.sound.midi.Soundbank;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -64,11 +61,8 @@ public class SimulationIG extends SujetObserve implements Observateur {
             Class<?> classePerso = classLoader.loadClass("twisk.simulation.Simulation");
             Constructor<?> constructor = classePerso.getConstructor();
             this.mondeIG.tuerProcessus();
-            FabriqueNumero.getInstance().resetNumeroEtape();
-            FabriqueNumero.getInstance().resetNumeroSemaphore();
             notifierObservateur();
         } catch (Exception e) {
-            e.printStackTrace();  // Imprimer la pile d'appels de l'exception
         }
     }
 
@@ -95,11 +89,10 @@ public class SimulationIG extends SujetObserve implements Observateur {
                     throw new MondeInvalideException("Erreur: Une sortie ne peut avoir de successeurs");
                 }
             }
-            if(etape.estUneEntree()){
-                if(verifierChemin(etape)){
-                    throw new MondeInvalideException("Erreur: certaines entrée peuvent menées a une impasse");
-                }
+            if(verifierChemin(etape)){
+                throw new MondeInvalideException("Erreur: une/des étapes mènes à une impasse");
             }
+
             if (etape.estUnGuichet()) {
                 if (etape.estUneSortie()) {
                     throw new MondeInvalideException("Erreur: un guichet ne peut être une sortie");
@@ -112,7 +105,7 @@ public class SimulationIG extends SujetObserve implements Observateur {
                 }
                 ((ActiviteIG) successeurs.get(0)).setEstRestreinte(true);
                 if (successeurs.get(0).estUneEntree()) {
-                    throw new MondeInvalideException("Erreur: une Activité restreinte ne peut etre une entrée");
+                    throw new MondeInvalideException("Erreur: une activité restreinte ne peut etre une entrée");
                 }
                 if (successeurs.get(0).getPredecesseurs().size() > 1) {
                     throw new MondeInvalideException("Erreur: une activité restreinte ne peut avoir qu'un seul predecesseur");
@@ -122,10 +115,10 @@ public class SimulationIG extends SujetObserve implements Observateur {
     }
 
     /**
-     * Vérifie si il y'a une sortie a chaque fin de chemin
+     * Vérifie s'il y'a une sortie à chaque fin de chemin
      * Utilisation du DFS
      * @param etape l'étape de départ
-     * @return true si le monde est juste, sinon false
+     * @return false si le monde est juste, sinon true
      */
     public boolean verifierChemin(EtapeIG etape) {
         if (etape.estUneSortie()) {
@@ -171,9 +164,9 @@ public class SimulationIG extends SujetObserve implements Observateur {
      * @return le monde créé
      */
     public Monde creerMonde() {
-        FabriqueIdentifiant.getInstance().reset();
+        //FabriqueIdentifiant.getInstance().reset();
         FabriqueNumero.getInstance().resetNumeroEtape();
-        FabriqueNumero.getInstance().resetNumeroEtape();
+        FabriqueNumero.getInstance().resetNumeroSemaphore();
         Monde monde = new Monde();
         monde.setChoixLoi(this.getChoixLoi());
         correspondanceEtapes = new CorrespondanceEtapes();
@@ -241,13 +234,9 @@ public class SimulationIG extends SujetObserve implements Observateur {
             simuler.invoke(instanceClassperso, monde);
 
         } catch (ClassNotFoundException | NoSuchMethodException e) {
-            System.out.println(e.getMessage());
         } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
         } catch (InstantiationException e) {
-            throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -335,10 +324,18 @@ public class SimulationIG extends SujetObserve implements Observateur {
         this.nbClient = nbClient;
     }
 
+    /**
+     * Renvoie la loi définie
+     * @return la loi définie
+     */
     public int getChoixLoi() {
         return choixLoi;
     }
 
+    /**
+     * Défini la loi à utiliser
+     * @param choixLoi la loi choisie
+     */
     public void setChoixLoi(int choixLoi) {
         this.choixLoi = choixLoi;
     }

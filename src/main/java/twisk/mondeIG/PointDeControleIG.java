@@ -85,22 +85,35 @@ public class PointDeControleIG {
     }
 
     /**
-     * Modifie le booléen estSelectionnee avec celui en paramètre
-     * @param estSelectionnee le nouvel état du point de contrôle
+     * Définit l'état de sélection.
+     * @param estSelectionnee le nouvel état de sélection
      */
     public void setEstSelectionnee(boolean estSelectionnee) {
         this.estSelectionnee = estSelectionnee;
     }
 
+    /**
+     * Obtient le sens de circulation.
+     * @return le sens de circulation
+     */
     public boolean getSensCirculation() {
         return sensCirculation;
     }
 
+    /**
+     * Définit le sens de circulation.
+     * @param sensCirculation le nouveau sens de circulation
+     */
     public void setSensCirculation(boolean sensCirculation) {
         this.sensCirculation = sensCirculation;
     }
 
-    public void setIdentifiant(String identifiant){
+    /**
+     * Définit l'identifiant.
+     * @param identifiant le nouvel identifiant
+     */
+    public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
+
 }

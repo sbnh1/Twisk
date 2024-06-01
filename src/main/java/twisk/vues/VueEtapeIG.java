@@ -70,6 +70,10 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         });
     }
 
+    /**
+     * Renvoie l'étapeIG
+     * @return l'étapeIG
+     */
     public Object getEtapeIG() {
         return this.etape;
     }

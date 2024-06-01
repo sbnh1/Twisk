@@ -15,14 +15,10 @@ import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.KitC;
 import twisk.outils.TailleComposants;
 import twisk.simulation.GestionnaireClients;
-import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
@@ -172,8 +168,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 this.supprimerArc(arcIG);
                 throw new PointDeControleException("Erreur : Les cycles ne sont pas admis");
             }
-            if(etape2.estUnGuichet()){
-                pt2.setSensCirculation(true);
+            if(etape1.estUnGuichet()){
+                pt1.setSensCirculation(true);
             }
         } catch (PointDeControleException e) {
         }
@@ -186,22 +182,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      * @return false si acyclique, sinon true
      */
     private boolean verifierCycle(EtapeIG candidat, EtapeIG racine) {
-        // Initialisation de l'ensemble des étapes visitées
         Set<EtapeIG> visitees = new HashSet<>();
         Stack<EtapeIG> pile = new Stack<>();
 
         pile.push(racine);
-
         while (!pile.isEmpty()) {
             EtapeIG current = pile.pop();
-            // Si on trouve le candidat, il y a un cycle
             if (current.equals(candidat)) {
                 return true;
             }
-            // Ajouter l'étape courante à l'ensemble des visités
             if (!visitees.contains(current)) {
                 visitees.add(current);
-                // Ajouter tous les successeurs non visités à la pile pour le parcours en profondeur
                 for (EtapeIG successeur : current.getSuccesseurs()) {
                     if (!visitees.contains(successeur)) {
                         pile.push(successeur);
@@ -209,8 +200,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 }
             }
         }
-
-        // Si on a parcouru tout le graphe sans trouver le candidat, il n'y a pas de cycle
+        //Si il n'y a pas de cycle
         return false;
     }
 
@@ -244,7 +234,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
-     * Supprime tout les arcs donné en paramètre
+     * Supprime tous les arcs donnés en paramètre
      * @param arcsASupprimer liste des arcs qui vont être supprimé
      */
     public void supprimerArc(ArcIG... arcsASupprimer) {
@@ -260,8 +250,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
 
     /**
-     * Retourne une forme textuelle de toute les étapes du MondeIG
-     * @return une forme textuelle de toute les étapes du MondeIG
+     * Retourne une forme textuelle de toutes les étapes du MondeIG
+     * @return une forme textuelle de toutes les étapes du MondeIG
      */
     @Override
     public String toString(){
@@ -273,7 +263,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
-     * Supprime toutes les étapes donné en paramètre
+     * Supprime toutes les étapes données en paramètre
      * @param etapes liste des étapes qui vont être supprimé
      */
     public void supprimerEtape(EtapeIG... etapes) {
@@ -290,16 +280,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
-     * Ajoute l'étape dans la liste des étapes sélectionné
-     * @param etape l'étape qui est sélectionné
+     * Ajoute l'étape dans la liste des étapes sélectionnées
+     * @param etape l'étape qui est sélectionnée
      */
     public void selectioneEtape(EtapeIG etape) {
         etapesSelectionnees.add(etape);
     }
 
     /**
-     * Retire l'étape de la liste des étapes sélectionné
-     * @param etape l'étape qui n'est plus sélectionné
+     * Retire l'étape de la liste des étapes sélectionnées
+     * @param etape l'étape qui n'est plus sélectionnée
      */
     public void deselectionnerEtape(EtapeIG etape) {
         etapesSelectionnees.remove(etape);
@@ -307,7 +297,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Retourne un booléen pour dire si une étape est dans la liste des étapes sélectionné
-     * @param etape l'étape questionné
+     * @param etape l'étape questionnée
      * @return vrai si l'étape est sélectionné, false sinon
      */
     public boolean estSelectionneeEtape(EtapeIG etape) {
@@ -323,12 +313,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         if (!etapesSelectionnees.isEmpty()) {
             return etapesSelectionnees.get(0);
         } else {
-            return null; // Aucune étape sélectionnée
+            return null;
         }
     }
 
     /**
-     * Méthode qui déselectionne toute les étapes sélectionné
+     * Méthode qui déselectionne toutes les étapes sélectionnées
      */
     public void viderSelectionEtape() {
         etapesSelectionnees.clear();
@@ -343,8 +333,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
-     * Retourne la taille de la liste d'étape sélectionné
-     * @return le nombre d'étape sélectionné
+     * Retourne la taille de la liste d'étape sélectionnée
+     * @return le nombre d'étapes sélectionné
      */
     public int getNbEtapeSelectionner() {
         return etapesSelectionnees.size();
@@ -438,6 +428,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
 
+    /**
+     * Supprime tous les successeurs d'une étape
+     */
     private void clearSuccesseurs(){
         for(EtapeIG etape : this){
             etape.clearSuccesseurs();
@@ -489,9 +482,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     @Override
     public void reagir() {
         Platform.runLater(this::notifierObservateur);
-        //mettre a jour vumondeig quand il sera dans le bon thread (platform.runnable)
     }
 
+    /**
+     * Créer un fichier Json du mondeIG
+     * @return un fichier Json du mondeIG
+     */
     public String toJson(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -511,11 +507,17 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return gson.toJson(jsonData);
     }
 
+    /**
+     * Tue tous les processus
+     * Et clear le gestionnaire de clients
+     */
     public void tuerProcessus(){
         KitC kitC = new KitC();
         try {;
             kitC.tuerProcessus(this.gestionnaireClients);
-            this.gestionnaireClients.nettoyer();
+            if(gestionnaireClients != null) {
+                this.gestionnaireClients.nettoyer();
+            }
         }
         catch (IOException e) {
             throw new RuntimeException(e);

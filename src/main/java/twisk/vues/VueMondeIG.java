@@ -114,7 +114,7 @@ public class VueMondeIG extends Pane implements Observateur{
                     } else if (etapeIG.estUnGuichet()) {
                         for (PointDeControleIG pointDeControle : etapeIG) {
                             if(pointDeControle.getSensCirculation()) {//a un sens de circulation  = true
-                                if(pointDeControle.getIdentifiant().startsWith("PCDroit")){ // regarde si la fleche d'entrée des clients est a droite ou à gauche
+                                if(pointDeControle.getIdentifiant().startsWith("PCG")){ // regarde si la fleche d'entrée des clients est a droite ou à gauche
                                     for (Node node : this.getChildren()) {
                                         if (node instanceof VueGuichetIG) {
                                             VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
@@ -140,19 +140,6 @@ public class VueMondeIG extends Pane implements Observateur{
                                             }
                                         }
                                     }
-                                }
-                            }
-                        }
-                        for (Node node : this.getChildren()) {
-                            if (node instanceof VueGuichetIG) {
-                                VueGuichetIG vueGuichetIG = (VueGuichetIG) node;
-                                if (vueGuichetIG.getEtapeIG().equals(etapeIG)) {//vérifie que c'est la bonne étape
-                                    int rang = client.getRang() % 10;
-                                    rang = 9 - rang;
-                                    Label label = vueGuichetIG.getLabel(rang);
-                                    HBox circleContainer = new HBox(circle);
-                                    circleContainer.setAlignment(Pos.CENTER);
-                                    label.setGraphic(circleContainer);
                                 }
                             }
                         }

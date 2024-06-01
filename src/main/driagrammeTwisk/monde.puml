@@ -1,0 +1,105 @@
+@startuml
+package monde {
+    class Etape {
+        - String nom
+        - GestionnaireEtapes successeur
+        - int id
+        - int ecartTemps
+        - int temps
+        
+        + Etape(String nom)
+        + int getId()
+        + String getNom()
+        + void ajouterSuccesseur(Etape... successeurs)
+        + GestionnaireEtapes getSuccesseur()
+        + Iterator<Etape> iterator()
+        + abstract Boolean estUneActivite()
+        + abstract Boolean estUnGuichet()
+        + abstract int getNbJetons()
+        + int getTemps()
+        + int getEcartTemps()
+        + int nbSuccesseurs()
+        + String toString()
+        + abstract String toC()
+    }
+    class Activite extends Etape {
+        - int temps
+        - int ecartTemps
+        
+        + Activite(String nom)
+        + Activite(String nom, int temps, int ecartTemps)
+        + Boolean estUneActivite()
+        + Boolean estUnGuichet()
+        + int getNbJetons()
+        + int getTemps()
+        + int getEcartTemps()
+        + String toC()
+    }
+    class Guichet extends Etape {
+        - int nbJetons
+        - int semaphores
+
+        + Guichet(String nom)
+        + Guichet(String nom, int nbJetons)
+        + Boolean estUnGuichet()
+        + Boolean estUneActivite()
+        + int getNbJetons()
+        + int getNumeroSemaphore()
+        + String toC()
+    }
+    class ActiviteRestreinte extends Activite {
+
+        + ActiviteRestreinte(String nom)
+        + ActiviteRestreinte(String nom, int temps, int ecartTemps)
+        + String toC()
+    }
+    class SasEntree extends Activite {
+        
+        + SasEntree()
+        + String toC()
+        - String toCChoixLoi()
+    }
+    class SasSortie extends Activite {
+        
+        + SasSortie()
+        + String toC()
+    }
+    class GestionnaireEtapes {
+
+        + GestionnaireEtapes()
+        + void ajouter(Etape... etapes)
+        + int nbEtapes()
+        + int nbGuichets()
+        + ArrayList<Etape> getEtapes()
+        + Etape getEtape(int n)
+        + Iterator<Etape> iterator()
+        + String toString()
+    }
+    class Monde {
+        -Etape entree
+        -Etape sortie
+        -int choixLoi
+
+        +Monde()
+        +void aCommeEntree(Etape... etapes)
+        +void aCommeSortie(Etape... etapes)
+        +String getEntree()
+        +String getSortie()
+        +void ajouter(Etape... etapes)
+        +int nbEtapes()
+        +int nbGuichets()
+        +Etape getEtape(int i)
+        +Iterator<Etape> iterator()
+        +String toString()
+        +void setChoixLoi(int choixLoi)
+        +int getChoixLoi()
+        -String toCUniforme()
+        -String toCGauss()
+        -String toCExpo()
+        +String toC()
+    }
+
+    GestionnaireEtapes --"*" Etape
+    Monde --"1" GestionnaireEtapes
+}
+@enduml

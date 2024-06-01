@@ -16,8 +16,6 @@ public class SujetObserve {
         }
     }
 
-
-
     /**
      * Méthode qui permet au Vue de s'inscrire toute seul à la liste des Observateur
      * @param o observateur ajouté à la liste
@@ -26,12 +24,6 @@ public class SujetObserve {
         this.obs.add(o);
     }
 
-    public void afficherObservateurs() {
-        System.out.println("Liste des observateurs :");
-        for (Observateur o : this.obs) {
-            System.out.println("- " + o.toString());
-        }
-    }
 
     /**
      * Retourne le nombre d'observateurs inscrits

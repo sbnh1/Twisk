@@ -7,14 +7,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.Priority;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
-import javafx.geometry.Pos;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import java.awt.*;
 
 public class VueGuichetIG extends VueEtapeIG {
 

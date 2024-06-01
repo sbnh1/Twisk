@@ -21,8 +21,8 @@ public class ActiviteRestreinte extends Activite {
     }
 
     /**
-     * Retourne une représentation en langage C de l'activité restreinte
-     * @return Une représentation en langage C de l'activité restreinte
+     * Retourne une représentation en C de l'activité restreinte
+     * @return Une représentation en C de l'activité restreinte
      */
     public String toC(){
         StringBuilder string = new StringBuilder();

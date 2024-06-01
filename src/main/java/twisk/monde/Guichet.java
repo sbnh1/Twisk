@@ -61,15 +61,13 @@ public class Guichet extends Etape {
     }
 
     /**
-     * Retourne une représentation en langage C du guichet
-     * @return Une représentation en langage C du guichet
+     * Retourne une représentation en C du guichet
+     * @return Une représentation en C du guichet
      */
     public String toC(){
         StringBuilder string = new StringBuilder();
-        int nbSuccesseur = this.getSuccesseur().nbEtapes();
         string.append("delai(" + this.getSuccesseur().getEtape(0).getTemps() + "," + this.getSuccesseur().getEtape(0).getEcartTemps() + ");\n");
         string.append("P(ids, " + this.getNom() + "_semaphore);\n");
-        System.out.println("P(sdi, " + this.getNumeroSemaphore());
         string.append("transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() + ");\n");
         string.append("V(ids, " + this.getNom() + "_semaphore);\n");
         string.append(this.getSuccesseur().getEtape(0).toC());

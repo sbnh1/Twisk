@@ -1,0 +1,76 @@
+@startuml
+
+package simulation{
+class Client {
+    - numeroClient: int
+    - rang: int
+    - etape: Etape
+    + Client(int)
+    + allerA(etape: Etape, rang: int): void
+    + getNumeroClient(): int
+    + getEtape(): Etape
+    + getRang(): int
+    + toString(): String
+}
+
+class GestionnaireClients {
+    - listClient: HashMap<Integer, Client>
+    + GestionnaireClients()
+    + setClients(tabClients: int...): void
+    + getClients(numeroClient: int): Client
+    + allerA(numeroClient: int, etape: Etape, rang: int): void
+    + nettoyer(): void
+    + size(): int
+    + iterator(): Iterator<Client>
+    + toString(): String
+}
+
+class Simulation {
+    - kitC: KitC
+    - nbClient: int
+    - pids: int[]
+    - gestionnaireClients: GestionnaireClients
+    + start_simulation(nbEtapes: int, nbGuichets: int, nbClients: int, tabJetonsGuichets: int[]): int[]
+    + ou_sont_les_clients(nbEtapes: int, nbClients: int): int[]
+    + nettoyage(): void
+    + setNbClients(nbClients: int): void
+    + afficherMonde(monde: Monde): void
+    + getGestionnaire(): GestionnaireClients
+    + simuler(monde: Monde): void
+    + tuerProcessus(): void
+}
+
+class SimulationIG extends SujetObserve implements Observateur{
+    - nbClient: int
+    - instanceClassperso: Object
+    - gestionnaireClients: GestionnaireClients
+    - choixLoi: int
+    + SimulationIG(mondeIG: MondeIG)
+    + simuler(): void
+    + stoperSimulation(): void
+    + verifierMonderIG(): void
+    + verifierChemin(etape: EtapeIG): boolean
+    + ajouterEtapes(monde: Monde): void
+    + creerMonde(): Monde
+    + getGestionnaireClients(): GestionnaireClients
+    + getCorrespondanceEtapes(): CorrespondanceEtapes
+    + lancerSimulation(monde: Monde, nb: int): void
+    + existChemin(pt1: PointDeControleIG, pt2: PointDeControleIG): boolean
+    + exist(arcIG: ArcIG): boolean
+    + sontReliees(e1: EtapeIG, e2: EtapeIG): boolean
+    + ajouterSuccesseursEtapeIG(): void
+    + getNbClient(): int
+    + setNbClient(nbClient: int): void
+    + getChoixLoi(): int
+    + setChoixLoi(choixLoi: int): void
+    + reagir(): void
+}
+
+SimulationIG --"1" MondeIG
+SimulationIG --"1" CorrespondanceEtapes
+SimulationIG --"1" Monde
+SimulationIG --"1" GestionnaireClients
+SimulationIG --"1" ThreadsManager
+
+}
+@enduml
