@@ -314,7 +314,19 @@ public class VueMenu extends MenuBar implements Observateur {
                         ((Double)etape.get("hauteur")).intValue(),
                         (String)etape.get("identifiant")
                 );
+                activite.setPosX(
+                        ((Double) etape.get("posX")).intValue()
+                );
+                activite.setPosY(
+                        ((Double) etape.get("posY")).intValue()
+                );
+                activite.setPosPtCtrl();
                 activite.setDelai(((Double)etape.get("delai")).intValue());
+                if((boolean)etape.get("estUneEntree")){
+                    activite.DefinirCommeEntree();
+                }else if((boolean)etape.get("estUneSortie")){
+                    activite.DefinirCommeSortie();
+                }
                 try {
                     activite.setEcartTemps(((Double) etape.get("ecartTemps")).intValue());
                 } catch (DelaiEcartException e) {}
@@ -323,7 +335,6 @@ public class VueMenu extends MenuBar implements Observateur {
                 for(PointDeControleIG point : activite.getPointsDeControle()){
                     points.put(point.getIdentifiant(), point);
                 }
-                System.out.println(activite.getIdentifiant());
                 this.monde.ajouter(activite);
             }else{
                 GuichetIG guichet = new GuichetIG(
@@ -332,13 +343,22 @@ public class VueMenu extends MenuBar implements Observateur {
                         ((Double) etape.get("hauteur")).intValue(),
                         (String)etape.get("identifiant")
                 );
-
+                guichet.setPosX(
+                        ((Double) etape.get("posX")).intValue()
+                );
+                guichet.setPosY(
+                        ((Double) etape.get("posY")).intValue()
+                );
+                guichet.setPosPtCtrl();
                 guichet.setNbJetons(((Double)etape.get("nbJetons")).intValue());
-
+                if((boolean)etape.get("estUneEntree")){
+                    guichet.DefinirCommeEntree();
+                }else if((boolean)etape.get("estUneSortie")){
+                    guichet.DefinirCommeSortie();
+                }
                 for(PointDeControleIG point : guichet.getPointsDeControle()){
                     points.put(point.getIdentifiant(), point);
                 }
-                System.out.println(guichet.getIdentifiant());
                 this.monde.ajouter(guichet);
             }
         }
@@ -346,11 +366,9 @@ public class VueMenu extends MenuBar implements Observateur {
         for (Map.Entry<String, PointDeControleIG> entry : points.entrySet()) {
             String key = entry.getKey();
             PointDeControleIG value = entry.getValue();
-            System.out.println("Key: " + key + ", Value: " + value);
         }
 
         for (Map<String, Object> arc : arcs) {
-            System.out.println((String)arc.get("depart") + " " + (String)arc.get("arrivee"));
             try{
                 this.monde.ajouter(
                         points.get((String)arc.get("depart")),
