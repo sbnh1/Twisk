@@ -22,6 +22,23 @@ import java.util.*;
 public class VueMenu extends MenuBar implements Observateur {
     private MondeIG monde;
     private Stage primaryStage;
+    private MenuItem quitter;
+    private MenuItem importer;
+    private MenuItem exporter;
+    private MenuItem supprimer;
+    private MenuItem renommer;
+    private MenuItem effacer;
+    private MenuItem entree;
+    private MenuItem sortie;
+    private MenuItem entreeSortie;
+    private MenuItem delai;
+    private MenuItem ecartTemps;
+    private MenuItem jetons;
+    private MenuItem reset;
+    private MenuItem monde4;
+    private MenuItem monde1;
+    private MenuItem monde2;
+    private MenuItem monde3;
 
     /**
      * Constructeur de la classe VueMenu
@@ -33,9 +50,9 @@ public class VueMenu extends MenuBar implements Observateur {
         this.primaryStage = primaryStage;
 
         Menu menuFichier = new Menu("Fichier");
-        MenuItem quitter = new MenuItem("Quitter");
-        MenuItem exporter = new MenuItem("exporter");
-        MenuItem importer = new MenuItem("importer");
+        quitter = new MenuItem("Quitter");
+        exporter = new MenuItem("exporter");
+        importer = new MenuItem("importer");
         exporter.setOnAction(event -> this.exporter());
         importer.setOnAction(event -> this.importer());
         quitter.setOnAction(event -> {
@@ -43,55 +60,53 @@ public class VueMenu extends MenuBar implements Observateur {
             this.monde.tuerProcessus();
         });
         quitter.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
-        menuFichier.getItems().add(quitter);
-        menuFichier.getItems().add(exporter);
-        menuFichier.getItems().add(importer);
+        menuFichier.getItems().addAll(quitter, exporter, importer);
 
         Menu menuEdition = new Menu("Édition");
-        MenuItem supprimer = new MenuItem("Supprimer");
+        supprimer = new MenuItem("Supprimer");
         supprimer.setOnAction(new EcouteurSupprimer(monde));
         supprimer.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
-        MenuItem renommer = new MenuItem("Renommer");
+        renommer = new MenuItem("Renommer");
         renommer.setOnAction(event -> this.renommerEtape());
         renommer.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
 
-        MenuItem effacer = new MenuItem("Effacer");
+        effacer = new MenuItem("Effacer");
         effacer.setOnAction(event -> this.effacerSelection());
         effacer.setAccelerator(KeyCombination.keyCombination("Ctrl+E"));
         menuEdition.getItems().addAll(supprimer, renommer, effacer);
 
-        Menu menuMonde = new Menu("Monde");
-        MenuItem entree = new MenuItem("Entrée");
+        Menu menuMonde = new Menu("Etat");
+        entree = new MenuItem("Entrée");
         entree.setOnAction(event -> this.defEntree());
         entree.setAccelerator((KeyCombination.keyCombination("Ctrl+I")));
-        MenuItem sortie = new MenuItem("Sortie");
+        sortie = new MenuItem("Sortie");
         sortie.setOnAction(event -> this.defSortie());
         sortie.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
-        MenuItem entreeSortie = new MenuItem("Entrée et Sortie");
+        entreeSortie = new MenuItem("Entrée et Sortie");
         entreeSortie.setOnAction(event -> this.defSortieEtEntree());
         entreeSortie.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
         menuMonde.getItems().addAll(entree, sortie, entreeSortie);
 
         Menu menuParametre = new Menu("Paramètre");
-        MenuItem delai = new MenuItem("Délai");
+        delai = new MenuItem("Délai");
         delai.setOnAction(event -> defDelai());
-        MenuItem ecartTemps =  new MenuItem("Ecart-temps");
+        ecartTemps =  new MenuItem("Ecart-temps");
         ecartTemps.setOnAction(event -> defEcartTemps());
-        MenuItem jetons = new MenuItem("Jetons");
+        jetons = new MenuItem("Jetons");
         jetons.setOnAction(event -> defNombreDeJetons());
         menuParametre.getItems().addAll(delai,ecartTemps,jetons);
 
         Menu menuTwist = new Menu("Monde");
-        MenuItem reset = new MenuItem("supprimer Monde");
+        reset = new MenuItem("supprimer Monde");
         reset.setOnAction(event -> reset());
-        MenuItem monde1 = new MenuItem("Monde 1");
+        monde1 = new MenuItem("Monde 1");
         monde1.setOnAction(event -> importerMonde("/import/monde1.json"));
-        MenuItem monde2 = new MenuItem("Monde 2");
+        monde2 = new MenuItem("Monde 2");
         monde2.setOnAction(event -> importerMonde("/import/monde2.json"));
-        MenuItem monde3 = new MenuItem("Monde 3");
+        monde3 = new MenuItem("Monde 3");
         monde3.setOnAction(event -> importerMonde("/import/monde3.json"));
-        MenuItem monde4 = new MenuItem("Monde 4");
+        monde4 = new MenuItem("Monde 4");
         monde4.setOnAction(event -> importerMonde("/import/monde4.json"));
         menuTwist.getItems().addAll(reset, monde1, monde2, monde3, monde4);
 
@@ -517,9 +532,50 @@ public class VueMenu extends MenuBar implements Observateur {
         this.monde.notifierObservateur();
     }
 
+    /**
+     * Méthode qui rend impossible l'utilisation de tous les menuitems sauf quitter
+     * @param edit vrai rend les menuitem disable, sinon les rend utilisables
+     */
+    public void editer(boolean edit){
+        if(edit){
+            importer.setDisable(true);
+            exporter.setDisable(true);
+            entree.setDisable(true);
+            entreeSortie.setDisable(true);
+            sortie.setDisable(true);
+            effacer.setDisable(true);
+            supprimer.setDisable(true);
+            renommer.setDisable(true);
+            delai.setDisable(true);
+            ecartTemps.setDisable(true);
+            jetons.setDisable(true);
+            reset.setDisable(true);
+            monde4.setDisable(true);
+            monde1.setDisable(true);
+            monde2.setDisable(true);
+            monde3.setDisable(true);
+        } else {
+            importer.setDisable(false);
+            exporter.setDisable(false);
+            entree.setDisable(false);
+            entreeSortie.setDisable(false);
+            sortie.setDisable(false);
+            effacer.setDisable(false);
+            supprimer.setDisable(false);
+            renommer.setDisable(false);
+            delai.setDisable(false);
+            ecartTemps.setDisable(false);
+            jetons.setDisable(false);
+            reset.setDisable(false);
+            monde4.setDisable(false);
+            monde1.setDisable(false);
+            monde2.setDisable(false);
+            monde3.setDisable(false);
+        }
+    }
+
     @Override
     public void reagir() {
-        // Réaction aux changements dans le monde
     }
 
 }

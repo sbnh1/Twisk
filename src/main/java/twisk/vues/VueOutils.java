@@ -4,8 +4,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import twisk.exceptions.MondeInvalideException;
 import twisk.mondeIG.MondeIG;
-import twisk.simulation.Simulation;
 import twisk.simulation.SimulationIG;
 
 import java.util.Optional;
@@ -15,15 +15,21 @@ public class VueOutils extends ToolBar implements Observateur{
     private MondeIG monde;
     private SimulationIG simulationIG;
     private int nbClientBouton;
+    private boolean edit = true;
     private Button boutonNbClients;
     private Button boutonChoixLoi;
+    private Button boutonSimulation;
+    private Button boutonGuichet;
+    private Button boutonActivite;
+    private VueMenu vueMenu;
     /**
      * Constructeur de la classe VueOutils
      * @param monde le MondeIG
      */
-    public VueOutils(MondeIG monde){
+    public VueOutils(MondeIG monde, VueMenu vueMenu){
         super();
         this.monde = monde;
+        this.vueMenu = vueMenu;
 
         this.simulationIG = new SimulationIG(monde);
         this.nbClientBouton = this.simulationIG.getNbClient();
@@ -34,14 +40,14 @@ public class VueOutils extends ToolBar implements Observateur{
         Region espaceDroite = new Region();
         HBox.setHgrow(espaceDroite, Priority.ALWAYS);
 
-        Button boutonActivite = new Button("ACTIVITE");
+        boutonActivite = new Button("ACTIVITE");
         Tooltip tooltipActivite = new Tooltip("Ajouter une activité");
         Tooltip.install(boutonActivite, tooltipActivite);
         boutonActivite.setOnAction(new EcouteurBouton(monde));
         boutonActivite.setPrefSize(90, 30);
         boutonActivite.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #1e847f;");
 
-        Button boutonGuichet = new Button("GUICHET");
+        boutonGuichet = new Button("GUICHET");
         Tooltip tooltipGuichet = new Tooltip("Ajouter un guichet");
         Tooltip.install(boutonGuichet, tooltipGuichet);
         boutonGuichet.setOnAction(new EcouteurBoutonGuichet(monde));
@@ -49,10 +55,12 @@ public class VueOutils extends ToolBar implements Observateur{
         boutonGuichet.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #1e847f;");
 
 
-        Button boutonSimulation = new Button("Start");
+        boutonSimulation = new Button("Start");
         Tooltip tooltipSimulation = new Tooltip("Lancer la simulation du monde");
         Tooltip.install(boutonSimulation, tooltipSimulation);
-        boutonSimulation.setOnAction(new EcouteurBoutonSimulation(monde, simulationIG, boutonSimulation));
+        boutonSimulation.setOnAction(event -> {
+            if(LancerBoutonSimulation())
+                editMonde();});
         boutonSimulation.setPrefSize(110,30);
         boutonSimulation.setStyle("-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-font-weight: bold; -fx-text-fill: #000000;-fx-background-color: #c66b3d;");
 
@@ -74,6 +82,53 @@ public class VueOutils extends ToolBar implements Observateur{
 
         this.getItems().addAll(espaceGauche, boutonChoixLoi, boutonActivite, boutonGuichet, boutonNbClients, boutonSimulation, espaceDroite);
         this.monde.ajouterObservateur(this);
+    }
+
+    /**
+     * Méthode qui permet de lancer/arrêter la simulation depuis un bouton
+     * Le booléen permet le lancement de la méthode editMonde,
+     * si la simulation s'est bien lancée
+     * @return vrai si la simulation s'est lancée, sinon faux
+     */
+    private boolean LancerBoutonSimulation() {
+        try {
+            Tooltip infoBulleSimulation;
+            if(boutonSimulation.getText().equals("Start")) {
+                this.simulationIG.simuler();
+                boutonSimulation.setText("Stop");
+                infoBulleSimulation = new Tooltip("Arrêter la simulation du monde");
+                Tooltip.install(boutonSimulation, infoBulleSimulation);
+            } else {
+                boutonSimulation.setText("Start");
+                this.simulationIG.stoperSimulation();
+                infoBulleSimulation = new Tooltip("Lancer la simulation du monde");
+                Tooltip.install(boutonSimulation, infoBulleSimulation);
+            }
+            return true;
+        } catch (MondeInvalideException e) {
+            return false;
+        }
+    }
+
+
+    /**
+     * Méthode qui permet de rendre les boutons inutilisables pendant la simulation
+     */
+    public void editMonde(){
+        if(edit){
+            boutonNbClients.setDisable(true);
+            boutonChoixLoi.setDisable(true);
+            boutonActivite.setDisable(true);
+            boutonGuichet.setDisable(true);
+
+        } else {
+            boutonNbClients.setDisable(false);
+            boutonChoixLoi.setDisable(false);
+            boutonActivite.setDisable(false);
+            boutonGuichet.setDisable(false);
+        }
+        vueMenu.editer(edit);
+        edit = !edit;
     }
 
     /**

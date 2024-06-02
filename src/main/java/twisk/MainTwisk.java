@@ -18,9 +18,10 @@ public class MainTwisk extends Application {
         MondeIG monde = new MondeIG();
         BorderPane root = new BorderPane();
         primaryStage.setTitle("Twisk");
-        root.setBottom(new VueOutils(monde));
+        VueMenu vueMenu = new VueMenu(monde ,primaryStage);
+        root.setTop(vueMenu);
+        root.setBottom(new VueOutils(monde, vueMenu));
         root.setCenter(new VueMondeIG(monde));
-        root.setTop(new VueMenu(monde ,primaryStage));
 
         primaryStage.setScene(new Scene(root, TailleComposants.getInstance().largeur, TailleComposants.getInstance().hauteur));
         monde.creerMondeDeBase(monde);

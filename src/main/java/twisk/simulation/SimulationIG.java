@@ -11,7 +11,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class SimulationIG extends SujetObserve implements Observateur {
 
@@ -81,8 +83,10 @@ public class SimulationIG extends SujetObserve implements Observateur {
         if (!this.mondeIG.aSortie()) {
             throw new MondeInvalideException("Erreur: il n'y a pas de sortie");
         }
-
+        ArrayList<EtapeIG> entree = new ArrayList<>();
         for (EtapeIG etape : this.mondeIG) {
+            if(etape.estUneEntree())
+                entree.add(etape);
             ArrayList<EtapeIG> successeurs = etape.getSuccesseurs();
             if(etape.estUneSortie()){
                 if(etape.getNbSuccesseurs() > 0){
@@ -112,7 +116,40 @@ public class SimulationIG extends SujetObserve implements Observateur {
                 }
             }
         }
+        verifierNbEtape(entree);
     }
+
+    /**
+     * Méthode qui permet de vérifier que toutes les étapes sont atteignables
+     * @param entrees la liste de toutes les entrées du monde
+     * @throws MondeInvalideException l'exception du monde invalide
+     */
+    private void verifierNbEtape(ArrayList<EtapeIG> entrees) throws MondeInvalideException {
+        Set<EtapeIG> visitees = new HashSet<>();
+
+        for (EtapeIG entree : entrees) {
+            dfs(entree, visitees);
+        }
+
+        if (visitees.size() != this.mondeIG.getNbEtape()) {
+            throw new MondeInvalideException("Erreur: toutes les étapes du monde ne sont pas accessibles depuis une entrée.");
+        }
+    }
+
+    /**
+     * Parcours en profondeur (DFS) pour visiter toutes les étapes accessibles depuis une étape donnée
+     * @param etape l'étape de départ
+     * @param visitees ensemble des étapes visitées
+     */
+    private void dfs(EtapeIG etape, Set<EtapeIG> visitees) {
+        if (!visitees.contains(etape)) {
+            visitees.add(etape);
+            for (EtapeIG successeur : etape.getSuccesseurs()) {
+                dfs(successeur, visitees);
+            }
+        }
+    }
+
 
     /**
      * Vérifie s'il y'a une sortie à chaque fin de chemin
