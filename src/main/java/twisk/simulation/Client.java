@@ -2,10 +2,13 @@ package twisk.simulation;
 
 import twisk.monde.Etape;
 
+import java.util.Random;
+
 public class Client {
     private int numeroClient;
     private int rang;
     private Etape etape;
+    private int couleur;
 
     /**
      * Constructeur de la classe Client
@@ -13,6 +16,8 @@ public class Client {
      */
     public Client(int numero){
         this.numeroClient = numero;
+        Random random = new Random();
+        this.couleur = random.nextInt(4);
     }
     /**
      * Méthode qui déplace un client vers l'étape donnée et le rang donné
@@ -55,5 +60,13 @@ public class Client {
                 ", rang=" + rang +
                 ", etape=" + (etape != null ? etape.getNom() : "null") +
                 '}';
+    }
+
+    public int getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(int couleur) {
+        this.couleur = couleur;
     }
 }

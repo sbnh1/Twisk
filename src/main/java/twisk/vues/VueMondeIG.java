@@ -82,8 +82,7 @@ public class VueMondeIG extends Pane implements Observateur{
             for(Client client : mondeIG.getGestionnaireClients()){
 
                 Circle circle = new Circle(4.);
-                //choixCouleur(circle);
-                circle.setFill(Color.RED);
+                choixCouleur(circle, client);
                 CorrespondanceEtapes ce = mondeIG.getCorrespondanceEtapes();
                 Etape etape = client.getEtape();
                     EtapeIG etapeIG = ce.getEtapeIG(etape);
@@ -166,10 +165,8 @@ public class VueMondeIG extends Pane implements Observateur{
      * Donne une nouvelle couleur à un cercle
      * @param circle à qui choisir la couleur
      **/
-    public void choixCouleur(Circle circle){
-        Random random = new Random();
-        int choix = random.nextInt(3);
-        switch (choix) {
+    public void choixCouleur(Circle circle, Client client){
+        switch (client.getCouleur()) {
             case 0:
                 circle.setFill(Color.RED);
                 break;
@@ -177,10 +174,12 @@ public class VueMondeIG extends Pane implements Observateur{
                 circle.setFill(Color.BLUE);
                 break;
             case 2:
-                circle.setFill(Color.PEACHPUFF);
+                circle.setFill(Color.GREEN);
                 break;
+            case 3:
+                circle.setFill(Color.DEEPPINK);
             default:
-                circle.setFill(Color.NAVAJOWHITE);
+                circle.setFill(Color.DEEPPINK);
         }
     }
 

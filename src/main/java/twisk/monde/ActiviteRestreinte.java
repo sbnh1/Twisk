@@ -28,7 +28,7 @@ public class ActiviteRestreinte extends Activite {
         StringBuilder string = new StringBuilder();
         int nbSuccesseur = this.nbSuccesseurs();
         if(nbSuccesseur == 1){
-            string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
+            //string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
             //faire ici le switch
             string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(0).getNom() +");\n");
             string.append(this.getSuccesseur().getEtape(0).toC());
@@ -37,7 +37,7 @@ public class ActiviteRestreinte extends Activite {
             string.append("    switch(bifurcation_" + this.getNom() + "){\n");
             for(int i = 0; i < nbSuccesseur; i++) {
                 string.append("        case " + i + ":\n");
-                string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
+                //string.append("    delai(" + this.getTemps() + "," + this.getEcartTemps() + ");\n");
                 string.append("    transfert(" + this.getNom() + ", " + this.getSuccesseur().getEtape(i).getNom() +");\n");
                 string.append(this.getSuccesseur().getEtape(i).toC());
                 string.append("        break;\n");
