@@ -103,6 +103,7 @@ public class VueMondeIG extends Pane implements Observateur{
                                     double maxPositionY = (double) TailleComposants.getInstance().activiteHauter / 2;
                                     double randomPositionY = random.nextDouble() * maxPositionY;
 
+
                                     VBox circleContainer = new VBox(circle);
                                     circleContainer.setTranslateX(randomPositionX);
                                     circleContainer.setTranslateY(randomPositionY);

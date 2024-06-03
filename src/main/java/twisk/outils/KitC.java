@@ -60,7 +60,7 @@ public class KitC {
      * @throws IOException si une erreur survient lors de l'éxecution du processus
      */
     public void compiler(){
-        ProcessBuilder pb = new ProcessBuilder("gcc", "-Wall", "-ansi",
+        ProcessBuilder pb = new ProcessBuilder("gcc", "-Wall", "-std=gnu99",
                 "-pedantic", "-fPIC", "-c", "/tmp/twisk/client.c", "-o",
                 "/tmp/twisk/client.o");
         try {

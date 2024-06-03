@@ -137,7 +137,7 @@ public class Monde implements Iterable<Etape>{
         s.append("n = bs - bi + 1 ;\n");
         s.append("nbSec = (rand()/ (float)RAND_MAX) * n ;\n");
         s.append("nbSec += bi ;\n");
-        s.append("sleep(nbSec / 2);\n");
+        s.append("usleep(nbSec * 500000);\n");
         s.append("}\n");
         return s.toString();
     }
@@ -154,7 +154,7 @@ public class Monde implements Iterable<Etape>{
         s.append("double U1 = (double)rand()/RAND_MAX;\n");
         s.append("double U2 = (double)rand()/RAND_MAX;\n");
         s.append("double X = (sqrt(-2*log(U1))) * (cos(2*PI*U2)*ecartype) + moyenne; \n");
-        s.append("sleep(X /2);\n");
+        s.append("usleep(X * 500000);\n");
         s.append("}\n");
         return s.toString();
     }
@@ -170,7 +170,7 @@ public class Monde implements Iterable<Etape>{
         s.append("void delaiExponentiel(double lambda){\n");
         s.append("double U = (double)rand()/RAND_MAX;\n");
         s.append("double X = -log(U)/lambda;\n");
-        s.append("sleep(X /2);\n");
+        s.append("usleep(X * 500000);\n");
         s.append("}\n");
         return s.toString();
     }
