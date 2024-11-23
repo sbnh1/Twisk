@@ -1,0 +1,128 @@
+{
+  "fabriqueIdentifiant": 3,
+  "etapes": {
+    "Activite0": {
+      "estRestreinte": false,
+      "nom": "Balancoire",
+      "identifiant": "Activite0",
+      "posX": 865,
+      "posY": 460,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": false,
+      "estUneSortie": true,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 865.0,
+          "positionY": 510.0,
+          "identifiant": "PCGaucheActivite0",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 1105.0,
+          "positionY": 510.0,
+          "identifiant": "PCDroitActivite0",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 985.0,
+          "positionY": 460.0,
+          "identifiant": "PCHautActivite0",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 985.0,
+          "positionY": 560.0,
+          "identifiant": "PCBasActivite0",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Activite2": {
+      "estRestreinte": false,
+      "nom": "Tobbogan",
+      "identifiant": "Activite2",
+      "posX": 94,
+      "posY": 416,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": true,
+      "estUneSortie": false,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 94.0,
+          "positionY": 466.0,
+          "identifiant": "PCGaucheActivite2",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 334.0,
+          "positionY": 466.0,
+          "identifiant": "PCDroitActivite2",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 214.0,
+          "positionY": 416.0,
+          "identifiant": "PCHautActivite2",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 214.0,
+          "positionY": 516.0,
+          "identifiant": "PCBasActivite2",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Guichet1": {
+      "nom": "guichet",
+      "identifiant": "Guichet1",
+      "posX": 480,
+      "posY": 489,
+      "largeur": 240,
+      "hauteur": 70,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": false,
+      "estUnGuichet": true,
+      "pointDeControleIGList": [
+        {
+          "positionX": 480.0,
+          "positionY": 524.0,
+          "identifiant": "PCGaucheGuichet1",
+          "sensCirculation": true
+        },
+        {
+          "positionX": 720.0,
+          "positionY": 524.0,
+          "identifiant": "PCDroitGuichet1",
+          "sensCirculation": false
+        }
+      ]
+    }
+  },
+  "arcs": [
+    {
+      "arrivee": "PCGaucheGuichet1",
+      "depart": "PCDroitActivite2"
+    },
+    {
+      "arrivee": "PCGaucheActivite0",
+      "depart": "PCDroitGuichet1"
+    }
+  ]
+}

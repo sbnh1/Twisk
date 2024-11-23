@@ -43,7 +43,7 @@ public class KitC {
      * @throws IOException si une erreur survient lors de l'éxecution du processus
      */
     public void creerFichier(String codeC){
-        //System.out.println(codeC);
+        System.out.println(codeC);
         FileWriter flot;
         try{
             flot = new FileWriter("/tmp/twisk/client.c");

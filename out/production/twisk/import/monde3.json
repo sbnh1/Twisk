@@ -1,0 +1,340 @@
+{
+  "fabriqueIdentifiant": 8,
+  "etapes": {
+    "Activite0": {
+      "estRestreinte": false,
+      "nom": "Balade",
+      "identifiant": "Activite0",
+      "posX": 75,
+      "posY": 329,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": true,
+      "estUneSortie": false,
+      "delai": 6,
+      "ecartTemps": 2,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 75.0,
+          "positionY": 379.0,
+          "identifiant": "PCGaucheActivite0",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 315.0,
+          "positionY": 379.0,
+          "identifiant": "PCDroitActivite0",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 195.0,
+          "positionY": 329.0,
+          "identifiant": "PCHautActivite0",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 195.0,
+          "positionY": 429.0,
+          "identifiant": "PCBasActivite0",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Activite7": {
+      "estRestreinte": false,
+      "nom": "parc",
+      "identifiant": "Activite7",
+      "posX": 1055,
+      "posY": 324,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": false,
+      "estUneSortie": true,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 1055.0,
+          "positionY": 374.0,
+          "identifiant": "PCGaucheActivite7",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 1295.0,
+          "positionY": 374.0,
+          "identifiant": "PCDroitActivite7",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 1175.0,
+          "positionY": 324.0,
+          "identifiant": "PCHautActivite7",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 1175.0,
+          "positionY": 424.0,
+          "identifiant": "PCBasActivite7",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Guichet3": {
+      "nom": "guichet_shinsengumi",
+      "identifiant": "Guichet3",
+      "posX": 398,
+      "posY": 605,
+      "largeur": 240,
+      "hauteur": 70,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": false,
+      "estUnGuichet": true,
+      "pointDeControleIGList": [
+        {
+          "positionX": 398.0,
+          "positionY": 640.0,
+          "identifiant": "PCGaucheGuichet3",
+          "sensCirculation": true
+        },
+        {
+          "positionX": 638.0,
+          "positionY": 640.0,
+          "identifiant": "PCDroitGuichet3",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Activite4": {
+      "estRestreinte": false,
+      "nom": "Glacier",
+      "identifiant": "Activite4",
+      "posX": 812,
+      "posY": 106,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 2,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 812.0,
+          "positionY": 156.0,
+          "identifiant": "PCGaucheActivite4",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 1052.0,
+          "positionY": 156.0,
+          "identifiant": "PCDroitActivite4",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 932.0,
+          "positionY": 106.0,
+          "identifiant": "PCHautActivite4",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 932.0,
+          "positionY": 206.0,
+          "identifiant": "PCBasActivite4",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Guichet2": {
+      "nom": "guichet_yorozuya",
+      "identifiant": "Guichet2",
+      "posX": 383,
+      "posY": 342,
+      "largeur": 240,
+      "hauteur": 70,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 5,
+      "estUneActivite": false,
+      "estUnGuichet": true,
+      "pointDeControleIGList": [
+        {
+          "positionX": 383.0,
+          "positionY": 377.0,
+          "identifiant": "PCGaucheGuichet2",
+          "sensCirculation": true
+        },
+        {
+          "positionX": 623.0,
+          "positionY": 377.0,
+          "identifiant": "PCDroitGuichet2",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Activite5": {
+      "estRestreinte": false,
+      "nom": "yorozuya",
+      "identifiant": "Activite5",
+      "posX": 713,
+      "posY": 325,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 6,
+      "ecartTemps": 4,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 713.0,
+          "positionY": 375.0,
+          "identifiant": "PCGaucheActivite5",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 953.0,
+          "positionY": 375.0,
+          "identifiant": "PCDroitActivite5",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 833.0,
+          "positionY": 325.0,
+          "identifiant": "PCHautActivite5",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 833.0,
+          "positionY": 425.0,
+          "identifiant": "PCBasActivite5",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Guichet1": {
+      "nom": "guichet_glacier",
+      "identifiant": "Guichet1",
+      "posX": 374,
+      "posY": 116,
+      "largeur": 240,
+      "hauteur": 70,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 3,
+      "ecartTemps": 1,
+      "nbJetons": 2,
+      "estUneActivite": false,
+      "estUnGuichet": true,
+      "pointDeControleIGList": [
+        {
+          "positionX": 374.0,
+          "positionY": 151.0,
+          "identifiant": "PCGaucheGuichet1",
+          "sensCirculation": true
+        },
+        {
+          "positionX": 614.0,
+          "positionY": 151.0,
+          "identifiant": "PCDroitGuichet1",
+          "sensCirculation": false
+        }
+      ]
+    },
+    "Activite6": {
+      "estRestreinte": false,
+      "nom": "shinsengumi",
+      "identifiant": "Activite6",
+      "posX": 746,
+      "posY": 587,
+      "largeur": 240,
+      "hauteur": 100,
+      "estUneEntree": false,
+      "estUneSortie": false,
+      "delai": 4,
+      "ecartTemps": 1,
+      "nbJetons": 3,
+      "estUneActivite": true,
+      "estUnGuichet": false,
+      "pointDeControleIGList": [
+        {
+          "positionX": 746.0,
+          "positionY": 637.0,
+          "identifiant": "PCGaucheActivite6",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 986.0,
+          "positionY": 637.0,
+          "identifiant": "PCDroitActivite6",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 866.0,
+          "positionY": 587.0,
+          "identifiant": "PCHautActivite6",
+          "sensCirculation": false
+        },
+        {
+          "positionX": 866.0,
+          "positionY": 687.0,
+          "identifiant": "PCBasActivite6",
+          "sensCirculation": false
+        }
+      ]
+    }
+  },
+  "arcs": [
+    {
+      "arrivee": "PCGaucheGuichet2",
+      "depart": "PCDroitActivite0"
+    },
+    {
+      "arrivee": "PCGaucheGuichet1",
+      "depart": "PCHautActivite0"
+    },
+    {
+      "arrivee": "PCGaucheGuichet3",
+      "depart": "PCBasActivite0"
+    },
+    {
+      "arrivee": "PCGaucheActivite4",
+      "depart": "PCDroitGuichet1"
+    },
+    {
+      "arrivee": "PCGaucheActivite5",
+      "depart": "PCDroitGuichet2"
+    },
+    {
+      "arrivee": "PCGaucheActivite6",
+      "depart": "PCDroitGuichet3"
+    },
+    {
+      "arrivee": "PCHautActivite7",
+      "depart": "PCDroitActivite4"
+    },
+    {
+      "arrivee": "PCGaucheActivite7",
+      "depart": "PCDroitActivite5"
+    },
+    {
+      "arrivee": "PCBasActivite7",
+      "depart": "PCDroitActivite6"
+    }
+  ]
+}
